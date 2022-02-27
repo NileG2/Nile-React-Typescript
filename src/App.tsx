@@ -1,9 +1,9 @@
-import './App.scss';
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <h1>Amazon Clone</h1>
+      <div className="bigHeader centerAlign">Welcome to Nile</div>
     </div>
   );
 }
