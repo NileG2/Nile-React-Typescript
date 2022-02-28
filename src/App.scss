@@ -9,7 +9,7 @@ $screenBg: #f5f5f5;
   min-height: 100vh;
 
   //general card class - apply to div element
-  .card {
+  .std-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 1rem;
@@ -20,7 +20,7 @@ $screenBg: #f5f5f5;
   }
 
   //button classes - apply to button element
-  .btn {
+  .std-btn {
     color: black;
     padding: 5px 10px;
     border-radius: 5px;
@@ -29,25 +29,25 @@ $screenBg: #f5f5f5;
     font-weight: 600;
     cursor: pointer;
   }
-  .btnOrange {
+  .std-btnOrange {
     background-color: $nileOrange;
     color: black;
   }
-  .btnGray {
+  .std-btnGray {
     background-color: #edecec;
     border: 1px solid #808080;
   }
-  .btnDanger {
+  .std-btnDanger {
     background-color: red;
     color: white;
   }
-  .btnYellow {
+  .std-btnYellow {
     background-color: #ffd814;
     color: black;
   }
 
   //input fields
-  .inputField {
+  .std-inputField {
     background: #edecec;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
@@ -60,96 +60,96 @@ $screenBg: #f5f5f5;
   }
 
   //different color fonts
-  .whiteText {
+  .std-whiteText {
     color: white;
   }
-  .blackText {
+  .std-blackText {
     color: black;
   }
-  .greenText {
+  .std-greenText {
     color: #007112;
   }
-  .redText {
+  .std-redText {
     color: red;
   }
 
   //font weights
-  .boldestFont {
+  .std-boldestFont {
     font-weight: 800;
   }
-  .boldFont {
+  .std-boldFont {
     font-weight: 600;
   }
-  .lightFont {
+  .std-lightFont {
     font-weight: 400;
   }
 
   //different headings
-  .bigHeader {
+  .std-bigHeader {
     font-size: 4rem;
     font-weight: bolder;
   }
-  .header {
+  .std-header {
     font-size: 3rem;
     font-weight: bold;
   }
-  .subHeader {
+  .std-subHeader {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  .font3 {
+  .std-font3 {
     font-size: 3rem;
   }
-  .font2 {
+  .std-font2 {
     font-size: 2rem;
   }
-  .font1 {
+  .std-font1 {
     font-size: 1rem;
   }
-  .fontSmall {
+  .std-fontSmall {
     font-size: 0.9rem;
   }
 
   //font styles
-  .italic {
+  .std-italic {
     font-style: italic;
   }
-  .underline {
+  .std-underline {
     text-decoration: underline;
   }
-  .bold {
+  .std-bold {
     font-weight: 600;
   }
 
   //centralize
-  .centerAlign {
+  .std-centerAlign {
     text-align: center;
   }
 
   //borders
-  .border {
+  .std-border {
     height: 1px;
     width: 100%;
     background-color: gray;
   }
 
   //icon images
-  .icon1 {
+  .std-icon1 {
     font-size: 1rem;
   }
-  .icon2 {
+  .std-icon2 {
     font-size: 2rem;
   }
 
   //color boxes - specify background color in style attribute
-  .colorBox {
+  .std-colorBox {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 5px;
   }
 
   //hyperlinks
-  .link {
+  .std-link {
     text-decoration: none;
     cursor: pointer;
     &:hover {
