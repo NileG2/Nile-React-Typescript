@@ -4,7 +4,7 @@ export const CartReducer = (state:any={}, action: any) => {
     switch (action.type) {
         case actions.ADD_ITEM:
             //handler
-            return { ...state,userCart:action.payload }
+            return { ...state,userCart:action.payload.products }
         
         case actions.REMOVE_ITEM:
             //handler
