@@ -5,6 +5,7 @@ import Signin from "./screens/signin/Signin";
 import Signup from "./screens/signup/Signup";
 import ProductListing from "./screens/productListing/ProductListing";
 import Cart from "./screens/cart/Cart"
+import ProductDetails from "./screens/productDetails/ProductDetails";
 
 import Test from "./screens/test/Test";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/products" element={<ProductListing />}></Route>
         <Route path='/cart' element={<Cart/>}></Route>
+        <Route path='/product/details' element={<ProductDetails/>}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
