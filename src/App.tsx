@@ -3,7 +3,10 @@ import "./App.scss";
 import Landing from "./screens/landing/Landing";
 import Signin from "./screens/signin/Signin";
 import Signup from "./screens/signup/Signup";
+import ProductListing from "./screens/productListing/ProductListing";
+
 import Test from "./screens/test/Test";
+
 
 function App() {
   return (
@@ -12,6 +15,7 @@ function App() {
         <Route path="/" element={<Landing />}></Route>
         <Route path="/signin" element={<Signin />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/products" element={<ProductListing />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
