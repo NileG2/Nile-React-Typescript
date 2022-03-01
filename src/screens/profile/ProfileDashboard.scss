@@ -1,0 +1,12 @@
+.profileWrapper {
+  .content {
+    display: flex;
+    justify-content: space-between;
+    .sidebar {
+      flex: 15%;
+    }
+    .main {
+      flex: 85%;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+$nileOrange: #febd69;
+$nileLightGray: #37475a;
+$nileDarkGray: #232f3e;
+$nileBlack: #131a22;
+$screenBg: #f5f5f5;
+
+.sidebarWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $nileLightGray;
+  .sidebarItemButton {
+    width: 100%;
+    border: none;
+    background-color: $nileDarkGray;
+    border-bottom: 1px solid $nileBlack;
+    padding: 0.5rem 0;
+    &:hover {
+      background-color: $nileLightGray;
+    }
+  }
+  .active {
+    background-color: $nileLightGray;
+  }
+}
