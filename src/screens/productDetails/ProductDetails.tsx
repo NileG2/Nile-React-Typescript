@@ -10,6 +10,34 @@ const ProductDetails = () => {
         brand: "Jordan",
         payable: 19999,
         quantity: 1,
+        // options:["shoe-size","color","shirt-size","pant-size"],
+        options:[
+            {
+                type:"shoe-size",
+                available:["7UK","8UK","9UK","10UK","11UK","12UK"]
+            },{
+                type:"shirt-size",
+                available:["S","M","L","XL","XXL","XXXL"]
+            },{
+                type:"pant-size",
+                available:["waist 28","waist 30","waist 32","waist 34","waist 36","waist 38","waist 40"]
+            },{
+                type:"color",
+                available:["#ff1100","#ffd900","#00702b","#00abd1","#ffffff","#000000"]
+            }
+        ],
+        slides:[
+            {
+                image:"https://picsum.photos/600",
+                text:"Custom Made for you"
+            },{
+                image:"https://picsum.photos/600",
+                text:"And your Lovedone"
+            },{
+                image:"https://picsum.photos/600",
+                text:"Check it out"
+            }
+        ],
         details: [
             "12+2+2MP triple rear camera.",
             "16.5 centimeters (6.5-inch) waterdrop multi touch screen",
@@ -49,6 +77,7 @@ const ProductDetails = () => {
                 comment: "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat."
             }
         ]
+        
     })
     return (
         <div className='std-bg'>

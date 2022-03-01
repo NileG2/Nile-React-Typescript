@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Rating from '@mui/material/Rating';
 import ProgressBar from '../../helpers/ProgressBar';
+import ProductCarousal from '../productCarousal/ProductCarousal';
+import SelectOptions from '../../helpers/SelectOptions'
 
 const ProductCardDetails = (props: any) => {
 
@@ -13,7 +15,15 @@ const ProductCardDetails = (props: any) => {
             <div className='std-card std-no-shadow p-0'>
                 <div className='row p-3'>
                     <div className='col-5'>
-                        {/* image carousal */}
+                        <ProductCarousal slides={props.product.slides} />
+                        <br />
+                        <div className='p-2' style={{border:"solid 1px gray",borderRadius:"12px"}}>
+                            {
+                                props.product.options.map((option: any, index: number) => {
+                                    return <SelectOptions option={option} key={index} />
+                                })
+                            }
+                        </div>
                     </div>
                     <div className='col-7'>
                         <p className='m-0 std-boldFont std-font3 overflow-hidden'>{props.product.product_name}</p>
@@ -85,8 +95,8 @@ const ProductCardDetails = (props: any) => {
                             <p>Total reviews 37</p>
                             <ul className='std-ul'>
                                 {
-                                    props.product.reviews.map((review:any, index: number) => {
-                                        return <li className='std-card m-1'>
+                                    props.product.reviews.map((review: any, index: number) => {
+                                        return <li className='std-card m-1' key={index}>
                                             <p className='std-font1 std-boldFont'>Posted by {review.poster} on {review.date}</p>
                                             <p className='std-font1'>{review.comment}</p>
                                         </li>
