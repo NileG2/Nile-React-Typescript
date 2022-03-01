@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import CardContainerVertical from '../cardContainer/CardContainerVertical'
-import { useSelector,useDispatch } from 'react-redux'
-import {setCartSubTotal} from '../../redux/actions/Cart'
+import { useSelector} from 'react-redux'
 
 const CartCard = () => {
 
-    const dispatch = useDispatch()
-
     const productsFromCart = useSelector((state: any) => state.cart.userCart)
     const subtotal = useSelector((state: any) => state.cart.subtotal)
-
-    useEffect(()=>{
-        function getSubTotal(){
-            let sum=0
-            for(let i=0;i<productsFromCart.length;i++){
-                sum+=productsFromCart[i].payable
-            }
-            dispatch(setCartSubTotal(sum))
-        }
-        getSubTotal()
-    },[productsFromCart])
 
     return (
         <div className='std-card'>

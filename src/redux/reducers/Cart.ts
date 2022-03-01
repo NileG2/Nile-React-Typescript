@@ -4,16 +4,11 @@ export const CartReducer = (state:any={}, action: any) => {
     switch (action.type) {
         case actions.ADD_ITEM:
             //handler
-            return { ...state,userCart:action.payload }
+            return { ...state,userCart:action.payload.products }
         
         case actions.REMOVE_ITEM:
             //handler
-            var allProducts = state.userCart
-            var requiredProducts = allProducts.filter((product:any,index:any)=>{
-                return index!==action.payload.index
-            })
-            console.log(requiredProducts)
-            return { ...state,userCart:requiredProducts }
+            return { ...state,userCart:action.payload.products }
 
         case actions.SET_QUANTITY:
             //handler

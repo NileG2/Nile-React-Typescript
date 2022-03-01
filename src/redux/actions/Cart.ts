@@ -1,6 +1,6 @@
 import { actions } from '../constants/Cart'
 
-export const setItemQuantity = (product: any[], index: number) => async (dispatch: any) => {
+export const setItemQuantity = (product: any, index: number) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.SET_QUANTITY,
@@ -14,15 +14,15 @@ export const setItemQuantity = (product: any[], index: number) => async (dispatc
     }
 }
 
-export const setCartSubTotal = (subtotal:number)=>async(dispatch:any)=>{
-    try{
+export const setCartSubTotal = (subtotal: number) => async (dispatch: any) => {
+    try {
         dispatch({
             type: actions.SET_SUBTOTAL,
-            payload:{
-                subtotal:subtotal
+            payload: {
+                subtotal: subtotal
             }
         })
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
@@ -31,19 +31,21 @@ export const addItem = (products: any[]) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.ADD_ITEM,
-            payload: products
+            payload: { 
+                products: products 
+            }
         })
     } catch (err) {
         console.log(err)
     }
 }
 
-export const removeItem = (index: number) => async (dispatch: any) => {
+export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.REMOVE_ITEM,
             payload: {
-                index:index
+                products: requiredProducts
             }
         })
     } catch (err) {
