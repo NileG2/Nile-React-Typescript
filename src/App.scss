@@ -88,6 +88,9 @@ $screenBg: #f5f5f5;
   .std-whiteText {
     color: white;
   }
+  .std-greyText {
+    color: grey;
+  }
   .std-blackText {
     color: black;
   }
@@ -135,6 +138,16 @@ $screenBg: #f5f5f5;
     font-size: 0.9rem;
   }
 
+  .std-subHeader1 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .std-subHeader2 {
+    font-size: 1.5 rem;
+    font-weight: bold;
+  }
+
   //font styles
   .std-italic {
     font-style: italic;
@@ -172,6 +185,11 @@ $screenBg: #f5f5f5;
     height: 1.5rem;
     border-radius: 5px;
   }
+
+  // hyperlink
+.remove-underline{
+    text-decoration: none;
+}
 
   //hyperlinks
   .std-link {
