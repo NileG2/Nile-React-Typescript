@@ -2,37 +2,56 @@ import React, { useEffect, useState } from 'react'
 import "./ProductCard.scss";
 import Rating from '@mui/material/Rating';
 
-import { setItemQuantity, removeItem } from '../../../redux/actions/Cart'
-import { useDispatch } from 'react-redux'
+import { setItemQuantity, removeItem, setCartSubTotal } from '../../../redux/actions/Cart'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ProductCardHorizontal = (props: any) => {
 
-  const [currProduct,setCurrProduct] = useState(props.product)
-  const [quantity,setQuantity] = useState(1)
-  const [payable,setPayable] = useState(props.product.payable)
+  const allProducts = useSelector((state: any) => state.cart.userCart)
+  const [currProduct, setCurrProduct] = useState(props.product)
 
-  useEffect(()=>{
+  const [quantity, setQuantity] = useState(1)
+  const [payable, setPayable] = useState(props.product.payable)
+
+  useEffect(() => {
     setCurrProduct(props.product)
     setPayable(props.product.payable)
-  },[props.product])
+  }, [props.product])
 
   const dispatch = useDispatch()
 
   function removeProduct() {
-    dispatch(removeItem(props.index))
+    let requiredProducts = allProducts.filter((p:any,index:number)=>{
+      return index!==props.index
+    })
+    dispatch(removeItem(requiredProducts))
+    setSubTotal(requiredProducts)
   }
+
+  function setSubTotal(products: []) {
+    function getSubTotal(products: any[]) {
+      let sum = 0
+      for (let i = 0; i < products.length; i++) {
+        sum += products[i].payable
+      }
+      return sum
+    }
+    dispatch(setCartSubTotal(getSubTotal(products)))
+  }
+
 
   function setProductQuantity(e: any) {
 
     setQuantity(e.target.value)
-    setPayable(e.target.value*currProduct.price)
+    setPayable(e.target.value * currProduct.price)
 
     let tempProduct = currProduct
-    tempProduct.quantity = e.target.value 
+    tempProduct.quantity = e.target.value
     tempProduct.payable = e.target.value * currProduct.price
-    
+
     setCurrProduct(tempProduct)
-    dispatch(setItemQuantity(tempProduct,props.index))
+    dispatch(setItemQuantity(tempProduct, props.index))
+    setSubTotal(allProducts)
   }
 
   return (

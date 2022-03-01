@@ -1,6 +1,6 @@
 import { actions } from '../constants/Cart'
 
-export const setItemQuantity = (product: any[], index: number) => async (dispatch: any) => {
+export const setItemQuantity = (product: any, index: number) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.SET_QUANTITY,
@@ -38,12 +38,12 @@ export const addItem = (products: any[]) => async (dispatch: any) => {
     }
 }
 
-export const removeItem = (index: number) => async (dispatch: any) => {
+export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.REMOVE_ITEM,
             payload: {
-                index:index
+                products: requiredProducts
             }
         })
     } catch (err) {
