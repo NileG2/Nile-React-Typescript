@@ -10,6 +10,7 @@ import ProductDetails from "./screens/productDetails/ProductDetails";
 import Test from "./screens/test/Test";
 import ProfileDashboard from "./screens/profile/ProfileDashboard";
 import SellerProfileDashboard from "./screens/sellerProfile/SellerProfileDashboard";
+import Checkout from "./screens/checkout/Checkout";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/product/details' element={<ProductDetails/>}></Route>
         <Route path="/profile" element={<ProfileDashboard />}></Route>
         <Route path="/seller-profile" element={<SellerProfileDashboard />}></Route>
+        <Route path="/checkout" element={<Checkout />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
