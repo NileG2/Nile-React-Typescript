@@ -42,10 +42,10 @@ const initialState = {
         }]
     },
     checkout:{
-        step:0,
+        step:1,
         steps:[{
             name: "Shipping Address",
-            state: 0
+            state: 1
         }, {
             name: "Payment",
             state: 0

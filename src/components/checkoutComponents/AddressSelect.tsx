@@ -4,7 +4,7 @@ import {nextStep} from '../../redux/actions/Checkout'
 
 
 function AddressBox(props: any) {
-    return <div className='std-card m-1'>
+    return <div className='std-card m-1 std-mode-dimension'>
         <p className='std-boldFont'>{props.address.name}</p>
         <p className='m-0'>{props.address.line1}</p>
         <p className='m-0'>{props.address.line2}</p>
