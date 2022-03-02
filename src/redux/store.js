@@ -42,13 +42,13 @@ const initialState = {
         }]
     },
     checkout:{
-        step:2,
+        step:0,
         steps:[{
             name: "Shipping Address",
-            state: 1
+            state: 0
         }, {
             name: "Payment",
-            state: 1
+            state: 0
         }, {
             name: "Place Order",
             state: 0
