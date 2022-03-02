@@ -5,6 +5,8 @@ export const CheckoutReducer=(state:any={},action:any)=>{
         case actions.SET_STEP_INDEX:
             return {...state,step:action.payload.step}
 
+        case actions.NAVIGATE_STEPS:
+            return {...state,step:action.payload.step} 
         default:
             return {...state}
     }

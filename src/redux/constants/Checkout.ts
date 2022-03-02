@@ -1,3 +1,4 @@
 export const actions = {
     SET_STEP_INDEX:'SET_STEP_INDEX',
+    NAVIGATE_STEPS:'NAVIGATE_STEPS'
 }

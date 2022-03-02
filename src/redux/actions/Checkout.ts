@@ -15,3 +15,12 @@ export const nextStep=(index:number,steps:any[])=>async(dispatch:any)=>{
         }
     })
 }
+
+export const navigateSteps=(index:number)=>async(dispatch:any)=>{
+    dispatch({
+        type:actions.SET_STEP_INDEX,
+        payload:{
+            step:index
+        }
+    })
+}
