@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import './CheckoutStyles.scss'
 import Steps from '../helpers/Steps'
-
 import AddressSelect from './AddressSelect'
+import PaymentSelect from './PaymentSelect'
+import PlaceOrder from './PlaceOrder'
+
+import { useSelector } from 'react-redux'
 
 const CheckoutContainer = () => {
-    const [steps, setSteps] = useState([{
-        name: "Shipping Address",
-        state: 1
-    }, {
-        name: "Payment",
-        state: 0
-    }, {
-        name: "Place Order",
-        state: 0
-    }])
-    const [currStep, setCurrStep] = useState(0)
+    const steps = useSelector((state:any)=>state.checkout.steps)
+    const currStep = useSelector((state:any)=>state.checkout.step)
 
     function GetComponent() {
         switch (currStep) {
             case 0:
                 return <AddressSelect/>
             case 1:
-                return <>Payment component</>
+                return <PaymentSelect/>
             case 2:
-                return <>Place order component</>
+                return <PlaceOrder/>
             default:
                 return <AddressSelect/>
         }
@@ -41,7 +35,7 @@ const CheckoutContainer = () => {
                     <Steps steps={steps} />
                 </div>
                 <div>
-                    <GetComponent />
+                    <GetComponent/>
                 </div>
             </div>
         </div>

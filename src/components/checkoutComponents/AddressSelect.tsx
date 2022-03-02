@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch,useSelector } from 'react-redux'
+import {nextStep} from '../../redux/actions/Checkout'
 
 
 function AddressBox(props: any) {
@@ -11,6 +13,10 @@ function AddressBox(props: any) {
 }
 
 const AddressSelect = () => {
+    const dispatch = useDispatch()
+    const steps = useSelector((state:any)=>state.checkout.steps)
+    const currStepIndex = useSelector((state:any)=>state.checkout.step)
+
     const [addressList, setAddressList] = useState([{
         name: "Aditya Dawadikar",
         line1: "201 A, Uday Glorious park",
@@ -28,9 +34,14 @@ const AddressSelect = () => {
         pincode: "411033"
     }])
     const [currAddress, setCurrAddress] = useState(addressList[0])
-    const [newAddress, setNewAddress] = useState({
+    const [newAddress, setNewAddress] = useState({})
 
-    })
+    function handleNextStep(e:any){
+        e.preventDefault()
+        let allSteps = steps
+        allSteps[currStepIndex].state=1
+        dispatch(nextStep(currStepIndex,allSteps))
+    }
     return (
         <div className='row'>
             <div className='col'>
@@ -83,7 +94,7 @@ const AddressSelect = () => {
                     </div>
                     <br/>
                     <div className='d-flex justify-content-center'>
-                        <button className='std-btn std-btnOrange' style={{ width: "20rem" }}>Proceed</button>
+                        <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e)=>{handleNextStep(e)}}>Proceed</button>
                     </div>
                 </form>
             </div>

@@ -3,10 +3,12 @@ import thunk from "redux-thunk"
 
 import { CartReducer } from './reducers/Cart'
 import { UserReducer } from "./reducers/User"
+import { CheckoutReducer } from "./reducers/Checkout"
 
 const reducer = combineReducers({
     user: UserReducer,
     cart: CartReducer,
+    checkout: CheckoutReducer
 })
 
 const initialState = {
@@ -37,6 +39,19 @@ const initialState = {
             brand: "Jordan",
             payable: 12999,
             quantity: 1
+        }]
+    },
+    checkout:{
+        step:0,
+        steps:[{
+            name: "Shipping Address",
+            state: 0
+        }, {
+            name: "Payment",
+            state: 0
+        }, {
+            name: "Place Order",
+            state: 0
         }]
     }
 }

@@ -22,7 +22,7 @@ const Steps = (props) => {
                                     <div className='std-circle std-active'></div>
                                     {index !== steps.length - 1 ? <div className='std-line std-active'></div> : <></>}
                                 </div>
-                                <p style={{ position: "relative", right: "25%" }}>{step.name}</p>
+                                <p style={{ position: "relative", left: "-1rem" }}>{step.name}</p>
                             </li>
                         }
                     })
