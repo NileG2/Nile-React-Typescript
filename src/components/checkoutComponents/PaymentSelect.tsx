@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStep } from '../../redux/actions/Checkout'
 
+import PaymentMode from '../checkoutCards/PaymentMode'
+
 const PaymentSelect = () => {
 
   const dispatch = useDispatch()
@@ -35,56 +37,15 @@ const PaymentSelect = () => {
   }])
   const [currMode, setCurrMode] = useState(avaibleModes[0])
 
+  function handleSelectMode(index:number){
+    setCurrMode(avaibleModes[index])
+  }
+
   function handleNextStep(e: any) {
     e.preventDefault()
     let allSteps = steps
     allSteps[currStepIndex].state = 1
     dispatch(nextStep(currStepIndex, allSteps))
-  }
-
-  function getPresentableNumber(number: string) {
-    let tokens = number.split('-')
-    let dummy = "XXXX-XXXX-XXXX-"
-    return dummy + tokens[tokens.length - 1]
-  }
-
-  function CardMethodComponent(props: any) {
-    return <div className='std-card std-mode-dimension'>
-      <p className='std-boldFont m-0'>{props.card.type}</p>
-      <p className='std-boldFont m-0'>{getPresentableNumber(props.card.details.card_number)}</p>
-      <p className='m-0'>Expiry: {props.card.details.expiry}</p>
-    </div>
-  }
-
-  function NetBankingMethodComponent(props: any) {
-    return <div className='std-card std-mode-dimension'>
-      <p className='std-boldFont m-0'>{props.bank.type}</p>
-      <p className='std-boldFont m-0'>{props.bank.details.accountNumber}</p>
-      <p className='m-0'>Bank: {props.bank.details.name}</p>
-    </div>
-  }
-
-  function UPIComponent(props: any) {
-    return <div className='std-card std-mode-dimension'>
-      <p className='std-boldFont m-0'>{props.upi.type}</p>
-      <p className='std-boldFont m-0'>{props.upi.details.upiId}</p>
-      <p className='m-0'>Provider: {props.upi.details.prodvider}</p>
-    </div>
-  }
-
-  function PaymentMode(props: any) {
-    switch (props.mode.type) {
-      case "Debit Card":
-        return <CardMethodComponent card={props.mode} />
-      case "Credit Card":
-        return <CardMethodComponent card={props.mode} />
-      case "Net Banking":
-        return <NetBankingMethodComponent bank={props.mode} />
-      case "UPI":
-        return <UPIComponent upi={props.mode} />
-      default:
-        return <></>
-    }
   }
 
   return (
@@ -102,7 +63,7 @@ const PaymentSelect = () => {
                 avaibleModes.map((mode: any, index: number) => {
                   return <li className='m-2' key={index}>
                     <div className='d-flex align-items-center'>
-                      <input type="radio" className='m-2' name="optradio" />
+                      <input type="radio" className='m-2' onChange={()=>{handleSelectMode(index)}} name="optradio" />
                       <PaymentMode mode={mode} />
                     </div>
                   </li>
