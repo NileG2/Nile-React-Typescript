@@ -8,19 +8,54 @@ $screenBg: #f5f5f5;
 .App {
   min-height: 100vh;
 
+  // background color
+  .std-bg {
+    background-color: $screenBg;
+    height: 100%;
+  }
+
+  .std-section {
+    width: 100%;
+    height: 1px;
+    background-color: #37475a;
+  }
+
+  .std-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .std-activeCard{
+    border: 1px solid gray;
+    border-radius: 12px;
+    transform: scale(1.1);
+    margin: 3px;
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: 0.3s ease-in;
+  }
+
   //general card class - apply to div element
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  .std-card {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 1rem;
     transition: 0.3s;
+    background-color: white;
     &:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+      z-index: 10;
     }
   }
 
+  // product images
+  .std-img-mini {
+    min-width: 10rem;
+  }
+
   //button classes - apply to button element
-  .btn {
+  .std-btn {
     color: black;
     padding: 5px 10px;
     border-radius: 5px;
@@ -29,25 +64,25 @@ $screenBg: #f5f5f5;
     font-weight: 600;
     cursor: pointer;
   }
-  .btnOrange {
+  .std-btnOrange {
     background-color: $nileOrange;
     color: black;
   }
-  .btnGray {
+  .std-btnGray {
     background-color: #edecec;
     border: 1px solid #808080;
   }
-  .btnDanger {
+  .std-btnDanger {
     background-color: red;
     color: white;
   }
-  .btnYellow {
+  .std-btnYellow {
     background-color: #ffd814;
     color: black;
   }
 
   //input fields
-  .inputField {
+  .std-inputField {
     background: #edecec;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
@@ -60,96 +95,117 @@ $screenBg: #f5f5f5;
   }
 
   //different color fonts
-  .whiteText {
+  .std-whiteText {
     color: white;
   }
-  .blackText {
+  .std-greyText {
+    color: grey;
+  }
+  .std-blackText {
     color: black;
   }
-  .greenText {
+  .std-greenText {
     color: #007112;
   }
-  .redText {
+  .std-redText {
     color: red;
   }
 
   //font weights
-  .boldestFont {
+  .std-boldestFont {
     font-weight: 800;
   }
-  .boldFont {
+  .std-boldFont {
     font-weight: 600;
   }
-  .lightFont {
+  .std-lightFont {
     font-weight: 400;
   }
 
   //different headings
-  .bigHeader {
+  .std-bigHeader {
     font-size: 4rem;
     font-weight: bolder;
   }
-  .header {
+  .std-header {
     font-size: 3rem;
     font-weight: bold;
   }
-  .subHeader {
+  .std-subHeader {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  .font3 {
+  .std-font3 {
     font-size: 3rem;
   }
-  .font2 {
-    font-size: 2rem;
+  .std-font2 {
+    font-size: 1.5rem;
   }
-  .font1 {
+  .std-font1 {
     font-size: 1rem;
   }
-  .fontSmall {
+  .std-fontSmall {
     font-size: 0.9rem;
+  }
+  .std-fontMedium {
+    font-size: 1.2rem;
+  }
+
+  .std-subHeader1 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .std-subHeader2 {
+    font-size: 1.5 rem;
+    font-weight: bold;
   }
 
   //font styles
-  .italic {
+  .std-italic {
     font-style: italic;
   }
-  .underline {
+  .std-underline {
     text-decoration: underline;
   }
-  .bold {
+  .std-bold {
     font-weight: 600;
   }
 
   //centralize
-  .centerAlign {
+  .std-centerAlign {
     text-align: center;
   }
 
   //borders
-  .border {
+  .std-border {
     height: 1px;
     width: 100%;
     background-color: gray;
   }
 
   //icon images
-  .icon1 {
+  .std-icon1 {
     font-size: 1rem;
   }
-  .icon2 {
+  .std-icon2 {
     font-size: 2rem;
   }
 
   //color boxes - specify background color in style attribute
-  .colorBox {
+  .std-colorBox {
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 5px;
+    border-radius: 50%;
   }
 
+  // hyperlink
+.remove-underline{
+    text-decoration: none;
+}
+
   //hyperlinks
-  .link {
+  .std-link {
     text-decoration: none;
     cursor: pointer;
     &:hover {

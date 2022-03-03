@@ -1,0 +1,21 @@
+$inactive:#d8d8d8;
+$active:#00c8e3;
+
+.Steps{
+    .std-circle{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+    .std-line{
+        width: 100px;
+        height: 5px;
+        margin: 12px 0px;
+    }
+    .std-inactive{
+        background-color: $inactive;
+    }
+    .std-active{
+        background-color: $active;
+    }
+}

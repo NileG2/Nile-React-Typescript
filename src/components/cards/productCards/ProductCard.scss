@@ -1,0 +1,25 @@
+.Card{
+    .std-card-dimension{
+        min-width: 12rem;
+        min-height: 15rem;
+        margin:0.1rem;
+    }
+
+    .std-card-dimension-horizontal{
+        margin:0.1rem;
+        max-height: 12rem;
+        width: 100%;
+    }
+
+    .std-desc{
+        font-size: 0.8em;
+    }
+
+    .std-number-input{
+        height: 20px;
+    }
+
+    .std-no-shadow{
+        box-shadow: none;
+    }
+}
