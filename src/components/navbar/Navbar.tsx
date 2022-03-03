@@ -53,7 +53,7 @@ const Styles = styled.div`
     border-top: 10px;
   }
 `;
-export const NavigationBar = () => (
+const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg">
       <img className="header__logo" src="assets/logoWhite.png" ></img>
@@ -76,3 +76,5 @@ export const NavigationBar = () => (
     </Navbar>
   </Styles>
 )
+
+export default NavigationBar;
