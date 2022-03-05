@@ -1,0 +1,27 @@
+.mydetail{
+    .card-style{
+        max-width:40rem;
+    }
+    .font-style{
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    button{
+        font-weight: bold;
+        font-size: 1.2rem;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+    
+    .card-style2{
+        float: right;
+        position: relative; 
+        top: 13rem; 
+        left: 4rem;
+    }
+
+    h5{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+}
