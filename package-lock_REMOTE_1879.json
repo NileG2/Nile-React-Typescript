@@ -2985,15 +2985,9 @@
       }
     },
     "@restart/ui": {
-<<<<<<< HEAD
-      "version": "1.0.2",
-      "resolved": "https://registry.npmjs.org/@restart/ui/-/ui-1.0.2.tgz",
-      "integrity": "sha512-vKGe0UBJLnbvNAjr8ljlDvphf2HkpjBjXsblmgKPvKdZBDn/mtAz89wmznaomIaEJ9VNoSEY0vA5T5MDi2jIcQ==",
-=======
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/@restart/ui/-/ui-1.0.1.tgz",
       "integrity": "sha512-hLAqltcAjQYtjGuHBHKyPpR3ScTxzdkSYNvniwBfN7rUDbYiHu/UZiI1hvV2idJeUvktRnz29l7W9BnNLHrG6Q==",
->>>>>>> 0d2b68a146a5f77904e4135241ed476c8d62e1fd
       "requires": {
         "@babel/runtime": "^7.13.16",
         "@popperjs/core": "^2.10.1",
@@ -11592,30 +11586,24 @@
       }
     },
     "react-bootstrap": {
-<<<<<<< HEAD
-      "version": "2.2.0",
-      "resolved": "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.2.0.tgz",
-      "integrity": "sha512-5d3hziBjNOAKWpss2B8C2qtSXp/Z3PiyuRdFJelvJeTsGn8vbFYOoYjmf+0Agq+jh46TG+mtBvrCoa4nBk0bkg==",
-=======
       "version": "2.1.2",
       "resolved": "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.1.2.tgz",
       "integrity": "sha512-E7PR13cVsEW70gw08BWplENwn6PHTshskOsQygZqyc65jQlsnr9MsmuW/lgzAN2OiMBnc0KaNpuZ/FohL7dchw==",
->>>>>>> 0d2b68a146a5f77904e4135241ed476c8d62e1fd
       "requires": {
-        "@babel/runtime": "^7.17.2",
+        "@babel/runtime": "^7.14.0",
         "@restart/hooks": "^0.4.5",
-        "@restart/ui": "^1.0.2",
-        "@types/invariant": "^2.2.35",
-        "@types/prop-types": "^15.7.4",
+        "@restart/ui": "^1.0.1",
+        "@types/invariant": "^2.2.33",
+        "@types/prop-types": "^15.7.3",
         "@types/react": ">=16.14.8",
-        "@types/react-transition-group": "^4.4.4",
+        "@types/react-transition-group": "^4.4.1",
         "@types/warning": "^3.0.0",
         "classnames": "^2.3.1",
         "dom-helpers": "^5.2.1",
         "invariant": "^2.2.4",
-        "prop-types": "^15.8.1",
+        "prop-types": "^15.7.2",
         "prop-types-extra": "^1.1.0",
-        "react-transition-group": "^4.4.2",
+        "react-transition-group": "^4.4.1",
         "uncontrollable": "^7.2.1",
         "warning": "^4.0.3"
       }
@@ -11716,41 +11704,6 @@
         "scheduler": "^0.20.2"
       }
     },
-    "react-easy-swipe": {
-      "version": "0.0.21",
-      "resolved": "https://registry.npmjs.org/react-easy-swipe/-/react-easy-swipe-0.0.21.tgz",
-      "integrity": "sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==",
-      "requires": {
-        "prop-types": "^15.5.8"
-      }
-    },
-    "react-elastic-carousel": {
-      "version": "0.11.5",
-      "resolved": "https://registry.npmjs.org/react-elastic-carousel/-/react-elastic-carousel-0.11.5.tgz",
-      "integrity": "sha512-//k1IWUiUNXXNE8LHw4bLdP+8YCXLQHbeSOPiZo/+sTkUBp/YB/hjGKWH4RqSJ59AjF8PoxB+SUbqhdPTcwAuw==",
-      "requires": {
-        "classnames": "^2.2.6",
-        "react-only-when": "^1.0.2",
-        "react-swipeable": "^5.5.1",
-        "resize-observer-polyfill": "1.5.0"
-      },
-      "dependencies": {
-        "react-only-when": {
-          "version": "1.0.2",
-          "resolved": "https://registry.npmjs.org/react-only-when/-/react-only-when-1.0.2.tgz",
-          "integrity": "sha512-agE6l3L6bqaVuwNtjihTQ36M+VBfPS63KOzcNL4ZTmlwSxQPvhzIqmBWfiol0/wLYmKxCcBqgXkEJpvj5Kob8Q==",
-          "requires": {}
-        },
-        "react-swipeable": {
-          "version": "5.5.1",
-          "resolved": "https://registry.npmjs.org/react-swipeable/-/react-swipeable-5.5.1.tgz",
-          "integrity": "sha512-EQObuU3Qg3JdX3WxOn5reZvOSCpU4fwpUAs+NlXSN3y+qtsO2r8VGkVnOQzmByt3BSYj9EWYdUOUfi7vaMdZZw==",
-          "requires": {
-            "prop-types": "^15.6.2"
-          }
-        }
-      }
-    },
     "react-error-overlay": {
       "version": "6.0.10",
       "resolved": "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.10.tgz",
@@ -11795,16 +11748,6 @@
       "version": "0.11.0",
       "resolved": "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz",
       "integrity": "sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A=="
-    },
-    "react-responsive-carousel": {
-      "version": "3.2.23",
-      "resolved": "https://registry.npmjs.org/react-responsive-carousel/-/react-responsive-carousel-3.2.23.tgz",
-      "integrity": "sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==",
-      "requires": {
-        "classnames": "^2.2.5",
-        "prop-types": "^15.5.8",
-        "react-easy-swipe": "^0.0.21"
-      }
     },
     "react-router": {
       "version": "6.2.1",
@@ -12264,11 +12207,6 @@
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz",
       "integrity": "sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8="
-    },
-    "resize-observer-polyfill": {
-      "version": "1.5.0",
-      "resolved": "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz",
-      "integrity": "sha512-M2AelyJDVR/oLnToJLtuDJRBBWUGUvvGigj1411hXhAdyFWqMaqHp7TixW3FpiLuVaikIcR1QL+zqoJoZlOgpg=="
     },
     "resolve": {
       "version": "1.22.0",
