@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import {nextStep} from '../../redux/actions/Checkout'
 import AddressBox from '../checkoutCards/AddressBox'
+import AddressForm from '../forms/AddressForm'
+import AddressFrom from '../forms/AddressForm'
 
 const AddressSelect = () => {
     const dispatch = useDispatch()
@@ -58,36 +60,7 @@ const AddressSelect = () => {
             </div>
             <div className='col'>
                 <p className='std-font2'>Add other address for delivery</p>
-                <form className='m-2 std-card'>
-                    <div className='row m-1'>
-                        <label className='col-4'>Name</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <div className='row m-1'>
-                        <label className='col-4'>Address Line 1</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <div className='row m-1'>
-                        <label className='col-4'>Address Line 2</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <div className='row m-1'>
-                        <label className='col-4'>City</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <div className='row m-1'>
-                        <label className='col-4'>State</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <div className='row m-1'>
-                        <label className='col-4'>Country</label>
-                        <input className='std-inputField col-8'></input>
-                    </div>
-                    <br/>
-                    <div className='d-flex justify-content-center'>
-                        <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e)=>{handleNextStep(e)}}>Proceed</button>
-                    </div>
-                </form>
+                <AddressForm flag={false} />
             </div>
         </div>
     )
