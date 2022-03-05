@@ -16,12 +16,12 @@ const AddressSelect = () => {
         line2: "Gawadewada, near Vaishnav devi temple",
         pincode: "411033"
     }, {
-        name: "Aditya Dawadikar",
+        name: "Aditya Prashant Dawadikar",
         line1: "201 A, Uday Glorious park",
         line2: "Gawadewada, near Vaishnav devi temple",
         pincode: "411033"
     }, {
-        name: "Aditya Dawadikar",
+        name: "Geekgod",
         line1: "201 A, Uday Glorious park",
         line2: "Gawadewada, near Vaishnav devi temple",
         pincode: "411033"
@@ -35,6 +35,12 @@ const AddressSelect = () => {
         allSteps[currStepIndex].state=1
         dispatch(nextStep(currStepIndex,allSteps))
     }
+
+    function handleCurrAddress(index:number){
+        console.log(addressList[index])
+        setCurrAddress(addressList[index])
+    }
+
     return (
         <div className='row'>
             <div className='col'>
@@ -49,7 +55,7 @@ const AddressSelect = () => {
                             addressList.map((address, index) => {
                                 return <li key={index}>
                                     <div className='d-flex align-items-center'>
-                                        <input type="radio" className='m-2' name="optradio" onChange={(e) => { console.log(e.target.value) }} />
+                                        <input type="radio" className='m-2' name="optradio" onChange={() => {  handleCurrAddress(index)}} />
                                         <AddressBox address={address} />
                                     </div>
                                 </li>
@@ -61,6 +67,7 @@ const AddressSelect = () => {
             <div className='col'>
                 <p className='std-font2'>Add other address for delivery</p>
                 <AddressForm flag={false} />
+                <button className='std-btn std-btnOrange' onClick={(e)=>{handleNextStep(e)}}>Proceed</button>
             </div>
         </div>
     )
