@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ProductCardDetails from '../../components/cards/productCards/ProductCardDetails'
+import NavBar from '../../components/nav/NavBar'
 
 const ProductDetails = () => {
     const [product, setProduct] = useState({
@@ -81,6 +82,7 @@ const ProductDetails = () => {
     })
     return (
         <div className='std-bg'>
+            <NavBar />
             <div className='row m-1'>
                 <div className='col-9'>
                     <ProductCardDetails product={product} />

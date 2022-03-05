@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Signup.scss";
 
+import NavBar from '../../components/nav/NavBar'
 import { BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

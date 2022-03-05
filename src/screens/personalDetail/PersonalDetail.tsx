@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalDetail.scss";
+import NavBar from '../../components/nav/NavBar'
 
 export default function PersonalDetail() {
   const [email, setemail] = useState("");
@@ -29,25 +30,25 @@ export default function PersonalDetail() {
 
     console.log(
       email +
-        " " +
-        name +
-        " " +
-        address +
-        " " +
-        country +
-        " " +
-        locality +
-        " " +
-        city +
-        " " +
-        state +
-        " " +
-        zip +
-        " " +
-        mobile +
-        " " +
-        alternatemobile +
-        " "
+      " " +
+      name +
+      " " +
+      address +
+      " " +
+      country +
+      " " +
+      locality +
+      " " +
+      city +
+      " " +
+      state +
+      " " +
+      zip +
+      " " +
+      mobile +
+      " " +
+      alternatemobile +
+      " "
     );
     if (
       email != null &&

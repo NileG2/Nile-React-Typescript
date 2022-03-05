@@ -1,0 +1,23 @@
+$nileDarkGray: #232f3e;
+.Nav{
+    .nav-bg{
+        background-color: $nileDarkGray;
+    }
+
+    .nav-font{
+        font-size: 20px;
+    }
+
+    .nav-input-length{
+        min-width: 600px;
+        
+    }
+
+    .nav-height{
+        height: 35px;
+    }
+
+    .nav-search-btn{
+        width: 3em;
+    }
+}

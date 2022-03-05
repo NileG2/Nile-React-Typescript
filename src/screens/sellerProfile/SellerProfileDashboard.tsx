@@ -5,6 +5,8 @@ import SalesSummary from "./innerScreens/sales/SalesSummary";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SellerProfileDashboard.scss";
 
+import NavBar from '../../components/nav/NavBar'
+
 const SellerProfileDashboard = () => {
   const sidebarItems = ["Inventory", "Sales Summary", "Payments"];
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
