@@ -3,15 +3,12 @@ import "./MyDetail.scss";
 
 const MyDetail = () => {
   return (
-    <div className="container py-2 mydetail col-md-12">
-      <h1 className="py-1">MY DETAILS</h1>
-      <div className="card  col-md-6 card-style" style={{ float: "left" }} >
-        
-        <div
-          className="card font-style std-card"
-          style={{ float: "left" }}
-        >
-          <div className="card-body">
+    <div className="std-bg">
+      <div className="row">
+        <div className="col">
+          <div className="std-card m-2">
+            <h1 className="py-1">MY DETAILS</h1>
+            <div className="std-section"> </div>
             <form>
               <div className="row mb-3 py-4">
                 <label htmlFor="inputName" className="col-sm-2 col-form-label">
@@ -109,79 +106,81 @@ const MyDetail = () => {
             </form>
           </div>
         </div>
-      </div>
 
-      <div
-        className="card font-style std-card  col-md-6 card-style2"
-      >
-        
-        <div className="card-body">
-        <h5 className="py-3">Enter/Edit your new address</h5>
-          <form>
-            
-            <div className="row mb-3 py-2">
-              <label
-                htmlFor="inputPlotNo"
-                className="col-sm-2 col-form-label"
-              >
-                Plot No.
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="text"
-                  className="form-control font-style1"
-                  id="inputPlotNo"
-                />
-              </div>
+        <div className="col">
+          <div className="std-card m-2">
+            <div className="card-body">
+              <h5 className="py-3">Enter/Edit your new address</h5>
+              <form>
+                <div className="row mb-3 py-2">
+                  <label
+                    htmlFor="inputPlotNo"
+                    className="col-sm-2 col-form-label"
+                  >
+                    Plot No.
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      type="text"
+                      className="form-control font-style1"
+                      id="inputPlotNo"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <label
+                    htmlFor="inputAddressLine1"
+                    className="col-sm-2 col-form-label"
+                  >
+                    Address Line 1
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      type="text"
+                      className="form-control font-style1"
+                      id="inputAddressLine1"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-3">
+                  <label
+                    htmlFor="inputAddressLine2"
+                    className="col-sm-2 col-form-label"
+                  >
+                    Address Line 2
+                  </label>
+                  <div className="col-sm-10">
+                    <textarea
+                      className="form-control"
+                      id="exampleFormControlTextarea1"
+                      rows={5}
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="row mb-3 py-2">
+                  <label htmlFor="inputPin" className="col-sm-2 col-form-label">
+                    Pin code
+                  </label>
+                  <div className="col-sm-10">
+                    <input
+                      type="text"
+                      className="form-control font-style1"
+                      id="inputPin"
+                    />
+                  </div>
+                </div>
+
+                <div className="d-grid gap-2 col-4 mx-auto">
+                  <button className="btn btn-warning" type="button">
+                    Add/Update
+                  </button>
+                </div>
+              </form>
             </div>
-
-            <div className="row mb-3">
-              <label
-                htmlFor="inputAddressLine1"
-                className="col-sm-2 col-form-label"
-              >
-                Address Line 1
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="text"
-                  className="form-control font-style1"
-                  id="inputAddressLine1"
-                />
-              </div>
-            </div>
-
-            <div className="row mb-3">
-              <label htmlFor="inputAddressLine2" className="col-sm-2 col-form-label">
-              Address Line 2
-              </label>
-              <div className="col-sm-10">
-              <textarea
-                    className="form-control"
-                    id="exampleFormControlTextarea1" rows={5}
-                  ></textarea>
-              </div>
-            </div>
-
-            <div className="row mb-3 py-2">
-              <label htmlFor="inputPin" className="col-sm-2 col-form-label">
-              Pin code
-              </label>
-              <div className="col-sm-10">
-                <input
-                  type="text"
-                  className="form-control font-style1"
-                  id="inputPin"
-                />
-              </div>
-            </div>
-
-
-            <div className="d-grid gap-2 col-4 mx-auto">
-            <button className="btn btn-warning" type="button">Add/Update</button>
           </div>
-
-          </form>
         </div>
       </div>
     </div>
