@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import "./App.scss";
 import Landing from "./screens/landing/Landing";
 import Signin from "./screens/signin/Signin";
