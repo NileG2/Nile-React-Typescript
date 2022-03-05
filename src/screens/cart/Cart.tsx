@@ -3,6 +3,7 @@ import CartCard from '../../components/cart/CartCard'
 import CheckoutSidebar from '../../components/checkoutSidebar/CheckoutSidebar'
 import {setCartSubTotal} from '../../redux/actions/Cart'
 import { useDispatch,useSelector } from 'react-redux'
+import NavBar from '../../components/nav/NavBar'
 
 const Cart = () => {
 
@@ -27,6 +28,7 @@ const Cart = () => {
 
     return (
         <div className='std-bg'>
+            <NavBar/>
             <div className='row m-1'>
                 <div className='col-9'>
                     <CartCard />

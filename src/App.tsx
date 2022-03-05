@@ -11,6 +11,7 @@ import Test from "./screens/test/Test";
 import ProfileDashboard from "./screens/profile/ProfileDashboard";
 import SellerProfileDashboard from "./screens/sellerProfile/SellerProfileDashboard";
 import Checkout from "./screens/checkout/Checkout";
+import PersonalDetail from "./screens/personalDetail/PersonalDetail";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/profile" element={<ProfileDashboard />}></Route>
         <Route path="/seller-profile" element={<SellerProfileDashboard />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
+        <Route path="/details" element={<PersonalDetail />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
