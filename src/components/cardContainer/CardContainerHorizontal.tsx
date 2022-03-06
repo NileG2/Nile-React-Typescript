@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import ProductCardVertical from '../cards/productCards/ProductCardVertical'
 
-const CardContainer = () => {
+const CardContainerHorizontal = () => {
 
   const [products, setProducts] = useState<any>([{
     product_name: "Jordan for Mens",
@@ -64,4 +64,4 @@ const CardContainer = () => {
   )
 }
 
-export default CardContainer
+export default CardContainerHorizontal
