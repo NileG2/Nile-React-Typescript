@@ -12,6 +12,7 @@ import ProfileDashboard from "./screens/profile/ProfileDashboard";
 import SellerProfileDashboard from "./screens/sellerProfile/SellerProfileDashboard";
 import Checkout from "./screens/checkout/Checkout";
 import PersonalDetail from "./screens/personalDetail/PersonalDetail";
+import MyDetail from "./screens/profile/innerScreens/myDetails/MyDetail";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/seller-profile" element={<SellerProfileDashboard />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/details" element={<PersonalDetail />}></Route>
+        <Route path="/mydetail" element={<MyDetail />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
