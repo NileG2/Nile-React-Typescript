@@ -1,40 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { SizeOption } from '../../helpers/SelectOptions'
 
 const ProductSizes = () => {
-  const availableDimensions = [{
-    name: "Color",
-    type: "color",
-    for:"any"
-  }, {
-    name: "cloth size",
-    for: "shirts/tops/sweaters/etc",
-    type: "number",
-    available: ["XS", "S", "M", "L", "XL", "XXL", "XXL"]
-  }, {
-    name: "cloth size",
-    for: "pants/jeans/etc",
-    type: "number",
-    available: ["28", "30", "32", "34", "36", "38", "40"]
-  }, {
-    name: "cloth size",
-    for: "shoe/sneaker/etc",
-    type: "number",
-    available: ["6UK", "7UK", "8UK", "9UK", "10UK", "11UK", "12UK"]
-  }, {
-    name: "cloth size",
-    for: "bras",
-    type: "number",
-    available: ["30", "32", "34", "36", "38", "40"]
-  },{
-    name:"general size",
-    for:"any",
-    type:"number",
-    available:["mm","cm","m","inch","foot"]
-  }]
+
+  const [value, setValue] = useState(0);
+  const [allValues, setAllValues] = useState<any>([])
+
+  function addValue() {
+    setAllValues((old: any) => [...old, value])
+    setValue(0)
+  }
+
+  function removeData(index: number) {
+    setAllValues(allValues.filter((elem:any,ind:number)=>{
+      return ind!==index
+    }))
+  }
+
   return (
-    <div className='std-card m-2'>
-      <p className='std-font2'>Add product size</p>
-    </div>
+    <form className="std-card m-2">
+      <p className='std-font2'>Add Product Sizes</p>
+      <div className="row m-2">
+        <label className="std-boldFont">Select or type a number defining the size :</label>
+        <div className='input-group'>
+          <input className="std-inputField" placeholder='value' value={value} onChange={(e: any) => { setValue(e.target.value) }}></input>
+          <div className='std-btn std-btnOrange' onClick={() => { addValue() }}>+</div>
+        </div>
+      </div>
+      <br />
+      <div>
+        <p className="std-boldFont std-font2">Added Sizes</p>
+        {
+          allValues.length > 0 ? <SizeOption available={allValues} edit={true} removeFunction={removeData} /> : <>Nothing to show yet</>
+        }
+
+      </div>
+      <br />
+      <div className="d-flex justify-content-center">
+        <button
+          className="std-btn std-btnOrange"
+          style={{ width: "10rem" }}
+        >
+          Save
+        </button>
+      </div>
+    </form>
   )
 }
 
