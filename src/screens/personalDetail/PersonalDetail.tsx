@@ -28,28 +28,6 @@ export default function PersonalDetail() {
   function addUserDetails(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
 
-    console.log(
-      email +
-      " " +
-      name +
-      " " +
-      address +
-      " " +
-      country +
-      " " +
-      locality +
-      " " +
-      city +
-      " " +
-      state +
-      " " +
-      zip +
-      " " +
-      mobile +
-      " " +
-      alternatemobile +
-      " "
-    );
     if (
       email != null &&
       name != null &&
@@ -63,22 +41,24 @@ export default function PersonalDetail() {
     ) {
       axios
         .post("http://localhost:9000/api/detail/add", {
-          // email : email,
-          Personal_details: {
-            username: name,
+          Address: {
             country: country,
             address_line_1: address,
             locality: locality,
             city: city,
             state: state,
             pincode: zip,
-            mobile: mobile,
-            alternate_mobile: alternatemobile,
+            
           },
+          Contact : {
+            username: name,
+            mobile: mobile,
+            alternate_mobile: alternatemobile
+          }
         })
         .then((resp) => {
           alert("Details filled Successfully");
-          navigate("/");
+          navigate("/signin");
         })
         .catch((err) => {
           alert("Something went wrong");

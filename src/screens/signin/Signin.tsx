@@ -21,8 +21,7 @@ const Signin = () => {
       
       }).then((resp)=>{
           alert("User Signedin Successfully")
-          localStorage.setItem("user",JSON.stringify(email))
-          navigate("/details")
+          navigate("/")
       }).catch((err)=>{
         alert("Something went wrong")
       })

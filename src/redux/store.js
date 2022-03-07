@@ -6,6 +6,7 @@ import { UserReducer } from "./reducers/User";
 import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
 import { UserDetailsReducer } from "./reducers/UserDetails";
+import logger from'redux-logger'
 
 const reducer = combineReducers({
   user: UserReducer,
@@ -180,10 +181,6 @@ const initialState = {
   },
   userDetails: {
     currAddress: {
-      email: "",
-      mobile: "",
-      userId: "",
-      username: "",
       address_line_1: "",
       locality: "",
       city: "",
@@ -195,6 +192,19 @@ const initialState = {
   },
 };
 
-const store = createStore(reducer, initialState, applyMiddleware(thunk));
+const middlewares = [thunk];
+
+if (process.env.NODE_ENV === "development") {
+  middlewares.push(logger);
+}
+
+const store = createStore(
+  reducer,
+  initialState,
+  applyMiddleware(...middlewares)
+);
+
+
+// const store = createStore(reducer, initialState, applyMiddleware(thun));
 
 export default store;
