@@ -111,15 +111,9 @@ const MyDetail = () => {
               </div>
             </form>
 
-        {/* {
-          // eslint-disable-next-line array-callback-return
-          addressList.map((it:any)=>{
-            console.log(it.pincode)
-          })
-        } */}
 
             {addressList.map((it:any, i:number) => (
-                <>
+              <div key={i}>
                 <div className="row m-1 py-3">
                   <label className="col-2 std-subHeader1">{i+1} </label>
                   <div className="card col-10 std-card std-font1">
@@ -149,10 +143,8 @@ const MyDetail = () => {
                 Remove
               </button>
               </div>
-              </>
+              </div>
               ))} 
-
-
 
           </div>
         </div>
