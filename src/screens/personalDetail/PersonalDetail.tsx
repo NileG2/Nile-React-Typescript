@@ -1,7 +1,5 @@
 import axios from "axios";
-import e from "express";
 import React, { useEffect, useState } from "react";
-import { BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalDetail.scss";
 import NavBar from '../../components/nav/NavBar'
