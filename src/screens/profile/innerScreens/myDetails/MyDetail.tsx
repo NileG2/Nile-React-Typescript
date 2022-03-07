@@ -9,7 +9,7 @@ import {fetchAllAddresses} from '../../../../redux/actions/UserDetails'
 
 const MyDetail = () => {
   const dispatch = useDispatch()
-  const addressList = useSelector((state:any)=>state.userDetails.addressList)
+  // const addressList = useSelector((state:any)=>state.userDetails.addressList)
 
   const [users1, setusers1] = useState(
     {
@@ -28,9 +28,8 @@ const MyDetail = () => {
       .get("http://localhost:9000/api/detail/users")
       .then(({ data }) => {
         setUserId(data.status[0].userId)
-        console.log(data.status[0].Contact.email)
         setusers1(data.status[0].Contact);
-        
+        console.log(data.status[0].Address)
         dispatch(fetchAllAddresses(data.status[0].Address)); 
       })
       .catch((err) => {
@@ -48,7 +47,6 @@ const MyDetail = () => {
     catch(err){
       console.log(err)
     }
-
   }
 
   return (
@@ -111,14 +109,10 @@ const MyDetail = () => {
               </div>
             </form>
 
-        {/* {
-          // eslint-disable-next-line array-callback-return
-          addressList.map((it:any)=>{
-            console.log(it.pincode)
-          })
-        } */}
+         
+        
 
-            {addressList.map((it:any, i:number) => (
+            {/* {addressList.map((it:any, i:number) => (
                 <>
                 <div className="row m-1 py-3">
                   <label className="col-2 std-subHeader1">{i+1} </label>
@@ -151,7 +145,7 @@ const MyDetail = () => {
               </div>
               </>
               ))} 
-
+ */}
 
 
           </div>

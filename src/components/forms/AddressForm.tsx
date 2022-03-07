@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewAddress } from "../../redux/actions/UserDetails";
 
 export default function AddressForm(props: any) {
-  const addressList = useSelector(
-    (state: any) => state.userDetails.addressList
-  );
+  // const addressList = useSelector(
+  //   (state: any) => state.userDetails.addressList
+  // );
 
   const dispatch = useDispatch()
 
@@ -32,11 +32,11 @@ export default function AddressForm(props: any) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    let allAddress = addressList
-    allAddress.push({Address: formData})
-    dispatch(addNewAddress(allAddress))
+    // let allAddress = addressList
+    // allAddress.push({Address: formData})
+    // dispatch(addNewAddress(allAddress))
 
-    console.log({Address: formData })
+    // console.log({Address: formData })
 
     axios.post(`http://localhost:9000/api/detail/add`,{
             

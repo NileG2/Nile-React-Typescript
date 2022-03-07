@@ -21,7 +21,7 @@ export const fetchAllAddresses =
   (addressArray: any) => async (dispatch: any) => {
     try {
       //
-      // console.log(addressArray)
+      // console.log("Action = "+ addressArray)
       dispatch({
           type:actions.FETCH_USER_ADDRESS,
           payload:{

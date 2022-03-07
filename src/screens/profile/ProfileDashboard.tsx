@@ -16,7 +16,7 @@ const ProfileDashboard = () => {
     "My Orders",
     "Become a Seller",
   ];
-  const [selectedItemIndex, setSelectedItemIndex] = useState(3);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
   const renderSelectedScreen = () => {
     switch (selectedItemIndex) {
