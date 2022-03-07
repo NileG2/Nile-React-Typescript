@@ -9,7 +9,7 @@ import {fetchAllAddresses} from '../../../../redux/actions/UserDetails'
 
 const MyDetail = () => {
   const dispatch = useDispatch()
-  // const addressList = useSelector((state:any)=>state.userDetails.addressList)
+  const addressList = useSelector((state:any)=>state.userDetails.addressList)
 
   const [users1, setusers1] = useState(
     {
@@ -109,11 +109,9 @@ const MyDetail = () => {
               </div>
             </form>
 
-         
-        
 
-            {/* {addressList.map((it:any, i:number) => (
-                <>
+            {addressList.map((it:any, i:number) => (
+              <div key={i}>
                 <div className="row m-1 py-3">
                   <label className="col-2 std-subHeader1">{i+1} </label>
                   <div className="card col-10 std-card std-font1">
@@ -143,10 +141,8 @@ const MyDetail = () => {
                 Remove
               </button>
               </div>
-              </>
+              </div>
               ))} 
- */}
-
 
           </div>
         </div>
