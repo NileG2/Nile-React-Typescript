@@ -1,23 +1,117 @@
+$nileOrange: #febd69;
+$nileLightGray: #37475a;
 $nileDarkGray: #232f3e;
-.Nav{
-    .nav-bg{
-        background-color: $nileDarkGray;
-    }
+$nileBlack: #131a22;
+$screenBg: #f5f5f5;
 
-    .nav-font{
-        font-size: 20px;
+.navbarWrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: $nileDarkGray;
+  .navWeb {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 2vw;
+    @media (max-width: 600px) {
+      display: none;
     }
-
-    .nav-input-length{
-        min-width: 600px;
-        
+    .logo {
+      flex: 7%;
+      img {
+        width: 100%;
+        margin-top: -5px;
+      }
     }
-
-    .nav-height{
-        height: 35px;
+    .searchBar {
+      flex: 60%;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      align-items: center;
+      .text {
+        color: white;
+        margin-right: 10px;
+      }
+      .categories {
+        background-color: #dddddd;
+        height: 2rem;
+        border-radius: 5px 0 0 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border: none;
+        .dropDownButton {
+          color: $nileDarkGray !important;
+        }
+      }
+      form {
+        display: flex;
+        .searchField {
+          width: 30vw;
+          height: 2rem;
+          border: none;
+          &:focus {
+            outline: none;
+          }
+        }
+        .searchBtn {
+          height: 2rem;
+          border-radius: 0 5px 5px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+        }
+      }
     }
-
-    .nav-search-btn{
-        width: 3em;
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+      flex: 33%;
+      .linkItem {
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease;
+        border-bottom: 2px solid $nileDarkGray;
+        &:hover {
+          border-bottom: 2px solid $nileOrange;
+        }
+      }
     }
+  }
+  .navMob {
+    display: none;
+    @media (max-width: 600px) {
+      display: block;
+    }
+  }
 }
+// .Nav {
+//   .nav-bg{
+//       background-color: $nileDarkGray;
+//   }
+
+//   .nav-font{
+//       font-size: 20px;
+//   }
+
+//   .nav-input-length{
+//       min-width: 600px;
+
+//   }
+
+//   .nav-height{
+//       height: 35px;
+//   }
+
+//   .nav-search-btn{
+//       width: 3em;
+//   }
+// }
