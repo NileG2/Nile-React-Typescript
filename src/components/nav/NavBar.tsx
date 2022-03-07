@@ -27,7 +27,7 @@ const NavBar = () => {
                                             })
                                         }
                                     </NavDropdown>
-                                    <input className='form-control nav-input-length'></input>
+                                    <input className='form-control nav-input-length std-inputField'></input>
                                     <button className='std-btn std-btnOrange nav-search-btn'>
                                         <FaSearch/>    
                                     </button>
