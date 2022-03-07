@@ -1,15 +1,73 @@
-.main-footer {
+//colors to be used - copy these variable in scss files wherever needed
+$nileOrange: #febd69;
+$nileLightGray: #37475a;
+$nileDarkGray: #232f3e;
+$nileBlack: #131a22;
+$screenBg: #f5f5f5;
+
+.footerWrapper {
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  background-color: $nileDarkGray;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 5vw;
+  align-items: center;
+  .logo {
+    // flex: 15%;
+    img {
+      width: 10rem;
+    }
+  }
+  a {
     color: white;
-    background-color: #37475a;
-    padding-top: 3em;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 70%;
-  }
-  a{
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-bottom: 2px solid $nileDarkGray;
     text-decoration: none;
+    &:hover {
+      border-bottom: 2px solid $nileOrange;
+    }
   }
-  a:hover{
-    color:black;
+  .socialLinks {
+    // flex: 30%;
+    display: flex;
+    gap: 3rem;
+    text-align: right;
+    font-size: 2rem;
+    cursor: pointer;
+    .socialIcon {
+      transition: 0.3s ease;
+      &:hover {
+        color: $nileOrange;
+        transform: scale(1.1);
+      }
+    }
   }
+  // .links {
+  //   flex: 80%;
+  //   color: white;
+  //   display: flex;
+  //   flex-direction: column;
+  //   text-align: right;
+  //   justify-content: space-between;
+  //   a {
+  //     color: white;
+  //     font-size: 1rem;
+  //     cursor: pointer;
+  //     transition: 0.3s ease;
+  //     &:hover {
+  //       text-decoration: underline;
+  //       text-underline-position: under;
+  //     }
+  //   }
+  //   .socialLinks {
+  //     display: flex;
+  //     gap: 1rem;
+  //     text-align: right;
+  //   }
+  // }
+}

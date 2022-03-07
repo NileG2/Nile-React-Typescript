@@ -6,10 +6,11 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./SellerProfileDashboard.scss";
 
 import NavBar from '../../components/nav/NavBar'
+import AddProductFormContainer from "../../components/addProduct/AddProductFormContainer";
 
 const SellerProfileDashboard = () => {
-  const sidebarItems = ["Inventory", "Sales Summary", "Payments"];
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const sidebarItems = ["Inventory", "Sales Summary", "Payments","Add Product"];
+  const [selectedItemIndex, setSelectedItemIndex] = useState(3);
 
   const renderSelectedScreen = () => {
     switch (selectedItemIndex) {
@@ -19,29 +20,28 @@ const SellerProfileDashboard = () => {
         return <SalesSummary />;
       case 2:
         return <Payments />;
+      case 3:
+        return <AddProductFormContainer/>
       default:
         return <Inventory />;
     }
   };
 
   return (
-    <div className="sellerProfileWrapper">
-      {/* to be replaced by Navbar component */}
-      <div className="nav"></div>
-
-      <div className="content">
-        <div className="sidebar">
+    <div className="std-bg">
+      <NavBar />
+      <div className="row">
+        <div className='col-2 p-0'>
           <Sidebar
             selectedItemIndex={selectedItemIndex}
             sidebarItems={sidebarItems}
             setSelectedItemIndex={setSelectedItemIndex}
           />
         </div>
-        <div className="main">{renderSelectedScreen()}</div>
+        <div className='col-10 p-0'>
+          <div className="main">{renderSelectedScreen()}</div>
+        </div>
       </div>
-
-      {/* to be replaced by Footer component */}
-      <div className="footer"></div>
     </div>
   );
 };
