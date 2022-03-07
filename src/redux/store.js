@@ -1,17 +1,19 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import reduxThunk from "redux-thunk";
-import logger from "redux-logger";
+import thunk from "redux-thunk";
 
 import { CartReducer } from "./reducers/Cart";
 import { UserReducer } from "./reducers/User";
 import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
+import { UserDetailsReducer } from "./reducers/UserDetails";
+import logger from'redux-logger'
 
 const reducer = combineReducers({
   user: UserReducer,
   cart: CartReducer,
   checkout: CheckoutReducer,
   orders: OrderReducer,
+  userDetails: UserDetailsReducer,
 });
 
 const initialState = {
@@ -177,9 +179,20 @@ const initialState = {
       },
     ],
   },
+  userDetails: {
+    currAddress: {
+      address_line_1: "",
+      locality: "",
+      city: "",
+      country: "",
+      state: "",
+      pincode: "",
+    },
+    addressList: [],
+  },
 };
 
-const middlewares = [reduxThunk];
+const middlewares = [thunk];
 
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
@@ -190,5 +203,8 @@ const store = createStore(
   initialState,
   applyMiddleware(...middlewares)
 );
+
+
+// const store = createStore(reducer, initialState, applyMiddleware(thun));
 
 export default store;

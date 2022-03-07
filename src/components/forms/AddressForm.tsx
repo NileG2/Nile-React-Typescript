@@ -1,36 +1,136 @@
-import React from "react";
+import { async } from "@firebase/util";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-export default function AddressForm(props:any) {
+import { useDispatch, useSelector } from "react-redux";
+import { addNewAddress } from "../../redux/actions/UserDetails";
+
+export default function AddressForm(props: any) {
+  const addressList = useSelector(
+    (state: any) => state.userDetails.addressList
+  );
+
+  const dispatch = useDispatch()
+
+
+  const [formData, setFormData] = useState({
+        address_line_1: "",
+        locality: "",
+        city: "",
+        country: "",
+        state: "",
+        pincode: "",
+  });
+
+  const onChangeHandler = (e: any) => {
+    e.preventDefault();
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+
+  const addAddress =  async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    let allAddress = addressList
+    allAddress.push({Address: formData})
+    dispatch(addNewAddress(allAddress))
+
+    console.log({Address: formData })
+
+    axios.post(`http://localhost:9000/api/detail/add`,{
+            
+              Address: formData 
+        }).then((resp)=>{
+          alert("Added Successfully")
+
+        }).catch((err)=>{
+            alert(err)
+    })
+  };
+
   return (
     <div className="std-card m-2">
-        {
-            props.flag===true?
-            <>
-            <p className="std-font2">Enter/Edit your new address</p>
-            <div className="std-section"></div>
-            </>
-            : <div> </div>
-            
-        }
-      
+      {props.flag === true ? (
+        <>
+          <p className="std-font2">Add your new address</p>
+          <div className="std-section"></div>
+        </>
+      ) : (
+        <div> </div>
+      )}
 
       <form className="m-2">
-        
-        <div className="row m-2">
-          <label className="col-4 std-subHeader1">Plot no :</label>
-          <input className="std-inputField col-8"></input>
-        </div>
         <div className="row m-2">
           <label className="col-4 std-subHeader1">Address Line 1 :</label>
-          <input className="std-inputField col-8"></input>
+          <input
+            className="std-inputField col-8"
+            value={formData.address_line_1}
+            name="address_line_1"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
         </div>
+
         <div className="row m-2">
-          <label className="col-4 std-subHeader1">Address Line 2 :</label>
-          <textarea className="std-inputField col-8" rows={4}></textarea>
+          <label className="col-4 std-subHeader1">Locality :</label>
+          <input
+            className="std-inputField col-8"
+            value={formData.locality}
+            name="locality"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
         </div>
+
+        <div className="row m-2">
+          <label className="col-4 std-subHeader1">City :</label>
+          <input
+            className="std-inputField col-8"
+            value={formData.city}
+            name="city"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
+        </div>
+
         <div className="row m-2">
           <label className="col-4 std-subHeader1">Pin code :</label>
-          <input className="std-inputField col-8"></input>
+          <input
+            className="std-inputField col-8"
+            value={formData.pincode}
+            name="pincode"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
+        </div>
+
+        <div className="row m-2">
+          <label className="col-4 std-subHeader1">State :</label>
+          <input
+            className="std-inputField col-8"
+            value={formData.state}
+            name="state"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
+        </div>
+
+        <div className="row m-2">
+          <label className="col-4 std-subHeader1">Country :</label>
+          <input
+            className="std-inputField col-8"
+            value={formData.country}
+            name="country"
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+          ></input>
         </div>
 
         <br />
@@ -38,11 +138,11 @@ export default function AddressForm(props:any) {
           <button
             className="std-btn std-btnOrange"
             style={{ width: "20rem" }}
-            // onClick={(e) => {
-            //   handleNextStep(e);
-            // }}
+            onClick={(e) => {
+              addAddress(e);
+            }}
           >
-            ADD/UPDATE
+            ADD
           </button>
         </div>
       </form>
