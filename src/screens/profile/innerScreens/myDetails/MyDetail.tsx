@@ -28,8 +28,9 @@ const MyDetail = () => {
       .get("http://localhost:9000/api/detail/users")
       .then(({ data }) => {
         setUserId(data.status[0].userId)
+        console.log(data.status[0].Contact.email)
         setusers1(data.status[0].Contact);
-        console.log(data.status[0].Address)
+        
         dispatch(fetchAllAddresses(data.status[0].Address)); 
       })
       .catch((err) => {
@@ -47,6 +48,7 @@ const MyDetail = () => {
     catch(err){
       console.log(err)
     }
+
   }
 
   return (
