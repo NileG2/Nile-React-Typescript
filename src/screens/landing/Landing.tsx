@@ -7,6 +7,7 @@ import SidebarFilter from "../../components/filter/SidebarFilter";
 import CardContainerHorizontal from "../../components/cardContainer/CardContainerHorizontal";
 import ProductListing from "../productListing/ProductListing";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   const bannerImages = [
@@ -15,27 +16,6 @@ const Landing = () => {
     "assets/ad1.jpg",
     "assets/ad1.jpg",
   ];
-
-  // const [loading, setLoading] = useState(false);
-  // const [allProducts, setAllProducts] = useState<any>({});
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios
-  //     .get("http://localhost:9000/api/products/landing?limit=10")
-  //     .then((res) => {
-  //       setLoading(false);
-  //       setAllProducts(res.data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
-
-  // if (loading)
-  //   return (
-  //     <div className="loadingDiv">
-  //       <h2>Loading...</h2>
-  //     </div>
-  //   );
   return (
     <div className="landingWrapper">
       <NavBar />
@@ -48,46 +28,13 @@ const Landing = () => {
           ))}
         </Carousel>
       </div>
-      {/* <h2 className="std-smallHeader m-3">
-        Choose from a variety of quality products
-      </h2>
-
-      <div className="content">
-        <div className="filterSidebar">
-          <SidebarFilter />
-        </div>
-        <div className="products">
-          <CardContainerHorizontal
-            products={allProducts["appliances"]}
-            category="Appliances"
-          />
-          <CardContainerHorizontal
-            products={allProducts["electronics"]}
-            category="Electronics"
-          />
-          <CardContainerHorizontal
-            products={allProducts["mens_fashions"]}
-            category="Trending for Men"
-          />
-          <CardContainerHorizontal
-            products={allProducts["womens_fashions"]}
-            category="Exclusively for Women"
-          />
-          <CardContainerHorizontal
-            products={allProducts["kids_fashions"]}
-            category="Kids"
-          />
-          <CardContainerHorizontal
-            products={allProducts["toys_and_games"]}
-            category="Toys and Games"
-          />
-          <CardContainerHorizontal
-            products={allProducts["sports"]}
-            category="Sports"
-          />
-        </div>
-      </div> */}
-
+      <Link to="/products">
+        <img
+          className="d-block w-100"
+          src="assets/longLanding.png"
+          alt="landingProducts"
+        />
+      </Link>
       <Footer />
     </div>
   );
