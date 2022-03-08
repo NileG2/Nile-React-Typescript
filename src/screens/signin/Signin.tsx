@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Signin.scss";
 
 import { BsGoogle } from "react-icons/bs";
@@ -10,9 +10,16 @@ const Signin = () => {
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
 
+
+  useEffect(()=>{
+    const auth = localStorage.getItem("user");
+    if(auth){
+        navigate("/")
+    }
+  },[])
+
   function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    console.log(email + " " + password);
     if (email != null && password.length > 6) {
       axios
         .post("http://localhost:9000/api/login/login", {
@@ -20,8 +27,14 @@ const Signin = () => {
           password: password,
         })
         .then((resp) => {
-          alert("User Signedin Successfully");
-          navigate("/");
+          axios.get("http://localhost:9000/api/user/").then( ({data}) => {
+            localStorage.setItem("user", JSON.stringify({email: email, username: data.status[0].Contact.username }));
+            alert("User Signedin Successfully");
+            navigate("/");
+          }).catch(err=>{
+            console.log(err);
+          });
+          
         })
         .catch((err) => {
           alert("Something went wrong");

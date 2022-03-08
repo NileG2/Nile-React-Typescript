@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Signup.scss";
 import { BsGoogle } from "react-icons/bs";
 import axios from "axios";
@@ -8,6 +8,13 @@ const Signup = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    const auth = localStorage.getItem("user");
+    if(auth){
+        navigate("/")
+    }
+  },[])
 
   function signupUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -19,7 +26,7 @@ const Signup = () => {
         })
         .then((resp) => {
           alert("SignedUp Added Successfully");
-          localStorage.setItem("user", JSON.stringify(email));
+          localStorage.setItem("user1", JSON.stringify(email));
           navigate("/details");
         })
         .catch((err) => {

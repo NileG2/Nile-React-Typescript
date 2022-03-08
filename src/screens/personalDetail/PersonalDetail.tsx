@@ -17,10 +17,21 @@ export default function PersonalDetail() {
   const [alternatemobile, setalternatemobile] = useState("");
   const navigate = useNavigate();
 
+  let auth1 = JSON.parse(localStorage.getItem("user1") || "{}");
   let auth = JSON.parse(localStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    setemail(auth);
+    if(!auth1['user1']){
+      navigate('/signup')
+    }
+
+    if(auth){
+      navigate('/')
+    }  
+    else{
+      setemail(auth1);
+    }  
+    
   }, []);
 
   function addUserDetails(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
