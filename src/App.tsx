@@ -28,8 +28,7 @@ function App() {
         <Route path="/profile" element={<ProfileDashboard />}></Route>
         <Route path="/seller-profile" element={<SellerProfileDashboard />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
-        <Route path="/details" element={<PersonalDetail />}></Route>
-        <Route path="/mydetail" element={<MyDetail />}></Route>
+        <Route path="/details" element={<PersonalDetail />}></Route>      
         <Route path="/invoice" element={<Invoice />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>

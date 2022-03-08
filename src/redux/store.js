@@ -7,6 +7,7 @@ import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
 import { UserDetailsReducer } from "./reducers/UserDetails";
 import logger from'redux-logger'
+import { BuyerPaymentReducer } from "./reducers/BuyerPayment";
 
 const reducer = combineReducers({
   user: UserReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   checkout: CheckoutReducer,
   orders: OrderReducer,
   userDetails: UserDetailsReducer,
+  buyerPaymentInfo : BuyerPaymentReducer
 });
 
 const initialState = {
@@ -190,7 +192,16 @@ const initialState = {
     },
     addressList: [],
   },
+
+  buyerPaymentInfo :{
+    BuyerPaymentList : [
+      
+    ]
+    // BuyerPayment : {},
+  },
 };
+
+
 
 const middlewares = [thunk];
 
