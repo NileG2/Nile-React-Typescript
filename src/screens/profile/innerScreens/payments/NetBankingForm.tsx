@@ -29,7 +29,7 @@ const NetBankingForm = () => {
         dispatch(setPayment(BuyerPayment))
         let allPaymentList = buyerPaymentList
         allPaymentList.push(BuyerPayment)
-        axios.post("http://localhost:9000/api/payment/payment",{
+        axios.post("http://localhost:9000/api/payment/",{
             BankingInfo : FormData
           }).then((resp)=>{
             alert("Payment method added Info")

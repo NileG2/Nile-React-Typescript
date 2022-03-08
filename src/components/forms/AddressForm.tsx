@@ -38,7 +38,7 @@ export default function AddressForm(props: any) {
 
     console.log({Address: formData })
 
-    axios.post(`http://localhost:9000/api/detail/add`,{
+    axios.post(`http://localhost:9000/api/user/add`,{
             
               Address: formData 
         }).then((resp)=>{

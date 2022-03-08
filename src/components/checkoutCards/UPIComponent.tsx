@@ -12,7 +12,7 @@ const UPIComponent = (props:any) => {
     const deletePaymentOption = (e:any, index:number) =>{
         let data = buyerPaymentList.filter((ele:any,ind:number)=>{ return ind !==index })
         try{
-          axios.delete(`http://localhost:9000/api/payment/payment/delete/${index}`)
+          axios.delete(`http://localhost:9000/api/payment/delete/${index}`)
           alert("Payment method successfully deleted")
           dispatch(getPayment(data))
         }

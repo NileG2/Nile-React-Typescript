@@ -25,7 +25,7 @@ const MyDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/detail/users")
+      .get("http://localhost:9000/api/user/")
       .then(({ data }) => {
         setUserId(data.status[0].userId)
         console.log(data.status[0].Contact.email)
@@ -42,7 +42,7 @@ const MyDetail = () => {
     e.preventDefault()
     console.log(id)
     try{
-      axios.delete(`http://localhost:9000/api/detail/delete/${id}`)
+      axios.delete(`http://localhost:9000/api/user/delete/${id}`)
       alert("data deleted successfully")
     }
     catch(err){
