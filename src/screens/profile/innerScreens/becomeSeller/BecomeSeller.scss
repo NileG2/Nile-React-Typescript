@@ -1,0 +1,21 @@
+.becomeSellerWrapper {
+  width: 100vw;
+  .sellerFormWrapper {
+    padding: 1rem 2rem;
+    form {
+      margin-top: 2rem;
+      max-width: 40vw;
+      .formRow {
+        display: flex;
+        gap: 2rem;
+        margin: 1rem 0;
+        .label {
+          flex: 15%;
+        }
+        input {
+          flex: 30%;
+        }
+      }
+    }
+  }
+}
