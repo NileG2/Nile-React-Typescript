@@ -13,6 +13,7 @@ import SellerProfileDashboard from "./screens/sellerProfile/SellerProfileDashboa
 import Checkout from "./screens/checkout/Checkout";
 import PersonalDetail from "./screens/personalDetail/PersonalDetail";
 import QueryScreen from "./screens/queryScreen/QueryScreen";
+import Invoice from "./screens/invoice/Invoice";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         ></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/details" element={<PersonalDetail />}></Route>
+        <Route path="/invoice" element={<Invoice />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
