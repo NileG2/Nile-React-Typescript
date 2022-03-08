@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalDetail.scss";
-import NavBar from '../../components/nav/NavBar'
+import NavBar from "../../components/nav/NavBar";
 
 export default function PersonalDetail() {
   const [email, setemail] = useState("");
@@ -46,13 +46,12 @@ export default function PersonalDetail() {
             city: city,
             state: state,
             pincode: zip,
-            
           },
-          Contact : {
+          Contact: {
             username: name,
             mobile: mobile,
-            alternate_mobile: alternatemobile
-          }
+            alternate_mobile: alternatemobile,
+          },
         })
         .then((resp) => {
           alert("Details filled Successfully");
@@ -74,6 +73,9 @@ export default function PersonalDetail() {
           <div className="row justify-content-center align-items-center">
             <div className="card col-md-10 std-card">
               <div className="card-body mx-5 col-md-11 ">
+                <h2 className="std-smallHeader" style={{ textAlign: "center" }}>
+                  Great! Now lets get started with your details
+                </h2>
                 <form>
                   <div className="form-group mx-0 pl-3 py-3">
                     <label htmlFor="inputEmail">Email</label>

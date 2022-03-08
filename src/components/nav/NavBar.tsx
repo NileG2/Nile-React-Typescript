@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Nav.scss";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import {
@@ -17,25 +17,77 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { Link, useSearchParams } from "react-router-dom";
 
 const NavBar = () => {
-  const categories = [
-    "all",
-    "electronics",
-    "appliances",
-    "fashion for kids",
-    "fashion for men",
-    "fashion for women",
-    "toys and games",
+  const categoryURLs = [
+    {
+      category: "All",
+      url: "/products",
+    },
+    {
+      category: "Electronics",
+      url: "/products/query?category=electronics",
+    },
+    {
+      category: "Appliances",
+      url: "/products/query?category=appliances",
+    },
+    {
+      category: "Men's Fashion",
+      url: "/products/query?category=mens_fashions",
+    },
+    {
+      category: "Women's Fashion",
+      url: "/products/query?category=womens_fashions",
+    },
+    {
+      category: "Kids Fashion",
+      url: "/products/query?category=kids_fashions",
+    },
+    {
+      category: "Sports",
+      url: "/products/query?category=sports",
+    },
+    {
+      category: "Toys and Games",
+      url: "/products/query?category=toys_and_games",
+    },
+    {
+      category: "Other",
+      url: "/products/query?category=other",
+    },
   ];
+  const [params] = useSearchParams();
+
+  let queryParam = params.get("category");
+  let searchParam = params.get("search");
   const isLoggedin = true;
   const isSeller = true;
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [choosen, setChoosen] = useState(categories[0]);
+  const [choosen, setChoosen] = useState(categoryURLs[0].category);
   const [queryString, setQueryString] = useState("");
 
-  const handleSearch = (): void => {
-    console.log("search button clicked with query:", queryString);
+  useEffect(() => {
+    categoryURLs.forEach((cat, index) => {
+      let str = cat.url;
+      let pos = str.indexOf("=");
+      let p = str.slice(pos + 1);
+      if (queryParam && p === queryParam) {
+        setChoosen(cat.category);
+      }
+      if (searchParam) {
+        setQueryString(searchParam);
+      }
+    });
+  }, [queryParam]);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    window.open(
+      `http://localhost:3000/products/query?search=${queryString}`,
+      "_blank"
+    );
   };
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -51,7 +103,7 @@ const NavBar = () => {
     };
   return (
     <div className="navbarWrapper">
-      {/* <div className="navWeb">
+      <div className="navWeb">
         <div className="logo">
           <img src="assets/logoWhite.png" alt="nileLogo" />
         </div>
@@ -63,22 +115,29 @@ const NavBar = () => {
               id="basic-nav-dropdown"
               className="dropDownButton"
             >
-              {categories.map((cat, index) => {
+              {categoryURLs.map((cat, index) => {
                 return (
-                  <NavDropdown.Item
+                  <Link
                     key={index}
-                    href="/products"
+                    to={cat.url}
+                    className="dropLink"
                     onClick={() => {
-                      setChoosen(cat);
+                      setChoosen(cat.category);
                     }}
                   >
-                    {cat}
-                  </NavDropdown.Item>
+                    <div
+                      onClick={() => {
+                        setChoosen(cat.category);
+                      }}
+                    >
+                      {cat.category}
+                    </div>
+                  </Link>
                 );
               })}
             </NavDropdown>
           </div>
-          <form onSubmit={handleSearch}>
+          <form onSubmit={(e) => handleSearch(e)}>
             <input
               type="text"
               className="searchField"
@@ -162,7 +221,7 @@ const NavBar = () => {
             </ListItem>
           </List>
         </Drawer>
-      </div> */}
+      </div>
     </div>
   );
 };
