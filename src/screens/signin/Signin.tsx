@@ -101,9 +101,9 @@ const Signin = () => {
                 </div>
               </div>
               <div className="container py-4 h-100">
-                <p className="std-greyText remove-underline">
-                  <p className="std-centerAlign"> New to Nile ?</p>{" "}
-                </p>
+                <div className="std-greyText remove-underline">
+                  <p className="std-centerAlign"> New to Nile ?</p>
+                </div>
                 <div className="d-grid gap-2">
                   <button
                     className="btn btn-secondary std-subHeader1 "
