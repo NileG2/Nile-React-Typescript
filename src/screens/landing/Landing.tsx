@@ -11,9 +11,9 @@ import axios from "axios";
 const Landing = () => {
   const bannerImages = [
     "assets/ad1.jpg",
-    "assets/ad1.jpg",
-    "assets/ad1.jpg",
-    "assets/ad1.jpg",
+    "assets/ad2.jpg",
+    "assets/ad3.jpg",
+    "assets/ad4.jpg",
   ];
 
   // const [loading, setLoading] = useState(false);
