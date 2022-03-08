@@ -1,6 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addNewPayment, setPayment } from '../../../../redux/actions/BuyerPayment'
 
 const DebitCreditCardForm = () => {
+
+  let BuyerPayment = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPayment )
+  let buyerPaymentList = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPaymentList )
+
+  const dispatch = useDispatch()
+
+  const [FormData, setFormData] = useState({
+      
+      card_number : "",
+      cvv : "",
+      expiry_month : "",
+      expiry_year : "",
+      name_on_card : "",
+      payment_type : "debit/credit_card"
+  })
+
+  const onChangeHandler = (e:any)=>{
+      e.preventDefault()
+      setFormData( {...FormData, [e.target.name] : e.target.value})
+  }
+
+  const separateExpiry = (FormData:any)=>{
+    let expiry= FormData.expiry_month
+    FormData.expiry_month = expiry.split('-')[1]
+    FormData.expiry_year = expiry.split('-')[0]
+    return FormData
+  }
+
+  const addDetail = (e:any)=>{
+      e.preventDefault();
+      let NewFormData = separateExpiry(FormData)
+      let BuyerPayment = {BankingInfo : NewFormData}
+      dispatch(setPayment(BuyerPayment))
+      let allPaymentList = buyerPaymentList
+      allPaymentList.push(BuyerPayment)
+      axios.post("http://localhost:9000/api/payment/payment",{
+          BankingInfo : NewFormData
+        }).then((resp)=>{
+          alert("Payment method added Info")
+          dispatch(addNewPayment(allPaymentList))
+        })
+  }
+
   return (
     <div className="std-card" id="menu-1">
       <div className="mb-3">
@@ -10,19 +56,20 @@ const DebitCreditCardForm = () => {
         <input
           type="text"
           className="form-control"
-          id="exampleFormControlInput1"
+          name="card_number"
+          onChange={(e)=> onChangeHandler(e)}
         />
       </div>
       <div className="mb-3 ">
         <label htmlFor="exampleFormControlInput1" className="form-label">
           Expiry Month/Year
         </label> &nbsp;
-        <input type="month" id="expiry" name="expiry" />
+        <input type="month" id="expiry" name="expiry_month" onChange={(e)=> onChangeHandler(e)}/>
         &emsp;
         <label htmlFor="exampleFormControlInput2" className="form-label">
           CVV
         </label>&nbsp;
-        <input type="text" id="expiry" name="expiry" className="col-md-2" />
+        <input type="text" id="expiry" name="cvv" className="col-md-2" onChange={(e)=> onChangeHandler(e)}/>
       </div>
 
       <div className="mb-3">
@@ -32,12 +79,13 @@ const DebitCreditCardForm = () => {
         <input
           type="text"
           className="form-control"
-          id="exampleFormControlInput1"
+          name="name_on_card"
+          onChange={(e)=> onChangeHandler(e)}
         />
       </div>
 
       <div className="d-grid gap-2 d-md-flex justify-content-md-center">
-        <button type="button" className="std-btn std-btnOrange">
+        <button type="button" className="std-btn std-btnOrange" onClick={(e)=> addDetail(e)}>
           Save
         </button>
       </div>

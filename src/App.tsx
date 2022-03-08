@@ -28,7 +28,6 @@ function App() {
         <Route path="/seller-profile" element={<SellerProfileDashboard />}></Route>
         <Route path="/checkout" element={<Checkout />}></Route>
         <Route path="/details" element={<PersonalDetail />}></Route>
-        <Route path="/mydetail" element={<MyDetail />}></Route>
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
