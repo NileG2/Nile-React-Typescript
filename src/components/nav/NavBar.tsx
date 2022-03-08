@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiFillShop } from "react-icons/ai";
-import { MdWavingHand } from "react-icons/md";
+import { MdLogout, MdWavingHand } from "react-icons/md";
 import {
   Drawer,
   List,
@@ -173,10 +173,12 @@ const NavBar = () => {
             <FaShoppingCart />
             &nbsp; My Cart
           </div>
-          <div className="linkItem">
-            <FaHandsHelping />
-            &nbsp; Help
-          </div>
+          <Link to="/signin" style={{ textDecoration: "none" }}>
+            <div className="linkItem">
+              <MdLogout />
+              &nbsp; Logout
+            </div>
+          </Link>
         </div>
       </div>
 
