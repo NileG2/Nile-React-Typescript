@@ -40,9 +40,11 @@ const MyDetail = () => {
 
   const deleteAddress = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id:number)=>{
     e.preventDefault()
-    console.log(id)
     try{
-      axios.delete(`http://localhost:9000/api/user/delete/${id}`)
+      addressList.splice(id,1)
+      console.log(addressList)
+      dispatch(fetchAllAddresses(addressList)); 
+      // axios.delete(`http://localhost:9000/api/user/delete/${id}`)
       alert("data deleted successfully")
     }
     catch(err){

@@ -190,7 +190,7 @@ const initialState = {
       state: "",
       pincode: "",
     },
-    addressList: [],
+    addressList: []
   },
 
   buyerPaymentInfo :{
