@@ -105,7 +105,9 @@ const NavBar = () => {
     <div className="navbarWrapper">
       <div className="navWeb">
         <div className="logo">
-          <img src="assets/logoWhite.png" alt="nileLogo" />
+          <Link to="/">
+            <img src="assets/logoWhite.png" alt="nileLogo" />
+          </Link>
         </div>
         <div className="searchBar">
           <div className="text">Search</div>
