@@ -1,0 +1,11 @@
+.cchWrapper {
+  overflow-x: scroll;
+  position: relative;
+  max-width: 80vw;
+  margin-bottom: 1rem;
+  .seeMoreLink {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+}

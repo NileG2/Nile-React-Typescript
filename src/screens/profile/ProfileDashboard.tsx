@@ -6,7 +6,8 @@ import MyOrders from "./innerScreens/myOrders/MyOrders";
 import Payments from "./innerScreens/payments/Payments";
 import Watchlist from "./innerScreens/watchlist/Watchlist";
 import "./ProfileDashboard.scss";
-import NavBar from '../../components/nav/NavBar'
+import NavBar from "../../components/nav/NavBar";
+import Footer from "../../components/footer/Footer";
 
 const ProfileDashboard = () => {
   const sidebarItems = [
@@ -38,17 +39,18 @@ const ProfileDashboard = () => {
     <div className="std-bg">
       <NavBar />
       <div className="row">
-        <div className='col-2 p-0'>
+        <div className="col-2 p-0">
           <Sidebar
             selectedItemIndex={selectedItemIndex}
             sidebarItems={sidebarItems}
             setSelectedItemIndex={setSelectedItemIndex}
           />
         </div>
-        <div className='col-10 p-0'>
+        <div className="col-10 p-1">
           <div className="main">{renderSelectedScreen()}</div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
