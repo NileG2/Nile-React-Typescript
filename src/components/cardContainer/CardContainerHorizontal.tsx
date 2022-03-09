@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import ProductCardVertical from "../cards/productCards/ProductCardVertical";
@@ -22,9 +22,6 @@ const CardContainerHorizontal = (props: any) => {
           {props.products.map((product: any, index: number) => {
             return <ProductCardVertical key={index} product={product} />;
           })}
-          {/* {products.map((product: any, index: number) => {
-            return <ProductCardVertical key={index} product={product} />;
-          })} */}
         </div>
       </div>
     </div>
