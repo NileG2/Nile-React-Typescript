@@ -1,9 +1,35 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductCardDetails from "../../components/cards/productCards/ProductCardDetails";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
 
 const ProductDetails = () => {
+  const [params] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+
+  let productId = params.get("pid");
+  let category = params.get("category");
+
+  const baseURL = "http://localhost:9000/api";
+
+  useEffect(() => {
+    if (productId !== "") {
+      setLoading(true);
+      axios
+        .get(`${baseURL}/products/${category}/${productId}`)
+        .then((res) => {
+          setLoading(false);
+          console.log(res.data.doc);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    }
+  }, []);
+
   const [product, setProduct] = useState({
     product_name: "Jordan for Mens",
     product_id: "621b9e2f0df9ccbd0e2e5155",
