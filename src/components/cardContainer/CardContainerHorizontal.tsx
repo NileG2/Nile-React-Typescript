@@ -1,49 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import ProductCardVertical from "../cards/productCards/ProductCardVertical";
 import "./CardContainerHorizontal.scss";
 
 const CardContainerHorizontal = (props: any) => {
-  // const [products, setProducts] = useState<any>([
-  //   {
-  //     product_name: "Jordan for Mens",
-  //     product_id: "621b9e2f0df9ccbd0e2e5155",
-  //     image: "https://picsum.photos/100",
-  //     price: 19999,
-  //     brand: "Jordan",
-  //   },
-  //   {
-  //     product_name: "Jordan for women",
-  //     product_id: "621b9e2f0df9ccbd0e2e5155",
-  //     image: "https://picsum.photos/100",
-  //     price: 199,
-  //     brand: "Jordan",
-  //   },
-  //   {
-  //     product_name: "Jordan for kids",
-  //     product_id: "621b9e2f0df9ccbd0e2e5155",
-  //     image: "https://picsum.photos/100",
-  //     price: 199,
-  //     brand: "Jordan",
-  //   },
-  //   {
-  //     product_name: "Jordan for Mens",
-  //     product_id: "621b9e2f0df9ccbd0e2e5155",
-  //     image: "https://picsum.photos/100",
-  //     price: 19999,
-  //     brand: "Jordan",
-  //   },
-  //   {
-  //     product_name: "Jordan for women",
-  //     product_id: "621b9e2f0df9ccbd0e2e5155",
-  //     image: "https://picsum.photos/100",
-  //     price: 199,
-  //     brand: "Jordan",
-  //   },
-  // ]);
-  // const [listName, setListName] = useState("Shoes");
-
   if (!props.products) {
     return <></>;
   }
@@ -61,9 +22,6 @@ const CardContainerHorizontal = (props: any) => {
           {props.products.map((product: any, index: number) => {
             return <ProductCardVertical key={index} product={product} />;
           })}
-          {/* {products.map((product: any, index: number) => {
-            return <ProductCardVertical key={index} product={product} />;
-          })} */}
         </div>
       </div>
     </div>

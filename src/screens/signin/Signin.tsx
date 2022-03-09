@@ -12,7 +12,6 @@ const Signin = () => {
 
   function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    console.log(email + " " + password);
     if (email != null && password.length > 6) {
       axios
         .post("http://localhost:9000/api/login/login", {

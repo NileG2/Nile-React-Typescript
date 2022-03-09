@@ -3,15 +3,47 @@ import ProductCardVertical from "../cards/productCards/ProductCardVertical";
 import "./CardContainerGrid.scss";
 
 const CardContainerGrid = (props: any) => {
+  const [pageNum, setPageNum] = useState(0);
+  const pageSize = 10;
+  const totalPages = Math.round(props.products.length / pageSize + 1);
+
+  if (!props.products) {
+    return <></>;
+  }
   return (
     <div className="row cardDiv">
-      {props.products.map((product: any, index: number) => {
-        return (
-          <div className="col-2" key={index}>
-            <ProductCardVertical key={index} product={product} />
-          </div>
-        );
-      })}
+      {props.products
+        .slice(pageNum * pageSize, (pageNum + 1) * pageSize)
+        .map((product: any, index: number) => {
+          return (
+            <div className="col-2" key={index}>
+              <ProductCardVertical key={index} product={product} />
+            </div>
+          );
+        })}
+      <div className="paginationBar">
+        <button
+          className={`editPageNum std-btn ${
+            pageNum === 0 ? "btnGray" : "std-btnOrange"
+          }`}
+          disabled={pageNum === 0}
+          onClick={() => setPageNum(pageNum - 1)}
+        >
+          {"<"}
+        </button>
+        <span>
+          Page {pageNum + 1} of {totalPages}
+        </span>
+        <button
+          className={`editPageNum std-btn ${
+            pageNum === totalPages - 1 ? "btnGray" : "std-btnOrange"
+          }`}
+          disabled={pageNum === totalPages - 1}
+          onClick={() => setPageNum(pageNum + 1)}
+        >
+          {">"}
+        </button>
+      </div>
     </div>
   );
 };
