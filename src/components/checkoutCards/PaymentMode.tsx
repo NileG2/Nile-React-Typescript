@@ -1,3 +1,4 @@
+import e from 'express'
 import React from 'react'
 
 import CardMethodComponent from '../checkoutCards/CardMethodComponent'
@@ -5,9 +6,11 @@ import NetBankingMethodComponent from '../checkoutCards/NetBankingMethodComponen
 import UPIComponent from '../checkoutCards/UPIComponent'
 
 const PaymentMode = (props:any) => {
-    switch (props.mode.type) {
-        case "Debit Card":
-          return <CardMethodComponent card={props.mode} edit={false} />
+
+
+    switch (props.mode.BankingInfo.payment_type) {
+        case "debit/credit_card":
+          return <CardMethodComponent card={props.mode.BankingInfo} edit={false} />
         case "Credit Card":
           return <CardMethodComponent card={props.mode} edit={false} />
         case "Net Banking":
@@ -17,6 +20,7 @@ const PaymentMode = (props:any) => {
         default:
           return <></>
       }
+    // return <></>
 }
 
 export default PaymentMode

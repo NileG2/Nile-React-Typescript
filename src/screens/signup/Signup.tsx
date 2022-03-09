@@ -10,7 +10,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    const auth = localStorage.getItem("user");
+    const auth = sessionStorage.getItem("user");
     if(auth){
         navigate("/")
     }
@@ -26,7 +26,7 @@ const Signup = () => {
         })
         .then((resp) => {
           alert("SignedUp Added Successfully");
-          localStorage.setItem("user1", JSON.stringify(email));
+          sessionStorage.setItem("useremail", JSON.stringify( {email:email, userid:resp.data.userid }));
           navigate("/details");
         })
         .catch((err) => {
@@ -50,7 +50,7 @@ const Signup = () => {
               marginRight: "auto",
               marginTop: "5rem",
               display: "block",
-            }}
+            }} 
           />
           <div className="row d-flex justify-content-center  align-items-center h-85">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">

@@ -23,13 +23,15 @@ const Payments = () => {
   
   const buyerPaymentInfo = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPaymentList )
   const BuyerPayment  = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPayment  )
-
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const [BankingInfo, setBankingInfo] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:9000/api/payment/").then(async ({ data }) => {
+    
+    axios.post("http://localhost:9000/api/payment/",{
+      userid : auth['userid']
+    }).then(async ({ data }) => {
       setBankingInfo(data.status.Transactions);
       dispatch(getPayment(data.status.Transactions))
-      console.log(BuyerPayment)
     });
   }, [dispatch]);
 

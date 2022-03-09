@@ -17,19 +17,21 @@ export default function PersonalDetail() {
   const [alternatemobile, setalternatemobile] = useState("");
   const navigate = useNavigate();
 
-  let auth1 = JSON.parse(localStorage.getItem("user1") || "{}");
-  let auth = JSON.parse(localStorage.getItem("user") || "{}");
+  // let auth1 = JSON.parse(localStorage.getItem("user1") || "{}");
+  // let auth = JSON.parse(localStorage.getItem("user") || "{}");
+  let auth1 = JSON.parse(sessionStorage.getItem("useremail")|| "{}");
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    if(!auth1['user1']){
+    if(!auth1['email']){
       navigate('/signup')
     }
 
-    if(auth){
+    if(auth["userid"]){
       navigate('/')
     }  
     else{
-      setemail(auth1);
+      setemail(auth1['email']);
     }  
     
   }, []);
@@ -49,7 +51,8 @@ export default function PersonalDetail() {
       alternatemobile.length === 10
     ) {
       axios
-        .post("http://localhost:9000/api/detail/add", {
+        .post("http://localhost:9000/api/user/add", {
+          userid : auth1['userid'],
           Address: {
             country: country,
             address_line_1: address,
@@ -63,9 +66,11 @@ export default function PersonalDetail() {
             mobile: mobile,
             alternate_mobile: alternatemobile,
           },
+          
         })
         .then((resp) => {
           alert("Details filled Successfully");
+          sessionStorage.removeItem("useremail")
           navigate("/signin");
         })
         .catch((err) => {

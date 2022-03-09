@@ -68,16 +68,17 @@ const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [choosen, setChoosen] = useState(categoryURLs[0].category);
   const [queryString, setQueryString] = useState("");
-  const auth = localStorage.getItem("user");
+  const auth = sessionStorage.getItem("user");
   const navigate = useNavigate()
 
 
   const handleLogout = ():void =>{
     axios.post("http://localhost:9000/api/login/logout").then((res)=>{
       alert("User signed out successfully")
-      localStorage.removeItem("user1")
-      localStorage.removeItem("user")
-      navigate("/")
+      // localStorage.removeItem("user1")
+      // localStorage.removeItem("user")
+      sessionStorage.removeItem("user")
+      navigate("/products")
     }).catch(err=>{
       console.log(err)
     })

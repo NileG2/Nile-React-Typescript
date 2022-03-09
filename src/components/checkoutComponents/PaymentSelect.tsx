@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStep } from '../../redux/actions/Checkout'
 
@@ -9,6 +10,16 @@ const PaymentSelect = () => {
   const dispatch = useDispatch()
   const steps = useSelector((state: any) => state.checkout.steps)
   const currStepIndex = useSelector((state: any) => state.checkout.step)
+
+  const [BankingInfo, setBankingInfo] = useState([])
+  useEffect(() => {
+    axios.get("http://localhost:9000/api/payment/").then(async ({ data }) => {
+      setBankingInfo(data.status.Transactions);
+      
+    });
+  }, [dispatch]);
+
+
 
   const [avaibleModes, setAvailableModes] = useState<any>([{
     type: "Debit Card",
@@ -35,7 +46,7 @@ const PaymentSelect = () => {
       provider: "GooglePay"
     }
   }])
-  const [currMode, setCurrMode] = useState(avaibleModes[0])
+  const [currMode, setCurrMode] = useState(BankingInfo[0])
 
   function handleSelectMode(index:number){
     setCurrMode(avaibleModes[index])
@@ -54,11 +65,12 @@ const PaymentSelect = () => {
         <div className='col'>
           <div className='m-2'>
             <p className='std-font2'>Selected Payment Mode</p>
-            <PaymentMode mode={currMode} />
+            
+            <PaymentMode mode={BankingInfo[0]} />
           </div>
           <div className='m-2'>
             <p className='std-font2'>Selecte from available Payment Mode</p>
-            <ul className='std-ul'>
+            {/* <ul className='std-ul'>
               {
                 avaibleModes.map((mode: any, index: number) => {
                   return <li className='m-2' key={index}>
@@ -69,7 +81,7 @@ const PaymentSelect = () => {
                   </li>
                 })
               }
-            </ul>
+            </ul> */}
           </div>
         </div>
         <div className='col'>

@@ -31,7 +31,8 @@ const DebitCreditCardForm = () => {
     FormData.expiry_year = expiry.split('-')[0]
     return FormData
   }
-
+  
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const addDetail = (e:any)=>{
       e.preventDefault();
       let NewFormData = separateExpiry(FormData)
@@ -39,7 +40,8 @@ const DebitCreditCardForm = () => {
       dispatch(setPayment(BuyerPayment))
       let allPaymentList = buyerPaymentList
       allPaymentList.push(BuyerPayment)
-      axios.post("http://localhost:9000/api/payment/",{
+      axios.post("http://localhost:9000/api/payment/add",{
+          userid : auth['userid'],
           BankingInfo : NewFormData
         }).then((resp)=>{
           alert("Payment method added Info")

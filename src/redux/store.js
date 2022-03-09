@@ -188,9 +188,11 @@ const initialState = {
       city: "",
       country: "",
       state: "",
-      pincode: "",
+      pincode: ""
     },
-    addressList: []
+    addressList: [
+      
+    ]
   },
 
   buyerPaymentInfo :{

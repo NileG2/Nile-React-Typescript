@@ -23,13 +23,15 @@ const NetBankingForm = () => {
         setFormData( {...FormData, [e.target.name] : e.target.value})
     }
 
+    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
     const addDetail = (e:any)=>{
         e.preventDefault();
         let BuyerPayment = {BankingInfo : FormData}
         dispatch(setPayment(BuyerPayment))
         let allPaymentList = buyerPaymentList
         allPaymentList.push(BuyerPayment)
-        axios.post("http://localhost:9000/api/payment/",{
+        axios.post("http://localhost:9000/api/payment/add",{
+            userid : auth['userid'],
             BankingInfo : FormData
           }).then((resp)=>{
             alert("Payment method added Info")

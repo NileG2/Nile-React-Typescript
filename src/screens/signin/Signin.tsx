@@ -10,13 +10,13 @@ const Signin = () => {
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
 
-
-  useEffect(()=>{
-    const auth = localStorage.getItem("user");
-    if(auth){
-        navigate("/")
+  useEffect(() => {
+    // const auth = localStorage.getItem("user");
+    const auth = sessionStorage.getItem("user");
+    if (auth) {
+      navigate("/");
     }
-  },[])
+  }, []);
 
   function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -27,14 +27,27 @@ const Signin = () => {
           password: password,
         })
         .then((resp) => {
-          axios.get("http://localhost:9000/api/user/").then( ({data}) => {
-            localStorage.setItem("user", JSON.stringify({email: email, username: data.status[0].Contact.username }));
-            alert("User Signedin Successfully");
-            navigate("/");
-          }).catch(err=>{
-            console.log(err);
-          });
-          
+          // sessionStorage.setItem("userid", resp.data.userid)
+          axios
+            .post("http://localhost:9000/api/user/", {
+              userid: resp.data.userid,
+            })
+            .then((res) => {
+              console.log(res.data.status[0])
+              sessionStorage.setItem(
+                "user",
+                JSON.stringify({
+                  email: email,
+                  username: res.data.status[0].Contact.username || " ",
+                  userid: resp.data.userid,
+                })
+              );
+              alert("User Signedin Successfully");
+              navigate("/products");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           alert("Something went wrong");
