@@ -45,14 +45,7 @@ const ProductSizes = () => {
 
       </div>
       <br />
-      <div className="d-flex justify-content-center">
-        <button
-          className="std-btn std-btnOrange"
-          style={{ width: "10rem" }}
-        >
-          Save
-        </button>
-      </div>
+      
     </form>
   )
 }

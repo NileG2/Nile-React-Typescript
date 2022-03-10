@@ -17,7 +17,7 @@ const AddProductFormContainer = (props:any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const [sellerDetails, setSellerDetails] = useState<any>({});
   const [loading, setLoading] = useState(true);
-
+  console.log(props.inventory)
 
 
   const addProductToMongoAndFirestore = (e:any)=>{
@@ -34,7 +34,7 @@ const AddProductFormContainer = (props:any) => {
     available_quantity : parseInt(product.available_quantity),
     buying_options : product.buying_options,
     product_images : product.images,
-    inventory_id : props.inventory.inventory_id,
+    inventory_id : props.inventory,
     rating_id : ""
   }
 
@@ -107,6 +107,7 @@ const AddProductFormContainer = (props:any) => {
       })
       .then((res) => {
         setLoading(false);
+        console.log(res.data.business)
         setSellerDetails(res.data.business);
       })
       .catch((err) => {
@@ -179,7 +180,7 @@ const AddProductFormContainer = (props:any) => {
       </div>
 
       <div className="d-grid gap-2">
-        <button className="btn btn-primary" type="button" onClick={(e)=>{addProductToMongoAndFirestore(e)}}>Save</button>
+        <button className="std-btn std-btnOrange" type="button" onClick={(e)=>{addProductToMongoAndFirestore(e)}}>Save</button>
       </div>
 
     </div>

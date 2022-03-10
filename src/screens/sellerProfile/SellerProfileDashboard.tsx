@@ -22,7 +22,7 @@ const SellerProfileDashboard = () => {
 
   const [selectedItemIndex, setSelectedItemIndex] = useState(3);
   const navigate = useNavigate();
-  let [inventory, setInventory] = useState<any>([]);
+  const [inventory, setInventory] = useState<any>([]);
 
   let inventoryInfo = useSelector((state:any)=>state.productDetail.inventoryInfo)
   let dispatch = useDispatch()
@@ -34,7 +34,8 @@ const SellerProfileDashboard = () => {
           userid: auth["userid"],
         })
         .then(({ data }) => {
-          setInventory(data.Orders)
+          console.log(data.inventory_id)
+          setInventory(data.inventory_id)
         })
         .catch((err) => {
           toast.error(`${err}`);

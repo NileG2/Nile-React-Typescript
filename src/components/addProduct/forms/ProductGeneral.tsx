@@ -64,11 +64,6 @@ const ProductGeneral = (props: any) => {
   }, [available_quantity, brand, dispatch, name, price, product, sector]);
 
 
-  const sendData = (e: any) => {
-    e.preventDefault();
-    dispatch(createProduct(product));
-  };
-
   return (
     <form className="std-card m-2">
       <p className="std-font2">General Product Information</p>
@@ -128,15 +123,7 @@ const ProductGeneral = (props: any) => {
         ></input>
       </div>
       <br />
-      <div className="d-flex justify-content-center">
-        <button
-          className="std-btn std-btnOrange"
-          style={{ width: "10rem" }}
-          onClick={(e) => sendData(e)}
-        >
-          Save
-        </button>
-      </div>
+      
     </form>
   );
 };
