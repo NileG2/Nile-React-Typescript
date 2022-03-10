@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const categoryURLs = [
@@ -69,20 +70,20 @@ const NavBar = () => {
   const [choosen, setChoosen] = useState(categoryURLs[0].category);
   const [queryString, setQueryString] = useState("");
   const auth = sessionStorage.getItem("user");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-
-  const handleLogout = ():void =>{
-    axios.post("http://localhost:9000/api/login/logout").then((res)=>{
-      alert("User signed out successfully")
-      // localStorage.removeItem("user1")
-      // localStorage.removeItem("user")
-      sessionStorage.removeItem("user")
-      navigate("/products")
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+  const handleLogout = (): void => {
+    axios
+      .post("http://localhost:9000/api/login/logout")
+      .then((res) => {
+        toast.success("User signed out successfully");
+        sessionStorage.removeItem("user");
+        navigate("/signin");
+      })
+      .catch((err) => {
+        toast.error(`Some error occured`);
+      });
+  };
 
   useEffect(() => {
     categoryURLs.forEach((cat, index) => {
@@ -169,35 +170,51 @@ const NavBar = () => {
         </div>
         <div className="links">
           {auth ? (
-            <div className="linkItem">
+            <div className="linkItem" onClick={() => navigate("/profile")}>
               <MdWavingHand /> Hi, {JSON.parse(auth).username.split(" ")[0]}
             </div>
           ) : (
-            <Link to="/signin" className="linkItem" style={{textDecoration:"none"}}>
+            <Link
+              to="/signin"
+              className="linkItem"
+              style={{ textDecoration: "none" }}
+            >
               <FaUserAlt />
               &nbsp; Sign In
             </Link>
           )}
 
           {isSeller && (
-            <div className="linkItem">
+            <div
+              className="linkItem"
+              onClick={() => navigate("/seller-profile")}
+            >
               <AiFillShop />
               &nbsp; Seller Profile
             </div>
           )}
-          <div className="linkItem">
-            <FaShoppingCart />
-            &nbsp; My Cart
-          </div>
-          { auth ? 
-          <div style={{ textDecoration: "none" }} onClick={()=> handleLogout()}>
-            <div className="linkItem">
-              <MdLogout />
-              &nbsp; Logout
+
+          {auth ? (
+            <div className="linkItem" onClick={() => navigate("/cart")}>
+              <FaShoppingCart />
+              &nbsp; My Cart
             </div>
-          </div>
-          : " "
-        }
+          ) : (
+            ""
+          )}
+          {auth ? (
+            <div
+              style={{ textDecoration: "none" }}
+              onClick={() => handleLogout()}
+            >
+              <div className="linkItem">
+                <MdLogout />
+                &nbsp; Logout
+              </div>
+            </div>
+          ) : (
+            " "
+          )}
         </div>
       </div>
 

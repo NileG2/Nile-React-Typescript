@@ -14,9 +14,10 @@ import Checkout from "./screens/checkout/Checkout";
 import PersonalDetail from "./screens/personalDetail/PersonalDetail";
 import QueryScreen from "./screens/queryScreen/QueryScreen";
 import Invoice from "./screens/invoice/Invoice";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  
   return (
     <div className="App">
       <Routes>
@@ -38,6 +39,17 @@ function App() {
         {/* testing */}
         <Route path="/test" element={<Test />}></Route>
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

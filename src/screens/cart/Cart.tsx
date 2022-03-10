@@ -34,7 +34,7 @@ const Cart = () => {
           <CartCard />
         </div>
         <div className="col-3">
-          <CheckoutSidebar />
+          <CheckoutSidebar isCheckout={false} />
         </div>
       </div>
       <Footer />

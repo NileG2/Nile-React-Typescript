@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalDetail.scss";
 import NavBar from "../../components/nav/NavBar";
+import { PushSpinner } from "react-spinners-kit";
+import { toast } from "react-toastify";
 
 export default function PersonalDetail() {
   const [email, setemail] = useState("");
@@ -16,24 +18,23 @@ export default function PersonalDetail() {
   const [mobile, setmobile] = useState("");
   const [alternatemobile, setalternatemobile] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // let auth1 = JSON.parse(localStorage.getItem("user1") || "{}");
   // let auth = JSON.parse(localStorage.getItem("user") || "{}");
-  let auth1 = JSON.parse(sessionStorage.getItem("useremail")|| "{}");
+  let auth1 = JSON.parse(sessionStorage.getItem("useremail") || "{}");
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    if(!auth1['email']){
-      navigate('/signup')
+    if (!auth1["email"]) {
+      navigate("/signup");
     }
 
-    if(auth["userid"]){
-      navigate('/')
-    }  
-    else{
-      setemail(auth1['email']);
-    }  
-    
+    if (auth["userid"]) {
+      navigate("/");
+    } else {
+      setemail(auth1["email"]);
+    }
   }, []);
 
   function addUserDetails(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -50,9 +51,10 @@ export default function PersonalDetail() {
       mobile.length === 10 &&
       alternatemobile.length === 10
     ) {
+      setLoading(true);
       axios
         .post("http://localhost:9000/api/user/add", {
-          userid : auth1['userid'],
+          userid: auth1["userid"],
           Address: {
             country: country,
             address_line_1: address,
@@ -66,18 +68,18 @@ export default function PersonalDetail() {
             mobile: mobile,
             alternate_mobile: alternatemobile,
           },
-          
         })
         .then((resp) => {
-          alert("Details filled Successfully");
-          sessionStorage.removeItem("useremail")
+          setLoading(false);
+          toast.success("Details saved Successfully");
+          sessionStorage.removeItem("useremail");
           navigate("/signin");
         })
         .catch((err) => {
-          alert("Something went wrong");
+          toast.error("Something went wrong");
         });
     } else {
-      alert("Please enter valid details");
+      toast.info("Please enter valid details");
     }
   }
 
@@ -229,7 +231,11 @@ export default function PersonalDetail() {
                       type="submit"
                       onClick={(e) => addUserDetails(e)}
                     >
-                      Continue
+                      {loading ? (
+                        <PushSpinner color="#000000" size={22} />
+                      ) : (
+                        `Continue`
+                      )}
                     </button>
                   </div>
                 </form>

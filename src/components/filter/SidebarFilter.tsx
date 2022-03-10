@@ -80,9 +80,9 @@ const SidebarFilter = (props: any) => {
       }
 
       if (props.operation === "search") {
-        let all = [...allSearchProducts];
+        let all = [...props.searchProducts];
         let filtered = all.filter((cat: any) => val.includes(cat.category));
-        props.setSearchProducts(filtered);
+        props.setSearchProducts([...filtered]);
       }
     };
     handleDeptFilter();

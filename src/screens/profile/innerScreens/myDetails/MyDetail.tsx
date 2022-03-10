@@ -3,59 +3,61 @@ import "./MyDetail.scss";
 import AddressForm from "../../../../components/forms/AddressForm";
 import axios from "axios";
 
-import { useDispatch,useSelector } from "react-redux";
-import {fetchAllAddresses} from '../../../../redux/actions/UserDetails'
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllAddresses } from "../../../../redux/actions/UserDetails";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const MyDetail = () => {
-
-  const addressList = useSelector((state:any)=>state.userDetails.addressList)
-  const dispatch = useDispatch()
-  const [users1, setusers1] = useState(
-    {
-        email: "",
-        mobile: "",
-        userId: "",
-        username: ""
-    }
+  const addressList = useSelector(
+    (state: any) => state.userDetails.addressList
   );
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [users1, setusers1] = useState({
+    email: "",
+    mobile: "",
+    userId: "",
+    username: "",
+  });
 
   const [userId, setUserId] = useState("");
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   useEffect(() => {
     axios
-      .post("http://localhost:9000/api/user/",{
-        userid :auth['userid']
+      .post("http://localhost:9000/api/user/", {
+        userid: auth["userid"],
       })
       .then(({ data }) => {
-        setUserId(data.status[0].userId)
-        console.log(data.status[0].Contact.email)
+        setUserId(data.status[0].userId);
+        console.log(data.status[0].Contact.email);
         setusers1(data.status[0].Contact);
-        dispatch(fetchAllAddresses(data.status[0].Address)); 
+        dispatch(fetchAllAddresses(data.status[0].Address));
       })
       .catch((err) => {
-        alert(err);
+        toast.error(`${err}`);
       });
   }, [dispatch]);
 
-  
-  const deleteAddress = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id:number)=>{
-    e.preventDefault()
-    try{
-      let data = addressList.filter((ele:any,ind:number)=>{ return ind !==id })
-      axios.delete(`http://localhost:9000/api/user/delete/${id}`,{
-        data : {userid : auth['userid']}
-      })
-      alert("data deleted successfully")
-      dispatch(fetchAllAddresses(data)); 
+  const deleteAddress = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.preventDefault();
+    try {
+      let data = addressList.filter((ele: any, ind: number) => {
+        return ind !== id;
+      });
+      axios.delete(`http://localhost:9000/api/user/delete/${id}`, {
+        data: { userid: auth["userid"] },
+      });
+      alert("data deleted successfully");
+      dispatch(fetchAllAddresses(data));
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-
-  }
+  };
 
   return (
     <div className="std-bg">
@@ -117,11 +119,10 @@ const MyDetail = () => {
               </div>
             </form>
 
-
-            {addressList.map((it:any, i:number) => (
+            {addressList.map((it: any, i: number) => (
               <div key={i}>
                 <div className="row m-1 py-3">
-                  <label className="col-2 std-subHeader1">{i+1} </label>
+                  <label className="col-2 std-subHeader1">{i + 1} </label>
                   <div className="card col-10 std-card std-font1">
                     <div className="card-body">
                       {it["address_line_1"] +
@@ -138,20 +139,21 @@ const MyDetail = () => {
                     </div>
                   </div>
                 </div>
-              
 
-              <div className="row m-1 py-3">
-              
-              <label className="col-2"> </label>
-              <button type="button" className="std-btn std-btnOrange col-4"
-              onClick={(e)=>{deleteAddress(e,i)}}
-               >
-                Remove
-              </button>
+                <div className="row m-1 py-3">
+                  <label className="col-2"> </label>
+                  <button
+                    type="button"
+                    className="std-btn std-btnOrange col-4"
+                    onClick={(e) => {
+                      deleteAddress(e, i);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-              </div>
-              ))} 
-
+            ))}
           </div>
         </div>
 
