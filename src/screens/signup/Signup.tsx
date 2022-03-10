@@ -54,20 +54,20 @@ const Signup = () => {
             src={"assets/logoBlack.png"}
             alt="ImagePic"
             style={{
-              width: "150px",
-              height: "100px",
+              width: "120px",
+              height: "80px",
               marginLeft: "auto",
               marginRight: "auto",
-              marginTop: "5rem",
+              marginTop: "2rem",
               display: "block",
             }}
           />
           <div className="row d-flex justify-content-center  align-items-center h-85">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
               <div className="card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-5 std-card">
+                <div className="card-body p-4 std-card">
                   <div className="mb-md-1 mt-md-1 pb-1">
-                    <h2 className="fw-bold mb-2 text-uppercase">
+                    <h2 className="fw-bold mb-1 text-uppercase">
                       Create Account
                     </h2>
                     <br />
@@ -79,7 +79,7 @@ const Signup = () => {
                       <input
                         type="email"
                         id="typeEmailX"
-                        className="form-control form-control-lg"
+                        className="form-control form-control-md"
                         value={email}
                         onChange={(e) => setemail(e.target.value)}
                         required
@@ -93,7 +93,7 @@ const Signup = () => {
                       <input
                         type="password"
                         id="typePasswordX"
-                        className="form-control form-control-lg"
+                        className="form-control form-control-md"
                         value={password}
                         onChange={(e) => setpassword(e.target.value)}
                         required
@@ -101,7 +101,7 @@ const Signup = () => {
                       <span> Password must be at least 6 characters </span>
                     </div>
 
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-1">
                       <button
                         className="std-btn std-btnOrange std-subHeader1"
                         type="submit"
@@ -131,11 +131,11 @@ const Signup = () => {
                   </div>
                 </div>
               </div>
-              <div className="container py-4 h-100">
+              <div className="container py-3 h-80">
                 <p className="std-greyText remove-underline">
                   <p className="std-centerAlign"> Already a customer ?</p>{" "}
                 </p>
-                <div className="d-grid gap-2">
+                <div className="d-grid gap-1">
                   <button
                     className="btn btn-secondary std-subHeader1 "
                     type="button"

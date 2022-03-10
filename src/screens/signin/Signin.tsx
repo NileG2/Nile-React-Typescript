@@ -46,9 +46,8 @@ const Signin = () => {
                 JSON.stringify({
                   email: email,
                   username: res.data.status[0].Contact.username || " ",
-                  isSeller :res.data.status[0].isSeller,
-                  userid: resp.data.userid
-                  
+                  isSeller: res.data.status[0].isSeller,
+                  userid: resp.data.userid,
                 })
               );
               toast.success("Signed in successfully");
@@ -71,8 +70,8 @@ const Signin = () => {
 
   return (
     <div className="signinuser">
-      <section className="vh-100 gradient-custom ">
-        <div className="container py-5 h-100 ">
+      <section className="vh-90 gradient-custom ">
+        <div className="container py-2 h-80 ">
           <img
             src={"assets/logoBlack.png"}
             alt="ImagePic"
@@ -81,9 +80,9 @@ const Signin = () => {
           <div className="row d-flex justify-content-center  align-items-center h-100 ">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
               <div className="card std-card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-5 ">
+                <div className="card-body p-2 ">
                   <div className="mb-md-1 mt-md-1 pb-1">
-                    <h2 className="fw-bold mb-2 text-uppercase">Sign-In</h2>
+                    <h2 className="fw-bold mb-1 text-uppercase">Sign-In</h2>
                     <br />
 
                     <div className="form-outline form-white mb-4">
@@ -93,28 +92,28 @@ const Signin = () => {
                       <input
                         type="email"
                         id="typeEmailX"
-                        className="form-control form-control-lg"
+                        className="form-control form-control-md"
                         value={email}
                         onChange={(e) => setemail(e.target.value)}
                         required
                       />
                     </div>
 
-                    <div className="form-outline form-white mb-4">
+                    <div className="form-outline form-white mb-3">
                       <label className="form-label" htmlFor="typePasswordX">
                         Password
                       </label>
                       <input
                         type="password"
                         id="typePasswordX"
-                        className="form-control form-control-lg"
+                        className="form-control form-control-md"
                         value={password}
                         onChange={(e) => setpassword(e.target.value)}
                         required
                       />
                     </div>
 
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-1">
                       <button
                         className="std-btn std-btnOrange std-subHeader1"
                         type="submit"
@@ -147,7 +146,7 @@ const Signin = () => {
                   </div>
                 </div>
               </div>
-              <div className="container py-4 h-100">
+              <div className="container py-2 h-80">
                 <div className="std-greyText remove-underline">
                   <p className="std-centerAlign"> New to Nile ?</p>
                 </div>

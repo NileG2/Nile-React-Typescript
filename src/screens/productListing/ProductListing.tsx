@@ -30,7 +30,7 @@ const ProductListing = () => {
     );
 
   return (
-    <div className="std-bg">
+    <div className="std-bg productListingWrapper">
       <NavBar />
       {/* <div className='d-flex'>
         <SidebarFilter />
@@ -39,7 +39,7 @@ const ProductListing = () => {
           <CardContainerHorizontal />
         </div>
       </div> */}
-      <h2 className="std-smallHeader m-3">
+      <h2 className="std-smallHeader m-3 topHeader">
         Choose from a variety of quality products
       </h2>
       <div className="content">
