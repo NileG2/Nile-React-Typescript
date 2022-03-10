@@ -13,7 +13,7 @@ const Checkout = () => {
           <CheckoutContainer />
         </div>
         <div className="col-3">
-          <CheckoutSidebar />
+          <CheckoutSidebar isCheckout={true}/>
         </div>
       </div>
       <Footer />
