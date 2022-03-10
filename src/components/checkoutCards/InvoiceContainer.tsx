@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const InvoiceHeader = (props: any) => {
     return <div className='position-relative'>
@@ -29,8 +30,8 @@ const OrderDetails = (props: any) => {
 
     function getTotal() {
         let total = 0
-        props.orderProductDetails.orderedProducts.map((product: any, index: number) => {
-            total += product.payable_amount
+        props.cartProducts.map((product: any, index: number) => {
+            total += product.price*product.quantity
         })
         return total.toFixed(2)
     }
@@ -39,17 +40,17 @@ const OrderDetails = (props: any) => {
         <p className='std-boldFont std-font2'>Product Details</p>
         <ul className='std-ul'>
             {
-                props.orderProductDetails.orderedProducts.map((product: any, index: number) => {
+                props.cartProducts.map((product: any, index: number) => {
                     return <li key={index} className='m-2'>
                         <div className='row'>
                             <div className='col'>
                                 <p className='std-boldFont m-0'>{index + 1}. {product.product_name}</p>
                                 <p className='std-font1 m-0'>Product Id: {product.product_id}</p>
-                                <p className='std-font1 m-0'>Quantity: {product.product_quantity}</p>
+                                <p className='std-font1 m-0'>Quantity: {product.quantity}</p>
                             </div>
                             <div className='col'>
                                 <p className='text-end std-font1 m-0'>Price</p>
-                                <p className='text-end std-boldFont std-font1 m-0'>{product.payable_amount.toFixed(2)} INR</p>
+                                <p className='text-end std-boldFont std-font1 m-0'>{(product.price*product.quantity).toFixed(2)} INR</p>
                             </div>
                         </div>
                     </li>
@@ -71,11 +72,11 @@ const OrderDetails = (props: any) => {
 const AddressDetails = (props: any) => {
     return <div className='m-2'>
         <p className='m-0'>Name: {props.address.name}</p>
-        <p className='m-0'>email: {props.address.email}</p>
-        <p className='m-0'>phone: {props.address.contact}</p>
-        <p className='m-0'>Address: {props.address.addressLine1}</p>
-        <p className='m-0'>{props.address.addressLine2}</p>
-        <p className='m-0'>{props.address.city} ,{props.address.state} ,{props.address.country}</p>
+        <p className='m-0'>email: {props.contact.email}</p>
+        <p className='m-0'>phone: {props.contact.mobile}</p>
+        <p className='m-0'>Address: {props.address.line1}</p>
+        <p className='m-0'>{props.address.line2}</p>
+        {/* <p className='m-0'>{props.address.city} ,{props.address.state} ,{props.address.country}</p> */}
         <p className='m-0'>{"Pincode:" + props.address.pincode}</p>
     </div>
 }
@@ -119,53 +120,34 @@ const TransactionDetails = (props: any) => {
     </div>
 }
 
-const InvoiceContainer = (props: any) => {
+const InvoiceContainer = () => {
 
-    const deliveryAddress = {
-        type: "Delivery Address",
-        name: "Aditya Dawadikar",
-        email: "adityadawadikar2000@gmail.com",
-        contact: "9850221407",
-        addressLine1: "201-A, Uday glorious park",
-        addressLine2: "Gurdwara colony, Akurdi",
-        city: "Pune",
-        state: "Maharashtra",
-        country: "India",
-        pincode: "411033"
-    }
-    const billingAddress = {
-        type: "Billing Address",
-        name: "Aditya Dawadikar",
-        email: "adityadawadikar2000@gmail.com",
-        contact: "9850221407",
-        addressLine1: "201-A, Uday glorious park",
-        addressLine2: "Gurdwara colony, Akurdi",
-        city: "Pune",
-        state: "Maharashtra",
-        country: "India",
-        pincode: "411033"
-    }
+    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
-    const OrderProductDetails = {
-        orderedProducts: [
-            {
-                product_id: "abfl3wlifl2ufqwivg",
-                product_name: "fbiqlbo2ngo",
-                product_quantity: 2,
-                payable_amount: 1299,
-            }, {
-                product_id: "wqf2l2ufqwivg",
-                product_name: "fg32qf2go",
-                product_quantity: 1,
-                payable_amount: 599,
-            }, {
-                product_id: "w3g2o2g3gl2ufqwivg",
-                product_name: "h23g2fqo2",
-                product_quantity: 1,
-                payable_amount: 128.50,
-            }
-        ]
-    }
+    const deliveryAddress = useSelector((state:any)=>state.checkout.deliveryAddress)
+    const billingAddress = useSelector((state:any)=>state.checkout.billingAddress)
+    const cartProducts = useSelector((state:any)=>state.cart.userCart)
+
+    // const OrderProductDetails = {
+    //     orderedProducts: [
+    //         {
+    //             product_id: "abfl3wlifl2ufqwivg",
+    //             product_name: "fbiqlbo2ngo",
+    //             product_quantity: 2,
+    //             payable_amount: 1299,
+    //         }, {
+    //             product_id: "wqf2l2ufqwivg",
+    //             product_name: "fg32qf2go",
+    //             product_quantity: 1,
+    //             payable_amount: 599,
+    //         }, {
+    //             product_id: "w3g2o2g3gl2ufqwivg",
+    //             product_name: "h23g2fqo2",
+    //             product_quantity: 1,
+    //             payable_amount: 128.50,
+    //         }
+    //     ]
+    // }
 
     const transaction = {
         transaction_id: "bfbifq2wcbwib",
@@ -185,18 +167,18 @@ const InvoiceContainer = (props: any) => {
     }
 
     return (
-        <div className='container'>
+        <div className='std-card p-5 my-5'>
             <InvoiceHeader invoice={invoice}/>
-            <OrderDetails orderProductDetails={OrderProductDetails} />
+            <OrderDetails cartProducts={cartProducts} />
             <div className='std-box p-3'>
                 <div className='row'>
                     <div className='col'>
                         <p className='std-font2 m-0 std-boldFont'>Billing Address</p>
-                        <AddressDetails address={billingAddress} />
+                        <AddressDetails address={billingAddress} contact={auth}/>
                     </div>
                     <div className='col'>
                         <p className='std-font2 std-boldFont'>Shipping Address</p>
-                        <AddressDetails address={deliveryAddress} />
+                        <AddressDetails address={deliveryAddress} contact={auth} />
                     </div>
                 </div>
 

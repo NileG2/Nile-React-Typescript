@@ -15,8 +15,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [email, setemail] = useState("");
-
   const productsFromCart = useSelector((state: any) => state.cart.userCart);
 
   const baseUrl = "http://localhost:9000/api/cart";
