@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { PushSpinner } from "react-spinners-kit";
+import { CircleSpinner } from "react-spinners-kit";
 import CardContainerHorizontal from "../../components/cardContainer/CardContainerHorizontal";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
@@ -25,7 +25,7 @@ const ProductListing = () => {
   if (loading)
     return (
       <div className="loadingDiv">
-        <PushSpinner size={30} color="#232f3e" />
+        <CircleSpinner size={30} color="#232f3e" />
       </div>
     );
 

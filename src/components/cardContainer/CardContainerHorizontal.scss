@@ -1,11 +1,21 @@
 .cchWrapper {
   overflow-x: scroll;
   position: relative;
-  max-width: 80vw;
+  max-width: 100vw;
   margin-bottom: 1rem;
+  margin: 2rem 2vw !important;
+
   .seeMoreLink {
     position: absolute;
     right: 1rem;
     top: 1rem;
+  }
+  .products {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 }

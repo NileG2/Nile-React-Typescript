@@ -4,7 +4,7 @@ import "./Signin.scss";
 import { BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { PushSpinner } from "react-spinners-kit";
+import { CircleSpinner } from "react-spinners-kit";
 import { toast } from "react-toastify";
 
 const Signin = () => {
@@ -119,7 +119,7 @@ const Signin = () => {
                         onClick={(e) => signinUser(e)}
                       >
                         {loading ? (
-                          <PushSpinner color="#000000" size={22} />
+                          <CircleSpinner color="#000000" size={22} />
                         ) : (
                           `Sign-In`
                         )}
@@ -130,7 +130,7 @@ const Signin = () => {
                         type="button"
                       >
                         {loading2 ? (
-                          <PushSpinner color="#000000" size={22} />
+                          <CircleSpinner color="#000000" size={22} />
                         ) : (
                           <span>
                             <BsGoogle /> &nbsp;&nbsp;Continue with Google

@@ -11,15 +11,17 @@ const CardContainerGrid = (props: any) => {
   }
   return (
     <div className="row cardDiv">
-      {props.products
-        .slice(pageNum * pageSize, (pageNum + 1) * pageSize)
-        .map((product: any, index: number) => {
-          return (
-            <div className="col-2" key={index}>
-              <ProductCardVertical key={index} product={product} />
-            </div>
-          );
-        })}
+      <div className="products">
+        {props.products
+          .slice(pageNum * pageSize, (pageNum + 1) * pageSize)
+          .map((product: any, index: number) => {
+            return (
+              <div className="col-2" key={index}>
+                <ProductCardVertical key={index} product={product} />
+              </div>
+            );
+          })}
+      </div>
       <div className="paginationBar">
         <button
           className={`editPageNum std-btn ${
