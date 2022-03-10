@@ -39,7 +39,6 @@ const Signin = () => {
               userid: resp.data.userid,
             })
             .then((res) => {
-              console.log(res.data.status[0]);
               setLoading(false);
               sessionStorage.setItem(
                 "user",

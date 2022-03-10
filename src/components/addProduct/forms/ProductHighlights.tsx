@@ -1,20 +1,32 @@
 import React,{useState} from 'react'
 import {MdClear} from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { createProduct } from '../../../redux/actions/Product'
 
 const ProductHighlights = () => {
-    
+    let product = useSelector((state:any)=>state.productDetail.product)
+    let dispatch = useDispatch()
+
     const [highlights,setHighlights] = useState<any>([])
     const [curr,setCurr] = useState("")
 
     function addHighlight(data:any){
         setHighlights([...highlights,data])
+        product['highlights'] = [...highlights,data]
+        dispatch(createProduct(product))
         setCurr("")
     }
+
 
     function removeHighlight(index:number){
         setHighlights(highlights.filter((elem:any,id:number)=>{
             return id!==index
         }))
+  
+            product['highlights'].splice(index,1)
+            dispatch(createProduct(product))
+  
+        
     }
     
     return (
@@ -44,14 +56,7 @@ const ProductHighlights = () => {
                 </ul>
             </div>
             <br />
-            <div className="d-flex justify-content-center">
-                <button
-                    className="std-btn std-btnOrange"
-                    style={{ width: "10rem" }}
-                >
-                    Save
-                </button>
-            </div>
+            
         </form>
     )
 }

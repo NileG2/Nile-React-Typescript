@@ -2,16 +2,17 @@ import {actions} from '../constants/Product'
 
 export const createProduct=(product:ProductInterface)=>async(dispatch:any)=>{
     try{
-        // // example code
-        // const action:ProductAction={
-        //     type: actions.ADD_PRODUCT,
-        //     product:product
-        // }
-        // dispatch(action)
+        dispatch({
+            type : actions.ADD_PRODUCT,
+            payload:{
+                product : product
+            }
+        })
     }catch(err){
         console.log(err)
     }
 }
+
 
 export const updateProduct=(product:ProductInterface)=>async(dispatch:any)=>{
     try{
@@ -36,3 +37,4 @@ export const getProductDetails = (id:String)=>async(dispatch:any)=>{
         console.log(err)
     }
 }
+

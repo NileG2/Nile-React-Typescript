@@ -6,6 +6,7 @@ import MyOrders from "./innerScreens/myOrders/MyOrders";
 import Payments from "./innerScreens/payments/Payments";
 import Watchlist from "./innerScreens/watchlist/Watchlist";
 import "./ProfileDashboard.scss";
+import axios from "axios";
 import NavBar from "../../components/nav/NavBar";
 import Footer from "../../components/footer/Footer";
 import { useNavigate } from "react-router-dom";
