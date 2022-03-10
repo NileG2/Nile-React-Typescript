@@ -24,3 +24,28 @@ export const navigateSteps=(index:number)=>async(dispatch:any)=>{
         }
     })
 }
+
+export const setDeliveryAddress=(address:any)=>async(dispatch:any)=>{
+    dispatch({
+        type:actions.SET_DELIVERY_ADDRESS,
+        payload:{
+            address:address
+        }
+    })
+}
+export const setBillingAddress=(address:any)=>async(dispatch:any)=>{
+    dispatch({
+        type:actions.SET_BILLING_ADDRESS,
+        payload:{
+            address:address
+        }
+    })
+}
+export const setPaymentOption = (paymentOption:any)=>async(dispatch:any)=>{
+    dispatch({
+        type:actions.SET_PAYMENT_OPTION,
+        payload:{
+            paymentOption:paymentOption
+        }
+    })
+}

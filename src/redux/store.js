@@ -24,7 +24,7 @@ const initialState = {
   user: { currentUser: {} },
   cart: {
     subtotal: 0,
-    userCart: [],
+    userCart: []
   },
   orders: {
     orders: [
@@ -154,6 +154,9 @@ const initialState = {
         state: 0,
       },
     ],
+    billingAddress: null,
+    deliveryAddress: null,
+    paymentMode: null
   },
   userDetails: {
     currAddress: {
@@ -166,10 +169,9 @@ const initialState = {
     },
     addressList: [],
   },
-
   buyerPaymentInfo: {
     BuyerPaymentList: [],
-    // BuyerPayment : {},
+    currOption: null
   },
   watchlist: {
     userWatchlist: [],

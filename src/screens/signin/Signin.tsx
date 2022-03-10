@@ -48,6 +48,7 @@ const Signin = () => {
                   username: res.data.status[0].Contact.username || " ",
                   isSeller: res.data.status[0].isSeller,
                   userid: resp.data.userid,
+                  mobile: res.data.status[0].Contact.mobile
                 })
               );
               toast.success("Signed in successfully");

@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   addNewAddress,
-  fetchAllAddresses,
   setAddress,
 } from "../../redux/actions/UserDetails";
 
@@ -51,7 +51,7 @@ export default function AddressForm(props: any) {
       })
       .then((resp) => {
         dispatch(addNewAddress(allAddress));
-        alert("Added Successfully");
+        toast.success("Added Successfully");
         navigate('/profile')
       })
       .catch((err) => {

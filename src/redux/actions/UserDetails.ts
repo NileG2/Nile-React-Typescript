@@ -1,11 +1,8 @@
 import { async } from "@firebase/util";
 import { actions } from "../constants/UserDetails";
 
-export const fetchAllAddresses =
-  (addressArray: any) => async (dispatch: any) => {
+export const fetchAllAddresses =(addressArray: any) => async (dispatch: any) => {
     try {
-      //
-      
       dispatch({
           type:actions.FETCH_USER_ADDRESS,
           payload:{

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import NavBar from "../../components/nav/NavBar";
 import InvoiceContainer from "../../components/checkoutCards/InvoiceContainer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,8 +16,11 @@ const Invoice = () => {
   }, []);
 
   return (
-    <div>
-      <InvoiceContainer />
+    <div className='std-bg'>
+      <NavBar />
+      <div className='container'>
+        <InvoiceContainer />
+      </div>
     </div>
   );
 };
