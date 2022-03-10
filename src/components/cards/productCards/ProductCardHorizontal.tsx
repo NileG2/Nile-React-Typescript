@@ -9,6 +9,7 @@ import {
 } from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { addItem } from "../../../redux/actions/Watchlist";
 
 import axios from "axios";
 
@@ -17,10 +18,14 @@ const ProductCardHorizontal = (props: any) => {
   const baseUrl = "http://localhost:9000/api/cart";
 
   const allProducts = useSelector((state: any) => state.cart.userCart);
+  let watchlistArray = useSelector(
+    (state: any) => state.watchlist.userWatchlist
+  );
 
   const [currProduct, setCurrProduct] = useState(props.product);
 
   const [quantity, setQuantity] = useState(props.product.quantity || 1);
+  const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
   useEffect(() => {
     setCurrProduct(props.product);
@@ -88,7 +93,29 @@ const ProductCardHorizontal = (props: any) => {
   }
 
   function addProductToWatchlist() {
-    //code to add product in watchlist
+    let allWatchlistProducts = watchlistArray;
+    allWatchlistProducts.push(props.product);
+    console.log(props.product);
+
+    axios
+      .post(`http://localhost:9000/api/watchlist/watchlists`, {
+        userid: auth.userid,
+        watch_list: [
+          {
+            product_id: props.product.product_id,
+            product_name: props.product.name,
+            product_image: props.product.product_image,
+            price: props.product.price,
+          },
+        ],
+      })
+      .then((res) => {
+        dispatch(addItem(allWatchlistProducts));
+        toast.success("Added item to Watchlist");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
   return (
     <div className="Card">
@@ -153,7 +180,7 @@ const ProductCardHorizontal = (props: any) => {
                   Delete
                 </p>
               </div>
-              <div className="col-3">
+              <div className="col-3" onClick={() => addProductToWatchlist()}>
                 <p className="std-btn std-btnOrange">Add to watchlist</p>
               </div>
             </div>
