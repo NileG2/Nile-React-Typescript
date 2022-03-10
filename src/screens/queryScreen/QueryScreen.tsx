@@ -18,6 +18,8 @@ const QueryScreen = () => {
   const [queryProducts, setQueryProducts] = useState<any[]>([]);
   const [searchProducts, setSearchProducts] = useState<any[]>([]);
 
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+
   const baseURL = "http://localhost:9000/api";
 
   useEffect(() => {
@@ -52,6 +54,9 @@ const QueryScreen = () => {
     }
   }, [searchString]);
 
+  //filter based on department
+  const filterByDepartment = (): void => {};
+
   if (loading)
     return (
       <div className="loadingDiv">
@@ -68,7 +73,11 @@ const QueryScreen = () => {
       {queryString !== "" && (
         <div className="content">
           <div className="filterSidebar">
-            <SidebarFilter />
+            <SidebarFilter
+              queryProducts={queryProducts}
+              setQueryProducts={setQueryProducts}
+              operation="query"
+            />
           </div>
           <div className="products">
             <CardContainerGrid products={queryProducts} />
@@ -79,20 +88,23 @@ const QueryScreen = () => {
       {searchString !== "" && (
         <div className="content">
           <div className="filterSidebar">
-            <SidebarFilter />
+            <SidebarFilter
+              searchProducts={searchProducts}
+              setSearchProducts={setSearchProducts}
+              operation="search"
+            />
           </div>
           <div className="products">
             {searchProducts.length === 0 ? (
               <h2>No results to display</h2>
             ) : (
-              searchProducts.map((products) => {
+              searchProducts.map((products, index) => {
                 return (
-                  <>
-                    <CardContainerHorizontal
-                      products={products.data}
-                      category={products.category}
-                    />
-                  </>
+                  <CardContainerHorizontal
+                    key={index}
+                    products={products.data}
+                    category={products.category}
+                  />
                 );
               })
             )}
