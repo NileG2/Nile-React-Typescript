@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { MdClear } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { createProduct } from '../../../redux/actions/Product'
 
 const TechnicalDetails = () => {
+    let product = useSelector((state:any)=>state.productDetail.product)
+    let dispatch = useDispatch()
+
     const [dataArray, setDataArray] = useState<any>([])
     const [curr, setCurr] = useState({
         key: "",
@@ -13,13 +18,17 @@ const TechnicalDetails = () => {
         setCurr({
             key: "",
             value: "",
-        })
+        }) 
+        product['technical_details'] = [...dataArray, data]
+        dispatch(createProduct(product))
     }
 
     function removeData(index: number) {
         setDataArray(dataArray.filter((elem: any, id: number) => {
             return id !== index
         }))
+        product['technical_details'].splice(index,1)
+        dispatch(createProduct(product))
     }
 
     function setCurrKey(key: string) {

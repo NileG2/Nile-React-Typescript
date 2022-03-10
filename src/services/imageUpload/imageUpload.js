@@ -1,6 +1,5 @@
 import { getDownloadURL, ref, uploadBytesResumable,deleteObject } from 'firebase/storage'
 import { storage } from '../../firebaseSetup'
-
 import { v4 as uuidv4 } from 'uuid';
 
 const allowedExtensions = ['png', 'jpg', 'jpeg', 'svg', 'gif']
@@ -9,7 +8,9 @@ function getUniqueName(extension) {
     return uuidv4() + "." + extension
 }
 
-export function uploadFiles(files) {
+export async function uploadFiles(files) {
+    let fileUrls = []
+    console.log(files)
     if (!files) { return }
     for (let i = 0; i < files.length; i++) {
         let file = files[i]
@@ -30,18 +31,25 @@ export function uploadFiles(files) {
                 }, () => {
                     getDownloadURL(uploadTask.snapshot.ref)
                         .then(url => {
-                            console.log(url)
+                            fileUrls.push(url)
+                        
+                        }).catch(err=>{
+                            console.log(err)
                         })
                 })
             }else{
                 console.log("file size too big")
-                return
+                return false 
             }
         } else {
             console.log("file format not allowed")
-            return
+            return false
         }
     }
+    await setTimeout(()=>{
+        return fileUrls
+    },2000)
+    
 }
 
 export function deleteFile(filename){

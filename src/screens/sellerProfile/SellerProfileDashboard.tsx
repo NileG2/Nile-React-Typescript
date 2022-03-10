@@ -4,12 +4,13 @@ import Inventory from "./innerScreens/inventory/Inventory";
 import SalesSummary from "./innerScreens/sales/SalesSummary";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./SellerProfileDashboard.scss";
-
+import { useDispatch, useSelector } from 'react-redux'
 import NavBar from "../../components/nav/NavBar";
 import AddProductFormContainer from "../../components/addProduct/AddProductFormContainer";
 import Footer from "../../components/footer/Footer";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SellerProfileDashboard = () => {
   const sidebarItems = [
@@ -18,12 +19,27 @@ const SellerProfileDashboard = () => {
     "Payments",
     "Add Product",
   ];
+
   const [selectedItemIndex, setSelectedItemIndex] = useState(3);
   const navigate = useNavigate();
+  let [inventory, setInventory] = useState<any>([]);
+
+  let inventoryInfo = useSelector((state:any)=>state.productDetail.inventoryInfo)
+  let dispatch = useDispatch()
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   useEffect(() => {
+      axios.post("http://localhost:9000/api/order/orders", {
+          userid: auth["userid"],
+        })
+        .then(({ data }) => {
+          setInventory(data.Orders)
+        })
+        .catch((err) => {
+          toast.error(`${err}`);
+        });
+
     if (!auth["email"]) {
       toast.info("Please sign in first");
       navigate("/products");
@@ -39,7 +55,7 @@ const SellerProfileDashboard = () => {
       case 2:
         return <Payments />;
       case 3:
-        return <AddProductFormContainer />;
+        return <AddProductFormContainer inventory = {inventory} />;
       default:
         return <Inventory />;
     }
