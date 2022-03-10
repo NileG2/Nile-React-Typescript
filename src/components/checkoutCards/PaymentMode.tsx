@@ -5,22 +5,19 @@ import CardMethodComponent from '../checkoutCards/CardMethodComponent'
 import NetBankingMethodComponent from '../checkoutCards/NetBankingMethodComponent'
 import UPIComponent from '../checkoutCards/UPIComponent'
 
-const PaymentMode = (props:any) => {
-
+const PaymentMode = (props: any) => {
 
     switch (props.mode.BankingInfo.payment_type) {
         case "debit/credit_card":
-          return <CardMethodComponent card={props.mode.BankingInfo} edit={false} />
-        case "Credit Card":
-          return <CardMethodComponent card={props.mode} edit={false} />
-        case "Net Banking":
-          return <NetBankingMethodComponent bank={props.mode} edit={false} />
-        case "UPI":
-          return <UPIComponent upi={props.mode} edit={false} />
+            return <CardMethodComponent card={props.mode} edit={false} />
+        case "netbanking":
+            return <NetBankingMethodComponent bank={props.mode} edit={false} />
+        case "upi":
+            return <UPIComponent upi={props.mode} edit={false} />
         default:
-          return <></>
-      }
-    // return <></>
+            return <></>
+    }
+    return <></>
 }
 
 export default PaymentMode

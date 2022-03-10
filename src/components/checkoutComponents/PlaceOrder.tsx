@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import PaymentMode from "../checkoutCards/PaymentMode";
+import React, { useEffect, useState } from "react";
 import AddressBox from "../checkoutCards/AddressBox";
 import Coupon from "../checkoutCards/Coupon";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import PaymentMode from "../checkoutCards/PaymentMode";
 
 const PlaceOrder = () => {
-  const [currMode, setCurrMode] = useState({
-    type: "Debit Card",
-    details: {
-      card_number: "1234-4567-7890-0123",
-      expiry: "11/23",
-    },
-  });
-  const [currAddress, setCurrAddress] = useState({
-    name: "Aditya Dawadikar",
-    line1: "201 A, Uday Glorious park",
-    line2: "Gawadewada, near Vaishnav devi temple",
-    pincode: "411033",
-  });
+
+  const dispatch = useDispatch()
 
   const [availableCoupons, setAvailableCoupons] = useState([
     {
@@ -100,123 +90,111 @@ const PlaceOrder = () => {
 
   return (
     <div className="row">
-      <div className="col-3">
-        <div className="m-2">
-          <p className="std-font2">Shipping Address</p>
-          <AddressBox address={currAddress} />
-        </div>
-        <div className="m-2">
-          <p className="std-font2">Payment Method</p>
-          <PaymentMode mode={currMode} />
-        </div>
-      </div>
-      <div className="col-9">
-        <div className="row">
-          <div className="col">
-            <div className="m-2">
-              <p className="std-font2">Appled Coupon</p>
-              {currCoupon !== null ? (
-                <div>
-                  <button
-                    className="std-btn"
-                    onClick={() => {
-                      setCurrCoupon(null);
-                    }}
-                  >
-                    remove
-                  </button>
-                  <Coupon coupon={currCoupon} />
-                </div>
-              ) : (
-                <>No Coupon Selected</>
-              )}
-            </div>
-          </div>
-          <div className="col">
-            <div>
-              <p className="std-font2">Payable Amount</p>
-              <div className="row">
-                <div className="col">
-                  <p className="std-boldFont p-2 m-0">Cart Total:</p>
-                </div>
-                <div className="col d-flex">
-                  <p className="std-font2 std-redText m-0">2999</p>
-                  <p className="p-2 m-0">INR</p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col">
-                  <p className="std-boldFont p-2 m-0">Delivery Charges:</p>
-                </div>
-                <div className="col d-flex">
-                  <p className="std-font2 std-redText m-0">+80</p>
-                  <p className="p-2 m-0">INR</p>
-                </div>
-              </div>
-              {currCoupon !== null ? (
-                <div className="row">
-                  <div className="col">
-                    <p className="std-boldFont p-2 m-0">Coupon Discount</p>
-                  </div>
-                  <div className="col d-flex">
-                    {currCoupon.type === "flat" ? (
-                      <p className="std-font2 std-greenText m-0">
-                        -{currCoupon.details.amount}
-                      </p>
-                    ) : (
-                      <p className="std-font2 std-greenText m-0">
-                        -{printPrecision()}
-                      </p>
-                    )}
-
-                    <p className="p-2 m-0">INR</p>
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )}
-              <div className="std-section"></div>
-              <div className="row">
-                <div className="col">
-                  <p className="std-boldFont p-2 m-0">Net Payable:</p>
-                </div>
-                <div className="col d-flex">
-                  <p className="std-font2 std-redText m-0">{getSubTotal()}</p>
-                  <p className="p-2 m-0">INR</p>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div className="d-flex justify-content-center">
-              <Link to="/invoice" style={{ textDecoration: "none" }}>
+      <div className="row">
+        <div className="col">
+          <div className="m-2">
+            <p className="std-font2">Appled Coupon</p>
+            {currCoupon !== null ? (
+              <div>
                 <button
-                  className="std-btn std-btnOrange"
-                  style={{ width: "20rem" }}
-                  // onClick={(e) => {}}
-                >
-                  Pay
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="m-2">
-          <p className="std-font2">Available Coupons</p>
-          <div className="d-flex flex-wrap">
-            {availableCoupons.map((coupon, index) => {
-              return (
-                <div
-                  key={index}
+                  className="std-btn"
                   onClick={() => {
-                    handleSelectCoupon(index);
+                    setCurrCoupon(null);
                   }}
                 >
-                  <Coupon coupon={coupon} />
-                </div>
-              );
-            })}
+                  remove
+                </button>
+                <Coupon coupon={currCoupon} />
+              </div>
+            ) : (
+              <>No Coupon Selected</>
+            )}
           </div>
+        </div>
+        <div className="col">
+          <div>
+            <p className="std-font2">Payable Amount</p>
+            <div className="row">
+              <div className="col">
+                <p className="std-boldFont p-2 m-0">Cart Total:</p>
+              </div>
+              <div className="col d-flex">
+                <p className="std-font2 std-redText m-0">2999</p>
+                <p className="p-2 m-0">INR</p>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <p className="std-boldFont p-2 m-0">Delivery Charges:</p>
+              </div>
+              <div className="col d-flex">
+                <p className="std-font2 std-redText m-0">+80</p>
+                <p className="p-2 m-0">INR</p>
+              </div>
+            </div>
+            {currCoupon !== null ? (
+              <div className="row">
+                <div className="col">
+                  <p className="std-boldFont p-2 m-0">Coupon Discount</p>
+                </div>
+                <div className="col d-flex">
+                  {currCoupon.type === "flat" ? (
+                    <p className="std-font2 std-greenText m-0">
+                      -{currCoupon.details.amount}
+                    </p>
+                  ) : (
+                    <p className="std-font2 std-greenText m-0">
+                      -{printPrecision()}
+                    </p>
+                  )}
+
+                  <p className="p-2 m-0">INR</p>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}
+            <div className="std-section"></div>
+            <div className="row">
+              <div className="col">
+                <p className="std-boldFont p-2 m-0">Net Payable:</p>
+              </div>
+              <div className="col d-flex">
+                <p className="std-font2 std-redText m-0">{getSubTotal()}</p>
+                <p className="p-2 m-0">INR</p>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex justify-content-center">
+            <Link to="/invoice" style={{ textDecoration: "none" }}>
+              <button
+                className="std-btn std-btnOrange"
+                style={{ width: "20rem" }}
+              // onClick={(e) => {}}
+              >
+                Pay
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="m-2">
+        <p className="std-font2">Available Coupons</p>
+        <div className="d-flex flex-wrap">
+          {availableCoupons.map((coupon, index) => {
+            return (
+              <div
+                key={index}
+                onClick={() => {
+                  handleSelectCoupon(index);
+                }}
+              >
+                <Coupon coupon={coupon} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

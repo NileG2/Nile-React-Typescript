@@ -6,13 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/nav/NavBar";
 import Footer from "../../components/footer/Footer";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 import {initializeCart} from '../../redux/actions/Cart'
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   
   const [email, setemail] = useState("");
 

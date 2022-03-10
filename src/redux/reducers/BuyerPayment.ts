@@ -6,9 +6,8 @@ export const BuyerPaymentReducer =  (state:any={}, action:any) =>{
             // console.log(action.payload.paymentInfo)
             return {...state, BuyerPaymentList : action.payload.paymentInfo};
 
-        case actions.SET_DATA_FROM_CLIENT: 
-            // console.log(action.payload.paymentInfos)
-            return {...state, BuyerPayment : action.payload.paymentInfos};
+        case actions.SET_CURR_PAYMENT_OPTION: 
+            return {...state, currOption : action.payload.paymentOption};
 
         case actions.ADD_NEW_PAYMENT_MODE:
             return {...state, BuyerPaymentList : action.payload.allPaymentMode}

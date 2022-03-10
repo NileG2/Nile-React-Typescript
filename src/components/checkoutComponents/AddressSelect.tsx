@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch,useSelector } from 'react-redux'
-import {nextStep} from '../../redux/actions/Checkout'
+import { useDispatch, useSelector } from 'react-redux'
+import { nextStep, setBillingAddress, setDeliveryAddress } from '../../redux/actions/Checkout'
 import AddressBox from '../checkoutCards/AddressBox'
 import AddressForm from '../forms/AddressForm'
-import AddressFrom from '../forms/AddressForm'
 
 const AddressSelect = () => {
     const dispatch = useDispatch()
-    const steps = useSelector((state:any)=>state.checkout.steps)
-    const currStepIndex = useSelector((state:any)=>state.checkout.step)
+    const steps = useSelector((state: any) => state.checkout.steps)
+    const currStepIndex = useSelector((state: any) => state.checkout.step)
 
     const [addressList, setAddressList] = useState([{
         name: "Aditya Dawadikar",
@@ -27,16 +26,17 @@ const AddressSelect = () => {
         pincode: "411033"
     }])
     const [currAddress, setCurrAddress] = useState(addressList[0])
-    const [newAddress, setNewAddress] = useState({})
 
-    function handleNextStep(e:any){
+    function handleNextStep(e: any) {
         e.preventDefault()
         let allSteps = steps
-        allSteps[currStepIndex].state=1
-        dispatch(nextStep(currStepIndex,allSteps))
+        allSteps[currStepIndex].state = 1
+        dispatch(nextStep(currStepIndex, allSteps))
+        dispatch(setDeliveryAddress(currAddress))
+        dispatch(setBillingAddress(currAddress))
     }
 
-    function handleCurrAddress(index:number){
+    function handleCurrAddress(index: number) {
         console.log(addressList[index])
         setCurrAddress(addressList[index])
     }
@@ -55,7 +55,7 @@ const AddressSelect = () => {
                             addressList.map((address, index) => {
                                 return <li key={index}>
                                     <div className='d-flex align-items-center'>
-                                        <input type="radio" className='m-2' name="optradio" onChange={() => {  handleCurrAddress(index)}} />
+                                        <input type="radio" className='m-2' name="optradio" onChange={() => { handleCurrAddress(index) }} />
                                         <AddressBox address={address} />
                                     </div>
                                 </li>
@@ -67,7 +67,9 @@ const AddressSelect = () => {
             <div className='col'>
                 <p className='std-font2'>Add other address for delivery</p>
                 <AddressForm flag={false} />
-                <button className='std-btn std-btnOrange' onClick={(e)=>{handleNextStep(e)}}>Proceed</button>
+                <div className='d-flex justify-content-center'>
+                    <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e) => { handleNextStep(e) }}>Proceed</button>
+                </div>
             </div>
         </div>
     )
