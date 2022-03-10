@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./BecomeSeller.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 const BecomeSeller = () => {
   const [business_name, setbusinessname] = useState("");
   const [sector, setsector] = useState("");
@@ -47,7 +48,13 @@ const BecomeSeller = () => {
         }
         })
         .then((resp) => {
-          alert("Seller Registered Successfully");
+          toast.success("Seller Registered Successfully");
+          let auth = sessionStorage.getItem("user") 
+          if(auth !==null){
+            let user = JSON.parse(auth)
+            user['isSeller'] = true 
+            sessionStorage.setItem("user", JSON.stringify(user))
+          }
           navigate("/seller-profile");
         })
         .catch((err) => {

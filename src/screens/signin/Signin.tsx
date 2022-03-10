@@ -46,7 +46,9 @@ const Signin = () => {
                 JSON.stringify({
                   email: email,
                   username: res.data.status[0].Contact.username || " ",
-                  userid: resp.data.userid,
+                  isSeller :res.data.status[0].isSeller,
+                  userid: resp.data.userid
+                  
                 })
               );
               toast.success("Signed in successfully");
