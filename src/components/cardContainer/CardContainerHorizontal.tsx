@@ -19,7 +19,7 @@ const CardContainerHorizontal = (props: any) => {
       </Link>
       <div className="products">
         {props.products.map((product: any, index: number) => {
-          if (index < 5)
+          if (index < 6)
             return <ProductCardVertical key={index} product={product} />;
         })}
       </div>

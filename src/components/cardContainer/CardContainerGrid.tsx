@@ -11,7 +11,7 @@ const CardContainerGrid = (props: any) => {
   }
   return (
     <div className="row cardDiv">
-      <div className="products">
+      <div className="products std-card">
         {props.products
           .slice(pageNum * pageSize, (pageNum + 1) * pageSize)
           .map((product: any, index: number) => {

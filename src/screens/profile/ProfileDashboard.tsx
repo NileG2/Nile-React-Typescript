@@ -12,13 +12,20 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProfileDashboard = () => {
-  const sidebarItems = [
+  // let sidebarItems = [
+  //   "My details",
+  //   "Payments",
+  //   "Watch List",
+  //   "My Orders",
+  //   "Become a Seller",
+  // ];
+  const [sidebarItems, setSidebarItems] = useState<string[]>([
     "My details",
     "Payments",
     "Watch List",
     "My Orders",
     "Become a Seller",
-  ];
+  ]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -28,6 +35,10 @@ const ProfileDashboard = () => {
     if (!auth["email"]) {
       toast.info("Please sign in first");
       navigate("/products");
+    }
+    if (auth["isSeller"] === true) {
+      let x = sidebarItems.filter((x) => x !== "Become a Seller");
+      setSidebarItems(x);
     }
   }, []);
   const renderSelectedScreen = () => {

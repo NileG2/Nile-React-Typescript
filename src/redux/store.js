@@ -6,8 +6,9 @@ import { UserReducer } from "./reducers/User";
 import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
 import { UserDetailsReducer } from "./reducers/UserDetails";
-import logger from'redux-logger'
+import logger from "redux-logger";
 import { BuyerPaymentReducer } from "./reducers/BuyerPayment";
+import { WatchlistReducer } from "./reducers/Watchlist";
 
 const reducer = combineReducers({
   user: UserReducer,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   checkout: CheckoutReducer,
   orders: OrderReducer,
   userDetails: UserDetailsReducer,
-  buyerPaymentInfo : BuyerPaymentReducer
+  buyerPaymentInfo: BuyerPaymentReducer,
+  watchlist: WatchlistReducer,
 });
 
 const initialState = {
@@ -160,22 +162,19 @@ const initialState = {
       city: "",
       country: "",
       state: "",
-      pincode: ""
+      pincode: "",
     },
-    addressList: [
-      
-    ]
+    addressList: [],
   },
 
-  buyerPaymentInfo :{
-    BuyerPaymentList : [
-      
-    ]
+  buyerPaymentInfo: {
+    BuyerPaymentList: [],
     // BuyerPayment : {},
   },
+  watchlist: {
+    userWatchlist: [],
+  },
 };
-
-
 
 const middlewares = [thunk];
 
@@ -188,7 +187,6 @@ const store = createStore(
   initialState,
   applyMiddleware(...middlewares)
 );
-
 
 // const store = createStore(reducer, initialState, applyMiddleware(thun));
 

@@ -20,7 +20,7 @@ export const CartReducer = (state:any={}, action: any) => {
 
         case actions.SET_SUBTOTAL:
             return {...state,subtotal:action.payload.subtotal}
-    
+        
         default:
             return {...state}
     }
