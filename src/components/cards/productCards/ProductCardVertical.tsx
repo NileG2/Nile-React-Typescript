@@ -3,7 +3,7 @@ import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addItem } from "../../../redux/actions/Cart";
+import { addItemToCart } from "../../../redux/actions/Cart";
 import { toast } from "react-toastify";
 
 const ProductCardVertical = (props: any) => {
@@ -32,7 +32,7 @@ const ProductCardVertical = (props: any) => {
         },
       })
       .then((res) => {
-        dispatch(addItem(allCartProducts));
+        dispatch(addItemToCart(allCartProducts));
         toast.success("Added item to card");
       })
       .catch((err) => {

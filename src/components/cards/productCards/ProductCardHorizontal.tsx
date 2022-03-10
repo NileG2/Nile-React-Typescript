@@ -4,12 +4,12 @@ import Rating from "@mui/material/Rating";
 
 import {
   setItemQuantity,
-  removeItem,
+  removeItemFromCart,
   setCartSubTotal,
 } from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addItem } from "../../../redux/actions/Watchlist";
+import { addItemToWatchlist } from "../../../redux/actions/Watchlist";
 
 import axios from "axios";
 
@@ -37,7 +37,6 @@ const ProductCardHorizontal = (props: any) => {
     let requiredProducts = allProducts.filter((p: any, index: number) => {
       return index !== props.index;
     });
-
     axios
       .post(`${baseUrl}/delete`, {
         userid: auth.userid,
@@ -46,7 +45,7 @@ const ProductCardHorizontal = (props: any) => {
         },
       })
       .then((res) => {
-        dispatch(removeItem(requiredProducts));
+        dispatch(removeItemFromCart(requiredProducts));
         setSubTotal(requiredProducts);
         toast.success("removed item from cart");
       })
@@ -110,7 +109,7 @@ const ProductCardHorizontal = (props: any) => {
         ],
       })
       .then((res) => {
-        dispatch(addItem(allWatchlistProducts));
+        dispatch(addItemToWatchlist(allWatchlistProducts));
         toast.success("Added item to Watchlist");
       })
       .catch((err) => {

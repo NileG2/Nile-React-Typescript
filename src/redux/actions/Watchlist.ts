@@ -1,9 +1,9 @@
 import { actions } from '../constants/Watchlist'
 
-export const addItem = (products: any[]) => async (dispatch: any) => {
+export const addItemToWatchlist = (products: any[]) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.ADD_ITEM,
+            type: actions.ADD_ITEM_TO_WATCHLIST,
             payload: {
                 products: products
             }
@@ -13,10 +13,10 @@ export const addItem = (products: any[]) => async (dispatch: any) => {
     }
 }
 
-export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
+export const removeItemFromWatchlist = (requiredProducts: []) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.REMOVE_ITEM,
+            type: actions.REMOVE_ITEM_FROM_WATCHLIST,
             payload: {
                 products: requiredProducts
             }
@@ -29,7 +29,7 @@ export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
 export const initializeWatchlist = (products: []) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.ADD_ITEM,
+            type: actions.ADD_ITEM_TO_WATCHLIST,
             payload: {
                 products: products
             }
