@@ -8,17 +8,21 @@ import {
   setCartSubTotal,
 } from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import axios from "axios";
 
 const ProductCardHorizontal = (props: any) => {
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const baseUrl = "http://localhost:9000/api/cart"
+
   const allProducts = useSelector((state: any) => state.cart.userCart);
   const [currProduct, setCurrProduct] = useState(props.product);
 
-  const [quantity, setQuantity] = useState(1);
-  const [payable, setPayable] = useState(props.product.payable);
+  const [quantity, setQuantity] = useState(props.product.quantity || 1);
 
   useEffect(() => {
     setCurrProduct(props.product);
-    setPayable(props.product.payable);
   }, [props.product]);
 
   const dispatch = useDispatch();
@@ -27,15 +31,26 @@ const ProductCardHorizontal = (props: any) => {
     let requiredProducts = allProducts.filter((p: any, index: number) => {
       return index !== props.index;
     });
-    dispatch(removeItem(requiredProducts));
-    setSubTotal(requiredProducts);
+
+    axios.post(`${baseUrl}/delete`, {
+      "userid": auth.userid,
+      "product": {
+        product_id: props.product.product_id
+      }
+    }).then(res => {
+      dispatch(removeItem(requiredProducts));
+      setSubTotal(requiredProducts);
+      toast.success("removed item from cart")
+    }).catch(err => {
+      toast.error(err)
+    })
   }
 
   function setSubTotal(products: []) {
     function getSubTotal(products: any[]) {
       let sum = 0;
       for (let i = 0; i < products.length; i++) {
-        sum += products[i].payable;
+        sum += products[i].price * products[i].quantity;
       }
       return sum;
     }
@@ -44,15 +59,25 @@ const ProductCardHorizontal = (props: any) => {
 
   function setProductQuantity(e: any) {
     setQuantity(e.target.value);
-    setPayable(e.target.value * currProduct.price);
 
     let tempProduct = currProduct;
     tempProduct.quantity = e.target.value;
-    tempProduct.payable = e.target.value * currProduct.price;
+    tempProduct.payable = e.target.value * props.product.price;
 
-    setCurrProduct(tempProduct);
-    dispatch(setItemQuantity(tempProduct, props.index));
-    setSubTotal(allProducts);
+    axios.post(`${baseUrl}/update`, {
+      "userid": auth.userid,
+      "product": {
+        product_id: props.product.product_id,
+        quantity: e.target.value
+      }
+    }).then(res => {
+      setCurrProduct(tempProduct);
+      dispatch(setItemQuantity(tempProduct, props.index));
+      setSubTotal(allProducts);
+      toast.success("updated quantity successfully")
+    }).catch(err => {
+      toast.error(err)
+    })
   }
 
   return (
@@ -60,17 +85,19 @@ const ProductCardHorizontal = (props: any) => {
       <div className="std-card std-card-dimension-horizontal std-no-shadow p-0">
         <div className="row m-2">
           <div className="col-2">
-            <img src={currProduct.image} height="90%" alt="productImg" />
+            <img src={
+              props.product.image || "https://picsum.photos/100"
+            } height="90%" alt="productImg" />
           </div>
           <div className="col-10">
             <div className="row">
               <div className="col-8">
                 <p className="m-0 std-boldFont overflow-hidden">
-                  {currProduct.product_name}
+                  {props.product.product_name}
                 </p>
                 <p className="std-bold std-greenText m-0 std-desc">In Stock</p>
                 <p className="std-fontSmall std-desc m-0">
-                  Sold By {currProduct.brand}
+                  Sold By {props.product.brand || "Nile"}
                 </p>
                 <Rating name="read-only" value={3.5} precision={0.5} readOnly />
               </div>
@@ -80,7 +107,7 @@ const ProductCardHorizontal = (props: any) => {
                     className="col-9 m-0 p-0 std-boldFont std-font2"
                     style={{ textAlign: "end" }}
                   >
-                    {payable}
+                    {props.product.price}
                   </p>
                   <p className="col-3 m-0 std-desc std-fontSmall">INR</p>
                 </div>
