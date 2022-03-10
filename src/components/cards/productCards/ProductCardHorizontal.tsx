@@ -14,9 +14,10 @@ import axios from "axios";
 
 const ProductCardHorizontal = (props: any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
-  const baseUrl = "http://localhost:9000/api/cart"
+  const baseUrl = "http://localhost:9000/api/cart";
 
   const allProducts = useSelector((state: any) => state.cart.userCart);
+
   const [currProduct, setCurrProduct] = useState(props.product);
 
   const [quantity, setQuantity] = useState(props.product.quantity || 1);
@@ -32,18 +33,21 @@ const ProductCardHorizontal = (props: any) => {
       return index !== props.index;
     });
 
-    axios.post(`${baseUrl}/delete`, {
-      "userid": auth.userid,
-      "product": {
-        product_id: props.product.product_id
-      }
-    }).then(res => {
-      dispatch(removeItem(requiredProducts));
-      setSubTotal(requiredProducts);
-      toast.success("removed item from cart")
-    }).catch(err => {
-      toast.error(err)
-    })
+    axios
+      .post(`${baseUrl}/delete`, {
+        userid: auth.userid,
+        product: {
+          product_id: props.product.product_id,
+        },
+      })
+      .then((res) => {
+        dispatch(removeItem(requiredProducts));
+        setSubTotal(requiredProducts);
+        toast.success("removed item from cart");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
   function setSubTotal(products: []) {
@@ -64,30 +68,38 @@ const ProductCardHorizontal = (props: any) => {
     tempProduct.quantity = e.target.value;
     tempProduct.payable = e.target.value * props.product.price;
 
-    axios.post(`${baseUrl}/update`, {
-      "userid": auth.userid,
-      "product": {
-        product_id: props.product.product_id,
-        quantity: e.target.value
-      }
-    }).then(res => {
-      setCurrProduct(tempProduct);
-      dispatch(setItemQuantity(tempProduct, props.index));
-      setSubTotal(allProducts);
-      toast.success("updated quantity successfully")
-    }).catch(err => {
-      toast.error(err)
-    })
+    axios
+      .post(`${baseUrl}/update`, {
+        userid: auth.userid,
+        product: {
+          product_id: props.product.product_id,
+          quantity: e.target.value,
+        },
+      })
+      .then((res) => {
+        setCurrProduct(tempProduct);
+        dispatch(setItemQuantity(tempProduct, props.index));
+        setSubTotal(allProducts);
+        toast.success("updated quantity successfully");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
+  function addProductToWatchlist() {
+    //code to add product in watchlist
+  }
   return (
     <div className="Card">
       <div className="std-card std-card-dimension-horizontal std-no-shadow p-0">
         <div className="row m-2">
           <div className="col-2">
-            <img src={
-              props.product.image || "https://picsum.photos/100"
-            } height="90%" alt="productImg" />
+            <img
+              src={props.product.image || "https://picsum.photos/100"}
+              height="90%"
+              alt="productImg"
+            />
           </div>
           <div className="col-10">
             <div className="row">

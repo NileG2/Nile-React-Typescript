@@ -1,13 +1,19 @@
-.content {
-  margin: 2rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  // .filterSidebar {
-  //   flex: 18%;
-  // }
-  .products {
-    flex: 100%;
-    // overflow-x: scroll;
+.productListingWrapper {
+  .topHeader {
+    padding-top: 2rem;
+    padding-left: 2rem;
+  }
+  .content {
+    margin: 2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    // .filterSidebar {
+    //   flex: 18%;
+    // }
+    .products {
+      flex: 100%;
+      // overflow-x: scroll;
+    }
   }
 }

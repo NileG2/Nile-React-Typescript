@@ -1,22 +1,30 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import CheckoutContainer from "../../components/checkoutComponents/CheckoutContainer";
 import CheckoutSidebar from "../../components/checkoutSidebar/CheckoutSidebar";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
 import { addNewPayment, setPayment } from "../../redux/actions/BuyerPayment";
 import { useSelector, useDispatch } from "react-redux";
-import {initializeCart} from '../../redux/actions/Cart'
+import { initializeCart } from '../../redux/actions/Cart'
 
 const Checkout = () => {
-
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const baseUrlPayment = "http://localhost:9000/api/payment"
   const baseUrlCart = "http://localhost:9000/api/cart"
 
   useEffect(() => {
+
+    if (!auth["userid"]) {
+      toast.info("Please sign in first");
+      navigate("/products");
+    }
+
     axios.post(`${baseUrlPayment}`, {
       userid: auth.userid
     })
