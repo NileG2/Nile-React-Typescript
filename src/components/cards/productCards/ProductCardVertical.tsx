@@ -33,7 +33,7 @@ const ProductCardVertical = (props: any) => {
       })
       .then((res) => {
         dispatch(addItemToCart(allCartProducts));
-        toast.success("Added item to card");
+        toast.success("Added item to cart");
       })
       .catch((err) => {
         toast.error(err);

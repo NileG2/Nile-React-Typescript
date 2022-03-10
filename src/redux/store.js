@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 
 import { CartReducer } from "./reducers/Cart";
 import { UserReducer } from "./reducers/User";
+import { ProductReducer } from "./reducers/Product";
 import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
 import { UserDetailsReducer } from "./reducers/UserDetails";
@@ -16,8 +17,10 @@ const reducer = combineReducers({
   checkout: CheckoutReducer,
   orders: OrderReducer,
   userDetails: UserDetailsReducer,
-  buyerPaymentInfo: BuyerPaymentReducer,
+  buyerPaymentInfo : BuyerPaymentReducer,
+  productDetail : ProductReducer,
   watchlist: WatchlistReducer,
+
 });
 
 const initialState = {
@@ -176,6 +179,24 @@ const initialState = {
   watchlist: {
     userWatchlist: [],
   },
+
+  productDetail : {
+    product:{
+      name : "",
+      brand : "",
+      price : "",
+      available_quantity : "",
+      highlights : [],
+      technical_details : {},
+      buying_options : {
+        color: {},
+        size : {}
+      },
+      images : []
+    },
+    inventoryInfo : {}
+    
+  }
 };
 
 const middlewares = [thunk];

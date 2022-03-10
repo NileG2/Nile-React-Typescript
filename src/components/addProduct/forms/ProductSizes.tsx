@@ -1,20 +1,29 @@
 import React, { useState } from 'react'
 import { SizeOption } from '../../helpers/SelectOptions'
+import { useDispatch, useSelector } from 'react-redux'
+import { createProduct } from '../../../redux/actions/Product'
 
 const ProductSizes = () => {
-
+  let product = useSelector((state:any)=>state.productDetail.product)
+  let dispatch = useDispatch()
   const [value, setValue] = useState(0);
   const [allValues, setAllValues] = useState<any>([])
 
   function addValue() {
     setAllValues((old: any) => [...old, value])
     setValue(0)
+    product['buying_options']['size'] = [...allValues, value]
+    
+    dispatch(createProduct(product))
+    console.log(product)
   }
 
   function removeData(index: number) {
     setAllValues(allValues.filter((elem:any,ind:number)=>{
       return ind!==index
     }))
+    product['buying_options']['size'].splice(index,1)
+    dispatch(createProduct(product))
   }
 
   return (
@@ -36,14 +45,7 @@ const ProductSizes = () => {
 
       </div>
       <br />
-      <div className="d-flex justify-content-center">
-        <button
-          className="std-btn std-btnOrange"
-          style={{ width: "10rem" }}
-        >
-          Save
-        </button>
-      </div>
+      
     </form>
   )
 }

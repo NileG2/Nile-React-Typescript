@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import AddressBox from "../checkoutCards/AddressBox";
 import Coupon from "../checkoutCards/Coupon";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentMode from "../checkoutCards/PaymentMode";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [availableCoupons, setAvailableCoupons] = useState([
     {
@@ -21,7 +24,7 @@ const PlaceOrder = () => {
     {
       type: "discount",
       details: {
-        amount: "0.1",
+        amount: "1.2",
         description: "Get flat 10% off on a purchase of 1299/- and above",
         code: "new90",
       },
@@ -38,7 +41,7 @@ const PlaceOrder = () => {
     {
       type: "discount",
       details: {
-        amount: "0.33",
+        amount: "0.3",
         description: "Get flat 10% off on a purchase of 1299/- and above",
         code: "new90",
       },
@@ -55,7 +58,7 @@ const PlaceOrder = () => {
     {
       type: "discount",
       details: {
-        amount: "0.1",
+        amount: "1.5",
         description: "Get flat 10% off on a purchase of 1299/- and above",
         code: "new90",
       },
@@ -75,9 +78,9 @@ const PlaceOrder = () => {
         dummyCartTotal +
         dummyDeliveryCharge -
         dummyCartTotal * currCoupon.details.amount
-      );
+      ).toFixed(2);
     }
-    return dummyCartTotal + dummyDeliveryCharge;
+    return (dummyCartTotal + dummyDeliveryCharge).toFixed(2);
   }
 
   function handleSelectCoupon(index: number) {
@@ -86,6 +89,58 @@ const PlaceOrder = () => {
   function printPrecision() {
     let d = dummyCartTotal * currCoupon.details.amount;
     return d.toFixed();
+  }
+
+
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const baseUrlTransaction = "http://localhost:9000/api/transaction"
+  const baseUrlOrder = "http://localhost:9000/api/order"
+
+  const paymentOption = useSelector((state: any) => state.checkout.paymentMode)
+  const cartTotal = useSelector((state: any) => state.cart.subtotal)
+
+  const billingAddress = useSelector((state: any) => state.checkout.billingAddress)
+  const deliveryAddress = useSelector((state: any) => state.checkout.deliveryAddress)
+
+  function handlePay(e: any) {
+    e.preventDefault()
+
+    let discount = ""
+
+    if(currCoupon!==null){
+      discount = printPrecision()
+    }
+
+    let body = {
+      userid: auth.userid,
+      amount: getSubTotal(),
+      payment_mode: paymentOption.BankingInfo.payment_type,
+      component: {
+        cart_total: cartTotal,
+        delivery_charge: 100,
+        coupon_discount: discount
+      }
+    }
+
+    axios.post(`${baseUrlTransaction}`,body).then((res)=>{
+      let transaction_id = res.data.transaction_id
+      let orderObject={
+        userid:auth.userid,
+        transaction_id:transaction_id,
+        payment_mode: paymentOption.BankingInfo.payment_type,
+        address:{
+          billing_address:billingAddress,
+          shipping_address:deliveryAddress
+        }
+      }
+      // console.log(orderObject)
+      axios.post(`${baseUrlOrder}`,orderObject).then((res)=>{
+        toast.success(`order placed successfully, your tracking id is ${res.data.tracking_id}`,{autoClose:4000})
+        navigate('/invoice')
+      })
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 
   return (
@@ -171,7 +226,7 @@ const PlaceOrder = () => {
               <button
                 className="std-btn std-btnOrange"
                 style={{ width: "20rem" }}
-              // onClick={(e) => {}}
+                onClick={(e) => { handlePay(e) }}
               >
                 Pay
               </button>

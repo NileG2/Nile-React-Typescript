@@ -1,10 +1,9 @@
 import { actions } from "../constants/Product";
 
-export const ProductReducer = (state: ProductInterface, action: ProductAction) => {
+export const ProductReducer = (state:any={}, action:any) => {
     switch (action.type) {
         case actions.ADD_PRODUCT:
-            //handler
-            return { ...state }
+            return { ...state, product:action.payload.product }
         case actions.DELETE_PRODUCT:
             //handler
             return { ...state }

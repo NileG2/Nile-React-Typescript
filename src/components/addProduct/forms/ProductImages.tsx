@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
+import {uploadFiles,deleteFile} from '../../../services/imageUpload/imageUpload'
+import { useDispatch, useSelector } from 'react-redux'
+import { createProduct } from '../../../redux/actions/Product'
+import { async } from "@firebase/util";
 
 const ProductImages = () => {
+
+  let product = useSelector((state:any)=>state.productDetail.product)
+  let dispatch = useDispatch()
   const allowedFormats = ["jpg", "jpeg", "png", "gif"];
 
   const [file, setFile] = useState<any>(null);
   const [allFiles, setAllFiles] = useState<any>([]);
+  const [myfiles, setmyfiles] = useState<any>([]);
 
   function removeData(index: number) {
     setAllFiles(
@@ -13,21 +21,36 @@ const ProductImages = () => {
         return ind !== index;
       })
     );
+    product['images'].splice(index,1)
+    dispatch(createProduct(product))
   }
+  let [urls, setUrl] = useState<any>([]);
 
   async function addFile() {
     if (allowedFormats.includes(file.type.split("/")[1])) {
+      myfiles.push(file.name)
+
+      
       setAllFiles((old: any) => [...allFiles, file]);
+      setmyfiles((old: any) => [...myfiles, file.name])
       setFile(null);
-    } else {
+    } else { 
       alert("file format not allowed");
       setFile(null);
     }
   }
 
+  const onClickHadler = async(e:any)=>{
+    e.preventDefault()
+    
+    // let allUrls = await uploadFiles(allFiles)
+    // console.log(allUrls)
+  }
+
   useEffect(() => {
-    console.log(allFiles);
-  }, [allFiles]);
+    product['images'] =  myfiles
+    dispatch(createProduct(product))
+  }, [allFiles, dispatch, myfiles, product, setAllFiles]);
 
   return (
     <form className="std-card m-2">
@@ -78,11 +101,7 @@ const ProductImages = () => {
         )}
       </div>
       <br />
-      <div className="d-flex justify-content-center">
-        <button className="std-btn std-btnOrange" style={{ width: "10rem" }}>
-          Save
-        </button>
-      </div>
+      
     </form>
   );
 };
