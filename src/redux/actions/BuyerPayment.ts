@@ -2,6 +2,7 @@ import { async } from "@firebase/util"
 import { actions } from "../constants/BuyerPayment"
 
 export const getPayment = (paymentInfo : any) => async(dispatch:any)=>{
+    console.log(paymentInfo)
     try{
         dispatch({
             type:actions.FETCH_DATA_FROM_FIRESTORE,
@@ -15,14 +16,12 @@ export const getPayment = (paymentInfo : any) => async(dispatch:any)=>{
     }
 }
 
-
-export const setPayment = (paymentInfos : any) => async(dispatch:any)=>{
+export const setPayment = (currOption : any) => async(dispatch:any)=>{
     try{
         dispatch({
-            type:actions.SET_DATA_FROM_CLIENT,
+            type:actions.SET_CURR_PAYMENT_OPTION,
             payload:{
-                paymentInfos : paymentInfos,
-
+                currOption:currOption,
             }
         })
     }
@@ -37,7 +36,6 @@ export const addNewPayment = (paymentList : any) => async(dispatch : any ) =>{
             type:actions.ADD_NEW_PAYMENT_MODE,
             payload:{
                 allPaymentMode : paymentList,
-
             }
         })
     }

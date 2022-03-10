@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import {AiFillDelete} from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import {getPayment} from '../../redux/actions/BuyerPayment'
 
 const UPIComponent = (props:any) => {
@@ -16,7 +17,7 @@ const UPIComponent = (props:any) => {
           axios.delete(`http://localhost:9000/api/payment/delete/${index}`,{
             data : {userid : auth['userid']}
           })
-          alert("Payment method successfully deleted")
+          toast.success("Payment method successfully deleted")
           dispatch(getPayment(data))
         }
         catch(err){

@@ -7,7 +7,7 @@ import SidebarFilter from "../../components/filter/SidebarFilter";
 import CardContainerGrid from "../../components/cardContainer/CardContainerGrid";
 import axios from "axios";
 import CardContainerHorizontal from "../../components/cardContainer/CardContainerHorizontal";
-import { PushSpinner } from "react-spinners-kit";
+import { CircleSpinner } from "react-spinners-kit";
 
 const QueryScreen = () => {
   const [params] = useSearchParams();
@@ -18,8 +18,6 @@ const QueryScreen = () => {
 
   const [queryProducts, setQueryProducts] = useState<any[]>([]);
   const [searchProducts, setSearchProducts] = useState<any[]>([]);
-
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   const baseURL = "http://localhost:9000/api";
 
@@ -55,20 +53,17 @@ const QueryScreen = () => {
     }
   }, [searchString]);
 
-  //filter based on department
-  const filterByDepartment = (): void => {};
-
   if (loading)
     return (
       <div className="loadingDiv">
-        <PushSpinner size={30} color="#232f3e" />
+        <CircleSpinner size={30} color="#232f3e" />
       </div>
     );
 
   return (
-    <div className="std-bg">
+    <div className="std-bg queryScreenWrapper">
       <NavBar />
-      <h2 className="std-smallHeader m-3">
+      <h2 className="std-smallHeader topHeader">
         Choose from a variety of quality products
       </h2>
       {queryString !== "" && (

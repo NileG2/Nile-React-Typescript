@@ -7,8 +7,9 @@ import { ProductReducer } from "./reducers/Product";
 import { CheckoutReducer } from "./reducers/Checkout";
 import { OrderReducer } from "./reducers/Order";
 import { UserDetailsReducer } from "./reducers/UserDetails";
-import logger from'redux-logger'
+import logger from "redux-logger";
 import { BuyerPaymentReducer } from "./reducers/BuyerPayment";
+import { WatchlistReducer } from "./reducers/Watchlist";
 
 const reducer = combineReducers({
   user: UserReducer,
@@ -18,41 +19,15 @@ const reducer = combineReducers({
   userDetails: UserDetailsReducer,
   buyerPaymentInfo : BuyerPaymentReducer,
   productDetail : ProductReducer,
+  watchlist: WatchlistReducer,
+
 });
 
 const initialState = {
   user: { currentUser: {} },
   cart: {
     subtotal: 0,
-    userCart: [
-      {
-        product_name: "Jordan for Mens",
-        product_id: "621b9e2f0df9ccbd0e2e5155",
-        image: "https://picsum.photos/100",
-        price: 19999,
-        brand: "Jordan",
-        payable: 19999,
-        quantity: 1,
-      },
-      {
-        product_name: "Jordan for women",
-        product_id: "621b9e2f0df9ccbd0e2e5154",
-        image: "https://picsum.photos/100",
-        price: 29999,
-        brand: "Jordan",
-        payable: 19999,
-        quantity: 1,
-      },
-      {
-        product_name: "Jordan for kids",
-        product_id: "621b9e2f0df9ccbd0e2e5152",
-        image: "https://picsum.photos/100",
-        price: 12999,
-        brand: "Jordan",
-        payable: 12999,
-        quantity: 1,
-      },
-    ],
+    userCart: []
   },
   orders: {
     orders: [
@@ -182,6 +157,9 @@ const initialState = {
         state: 0,
       },
     ],
+    billingAddress: null,
+    deliveryAddress: null,
+    paymentMode: null
   },
   userDetails: {
     currAddress: {
@@ -190,18 +168,16 @@ const initialState = {
       city: "",
       country: "",
       state: "",
-      pincode: ""
+      pincode: "",
     },
-    addressList: [
-      
-    ]
+    addressList: [],
   },
-
-  buyerPaymentInfo :{
-    BuyerPaymentList : [
-      
-    ]
-    // BuyerPayment : {},
+  buyerPaymentInfo: {
+    BuyerPaymentList: [],
+    currOption: null
+  },
+  watchlist: {
+    userWatchlist: [],
   },
 
   productDetail : {
@@ -223,8 +199,6 @@ const initialState = {
   }
 };
 
-
-
 const middlewares = [thunk];
 
 if (process.env.NODE_ENV === "development") {
@@ -236,7 +210,6 @@ const store = createStore(
   initialState,
   applyMiddleware(...middlewares)
 );
-
 
 // const store = createStore(reducer, initialState, applyMiddleware(thun));
 

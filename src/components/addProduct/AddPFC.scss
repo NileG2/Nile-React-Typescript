@@ -1,0 +1,12 @@
+.addPFCWrapper {
+  .sellerDetails {
+    border-radius: 10px;
+    background: white;
+    padding: 2rem 1rem;
+    .fullRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

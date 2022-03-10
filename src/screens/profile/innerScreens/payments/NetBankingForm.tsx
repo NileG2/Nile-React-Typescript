@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { addNewPayment, setPayment } from '../../../../redux/actions/BuyerPayment'
 
 const NetBankingForm = () => {
@@ -34,7 +35,7 @@ const NetBankingForm = () => {
             userid : auth['userid'],
             BankingInfo : FormData
           }).then((resp)=>{
-            alert("Payment method added Info")
+            toast.success("Payment method added Info")
             dispatch(addNewPayment(allPaymentList))
           })
     }
