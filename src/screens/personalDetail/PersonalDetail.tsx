@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalDetail.scss";
 import NavBar from "../../components/nav/NavBar";
-import { PushSpinner } from "react-spinners-kit";
+import { CircleSpinner } from "react-spinners-kit";
 import { toast } from "react-toastify";
 
 export default function PersonalDetail() {
@@ -232,7 +232,7 @@ export default function PersonalDetail() {
                       onClick={(e) => addUserDetails(e)}
                     >
                       {loading ? (
-                        <PushSpinner color="#000000" size={22} />
+                        <CircleSpinner color="#000000" size={22} />
                       ) : (
                         `Continue`
                       )}

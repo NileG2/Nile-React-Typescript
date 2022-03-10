@@ -17,12 +17,11 @@ const CardContainerHorizontal = (props: any) => {
       >
         See More...
       </Link>
-      <div className="container">
-        <div className="d-flex">
-          {props.products.map((product: any, index: number) => {
+      <div className="products">
+        {props.products.map((product: any, index: number) => {
+          if (index < 6)
             return <ProductCardVertical key={index} product={product} />;
-          })}
-        </div>
+        })}
       </div>
     </div>
   );

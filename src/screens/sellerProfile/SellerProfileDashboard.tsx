@@ -28,6 +28,9 @@ const SellerProfileDashboard = () => {
       toast.info("Please sign in first");
       navigate("/products");
     }
+    if (auth["isSeller"] !== true) {
+      navigate("/products");
+    }
   }, []);
 
   const renderSelectedScreen = () => {
