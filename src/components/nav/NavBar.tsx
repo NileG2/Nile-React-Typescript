@@ -65,11 +65,16 @@ const NavBar = () => {
   let queryParam = params.get("category");
   let searchParam = params.get("search");
   const isLoggedin = false;
-  const isSeller = true;
+  
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [choosen, setChoosen] = useState(categoryURLs[0].category);
   const [queryString, setQueryString] = useState("");
-  const auth = sessionStorage.getItem("user");
+  let auth = sessionStorage.getItem("user");
+  let isSeller = false
+  if (auth !== null){
+    isSeller = JSON.parse(auth)['isSeller']  
+  }
+  
   const navigate = useNavigate();
 
   const handleLogout = (): void => {
@@ -184,7 +189,7 @@ const NavBar = () => {
             </Link>
           )}
 
-          {isSeller && (
+          {isSeller===true && (
             <div
               className="linkItem"
               onClick={() => navigate("/seller-profile")}
