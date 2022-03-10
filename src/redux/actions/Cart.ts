@@ -31,8 +31,8 @@ export const addItem = (products: any[]) => async (dispatch: any) => {
     try {
         dispatch({
             type: actions.ADD_ITEM,
-            payload: { 
-                products: products 
+            payload: {
+                products: products
             }
         })
     } catch (err) {
@@ -46,6 +46,25 @@ export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
             type: actions.REMOVE_ITEM,
             payload: {
                 products: requiredProducts
+            }
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const initializeCart = (products: [], subtotal: number) => async (dispatch: any) => {
+    try {
+        dispatch({
+            type: actions.ADD_ITEM,
+            payload: {
+                products: products
+            }
+        })
+        dispatch({
+            type: actions.SET_SUBTOTAL,
+            payload: {
+                subtotal: subtotal
             }
         })
     } catch (err) {

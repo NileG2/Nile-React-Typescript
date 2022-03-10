@@ -12,16 +12,20 @@ const ProductCardHorizontalMini = (props: any) => {
 
   return (
     <div className='Card'>
-      <div className='p-0' style={{height:"4.5em"}}>
+      <div className='p-0' style={{ height: "4.5em" }}>
         <div className='row m-2'>
           <div className='col-2'>
-            <img src={currProduct.image} height="50%" className='m-2' />
+            <img src={
+              props.product.images.length > 0
+                ? props.product.images[0]
+                : "https://picsum.photos/100"
+            } height="50%" className='m-2' />
           </div>
           <div className='col-10'>
             <div className='row'>
               <div className='col-8'>
-                <p className='m-0 std-boldFont overflow-hidden'>{currProduct.product_name}</p>
-                <p className='std-fontSmall std-desc m-0'>Sold By {currProduct.brand}</p>
+                <p className='m-0 std-boldFont overflow-hidden'>{currProduct.name}</p>
+                <p className='std-fontSmall std-desc m-0'>Sold By {props.product.brand || "Nile"}</p>
               </div>
               <div className='col-4'>
                 <div className='row'>
