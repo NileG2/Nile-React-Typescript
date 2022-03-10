@@ -38,7 +38,7 @@ const MyDetail = () => {
       .catch((err) => {
         toast.error(`${err}`);
       });
-  }, [dispatch]);
+  }, []);
 
   const deleteAddress = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

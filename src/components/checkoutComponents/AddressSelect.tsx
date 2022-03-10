@@ -1,31 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { nextStep, setBillingAddress, setDeliveryAddress } from '../../redux/actions/Checkout'
 import AddressBox from '../checkoutCards/AddressBox'
 import AddressForm from '../forms/AddressForm'
+import { fetchAllAddresses } from '../../redux/actions/UserDetails'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const AddressSelect = () => {
+
+    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+
     const dispatch = useDispatch()
+
     const steps = useSelector((state: any) => state.checkout.steps)
     const currStepIndex = useSelector((state: any) => state.checkout.step)
+    const addressList = useSelector((state: any) => state.userDetails.addressList)
 
-    const [addressList, setAddressList] = useState([{
-        name: "Aditya Dawadikar",
-        line1: "201 A, Uday Glorious park",
-        line2: "Gawadewada, near Vaishnav devi temple",
-        pincode: "411033"
-    }, {
-        name: "Aditya Prashant Dawadikar",
-        line1: "201 A, Uday Glorious park",
-        line2: "Gawadewada, near Vaishnav devi temple",
-        pincode: "411033"
-    }, {
-        name: "Geekgod",
-        line1: "201 A, Uday Glorious park",
-        line2: "Gawadewada, near Vaishnav devi temple",
-        pincode: "411033"
-    }])
-    const [currAddress, setCurrAddress] = useState(addressList[0])
+    const [currAddress, setCurrAddress] = useState(addressList[0] || null)
+
+    useEffect(() => {
+        axios
+            .post("http://localhost:9000/api/user/", {
+                userid: auth["userid"],
+            })
+            .then(({ data }) => {
+                dispatch(fetchAllAddresses(data.status[0].Address));
+            })
+            .catch((err) => {
+                toast.error(`${err}`);
+            });
+    }, []);
 
     function handleNextStep(e: any) {
         e.preventDefault()
@@ -47,12 +52,12 @@ const AddressSelect = () => {
                 <div>
                     <p className='std-font2'>Selected Address</p>
                 </div>
-                <AddressBox address={currAddress} />
+                {currAddress !== null ? <AddressBox address={currAddress} /> : <></>}
                 <div>
                     <p className='std-font2'>Select From Saved Options</p>
                     <ul className='std-ul'>
                         {
-                            addressList.map((address, index) => {
+                            addressList.map((address: any, index: number) => {
                                 return <li key={index}>
                                     <div className='d-flex align-items-center'>
                                         <input type="radio" className='m-2' name="optradio" onChange={() => { handleCurrAddress(index) }} />

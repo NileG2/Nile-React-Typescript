@@ -29,9 +29,9 @@ const CheckoutSidebar = ({ isCheckout }: any) => {
           <div className="std-section"></div>
           <p className="p-2 m-0 text-left std-font2">Deliver to</p>
           <div className="p-1">
-            <p className="std-boldFont std-font1  m-0">{deliveryAddress.name}</p>
-            <p className="std-font1 m-0">{deliveryAddress.line1}</p>
-            <p className="std-font1 m-0">{deliveryAddress.line2}</p>
+            {/* <p className="std-boldFont std-font1  m-0">{deliveryAddress.name}</p> */}
+            <p className="std-font1 m-0">{deliveryAddress.address_line_1}</p>
+            <p className="std-font1 m-0">{deliveryAddress.locality+", "+deliveryAddress.city+", "+deliveryAddress.country}</p>
             <div className="d-flex">
               <p className="std-font1 std-boldFont m-0">Pincode: </p>
               <p className="std-font1 m-0">{deliveryAddress.pincode}</p>
@@ -46,9 +46,9 @@ const CheckoutSidebar = ({ isCheckout }: any) => {
           <div className="std-section"></div>
           <p className="p-2 m-0 text-left std-font2">Billing Address</p>
           <div className="p-1">
-            <p className="std-boldFont std-font1  m-0">{billingAddress.name}</p>
-            <p className="std-font1 m-0">{billingAddress.line1}</p>
-            <p className="std-font1 m-0">{billingAddress.line2}</p>
+            {/* <p className="std-boldFont std-font1  m-0">{billingAddress.name}</p> */}
+            <p className="std-font1 m-0">{billingAddress.address_line_1}</p>
+            <p className="std-font1 m-0">{billingAddress.locality+", "+billingAddress.city+", "+billingAddress.country}</p>
             <div className="d-flex">
               <p className="std-font1 std-boldFont m-0">Pincode: </p>
               <p className="std-font1 m-0">{billingAddress.pincode}</p>
