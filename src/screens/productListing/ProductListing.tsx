@@ -8,6 +8,7 @@ import "./ProductListing.scss";
 const ProductListing = () => {
   const [loading, setLoading] = useState(false);
   const [allProducts, setAllProducts] = useState<any>({});
+  
   const baseURL = "http://localhost:9000/api";
   useEffect(() => {
     setLoading(true);

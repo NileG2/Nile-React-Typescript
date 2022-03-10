@@ -15,11 +15,13 @@ const CardMethodComponent = (props: any) => {
     return dummy + tokens[tokens.length - 1]
   }
 
-
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const deletePaymentOption = (e:any, index:number) =>{
     let data = buyerPaymentList.filter((ele:any,ind:number)=>{ return ind !==index })
     try{
-      axios.delete(`http://localhost:9000/api/payment/payment/delete/${index}`)
+      axios.delete(`http://localhost:9000/api/payment/delete/${index}`,{
+        data : {userid : auth['userid']}
+      })
       alert("Payment method successfully deleted")
       dispatch(getPayment(data))
     }
@@ -29,7 +31,7 @@ const CardMethodComponent = (props: any) => {
   }
 
   return <div className='std-card std-mode-dimension'>
-    <p className='std-boldFont m-0'>{props.card.BankingInfo.card_type}</p>
+    {/* <p className='std-boldFont m-0'>{props.card.BankingInfo.card_type}</p> */}
     <p className='std-boldFont m-0'>{getPresentableNumber(props.card.BankingInfo.card_number)}</p>
     <p className='m-0'>Expiry: {props.card.BankingInfo.expiry_month} / {props.card.BankingInfo.expiry_year}</p>
     <p className='m-0'>Name: {props.card.BankingInfo.name_on_card}</p>

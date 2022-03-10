@@ -8,9 +8,9 @@ import {fetchAllAddresses} from '../../../../redux/actions/UserDetails'
 
 
 const MyDetail = () => {
-  const dispatch = useDispatch()
-  const addressList = useSelector((state:any)=>state.userDetails.addressList)
 
+  const addressList = useSelector((state:any)=>state.userDetails.addressList)
+  const dispatch = useDispatch()
   const [users1, setusers1] = useState(
     {
         email: "",
@@ -22,28 +22,34 @@ const MyDetail = () => {
 
 
   const [userId, setUserId] = useState("");
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/detail/users")
+      .post("http://localhost:9000/api/user/",{
+        userid :auth['userid']
+      })
       .then(({ data }) => {
         setUserId(data.status[0].userId)
         console.log(data.status[0].Contact.email)
         setusers1(data.status[0].Contact);
-        
         dispatch(fetchAllAddresses(data.status[0].Address)); 
       })
       .catch((err) => {
         alert(err);
       });
-  }, []);
+  }, [dispatch]);
 
+  
   const deleteAddress = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id:number)=>{
     e.preventDefault()
-    console.log(id)
     try{
-      axios.delete(`http://localhost:9000/api/detail/delete/${id}`)
+      let data = addressList.filter((ele:any,ind:number)=>{ return ind !==id })
+      axios.delete(`http://localhost:9000/api/user/delete/${id}`,{
+        data : {userid : auth['userid']}
+      })
       alert("data deleted successfully")
+      dispatch(fetchAllAddresses(data)); 
     }
     catch(err){
       console.log(err)

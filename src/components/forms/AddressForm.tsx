@@ -3,23 +3,31 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addNewAddress } from "../../redux/actions/UserDetails";
+import { useNavigate } from "react-router-dom";
+import {
+  addNewAddress,
+  fetchAllAddresses,
+  setAddress,
+} from "../../redux/actions/UserDetails";
 
 export default function AddressForm(props: any) {
   const addressList = useSelector(
     (state: any) => state.userDetails.addressList
   );
+  let currAddress = useSelector(
+    (state: any) => state.buyerPaymentInfo.currAddress
+  );
 
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
-        address_line_1: "",
-        locality: "",
-        city: "",
-        country: "",
-        state: "",
-        pincode: "",
+    address_line_1: "",
+    locality: "",
+    city: "",
+    country: "",
+    state: "",
+    pincode: "",
   });
 
   const onChangeHandler = (e: any) => {
@@ -27,26 +35,28 @@ export default function AddressForm(props: any) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-  const addAddress =  async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const addAddress = (e: any) => {
     e.preventDefault();
-    let allAddress = addressList
-    allAddress.push({Address: formData})
-    dispatch(addNewAddress(allAddress))
+    currAddress = formData;
+    dispatch(setAddress(currAddress));
 
-    console.log({Address: formData })
+    let allAddress = addressList;
+    allAddress.push(currAddress);
 
-    axios.post(`http://localhost:9000/api/detail/add`,{
-            
-              Address: formData 
-        }).then((resp)=>{
-          alert("Added Successfully")
-
-        }).catch((err)=>{
-            alert(err)
-    })
+    axios
+      .post(`http://localhost:9000/api/user/add`, {
+        Address: formData,
+        userid: auth["userid"],
+      })
+      .then((resp) => {
+        dispatch(addNewAddress(allAddress));
+        alert("Added Successfully");
+        navigate('/profile')
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (

@@ -16,6 +16,7 @@ import QueryScreen from "./screens/queryScreen/QueryScreen";
 import Invoice from "./screens/invoice/Invoice";
 
 function App() {
+  
   return (
     <div className="App">
       <Routes>

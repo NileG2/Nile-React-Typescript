@@ -17,7 +17,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import axios from "axios";
 
 const NavBar = () => {
   const categoryURLs = [
@@ -62,11 +63,26 @@ const NavBar = () => {
 
   let queryParam = params.get("category");
   let searchParam = params.get("search");
-  const isLoggedin = true;
+  const isLoggedin = false;
   const isSeller = true;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [choosen, setChoosen] = useState(categoryURLs[0].category);
   const [queryString, setQueryString] = useState("");
+  const auth = sessionStorage.getItem("user");
+  const navigate = useNavigate()
+
+
+  const handleLogout = ():void =>{
+    axios.post("http://localhost:9000/api/login/logout").then((res)=>{
+      alert("User signed out successfully")
+      // localStorage.removeItem("user1")
+      // localStorage.removeItem("user")
+      sessionStorage.removeItem("user")
+      navigate("/products")
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
 
   useEffect(() => {
     categoryURLs.forEach((cat, index) => {
@@ -152,15 +168,15 @@ const NavBar = () => {
           </form>
         </div>
         <div className="links">
-          {isLoggedin === true ? (
+          {auth ? (
             <div className="linkItem">
-              <MdWavingHand /> Hi, Jayesh
+              <MdWavingHand /> Hi, {JSON.parse(auth).username.split(" ")[0]}
             </div>
           ) : (
-            <div className="linkItem">
+            <Link to="/signin" className="linkItem" style={{textDecoration:"none"}}>
               <FaUserAlt />
               &nbsp; Sign In
-            </div>
+            </Link>
           )}
 
           {isSeller && (
@@ -173,16 +189,19 @@ const NavBar = () => {
             <FaShoppingCart />
             &nbsp; My Cart
           </div>
-          <Link to="/signin" style={{ textDecoration: "none" }}>
+          { auth ? 
+          <div style={{ textDecoration: "none" }} onClick={()=> handleLogout()}>
             <div className="linkItem">
               <MdLogout />
               &nbsp; Logout
             </div>
-          </Link>
+          </div>
+          : " "
+        }
         </div>
       </div>
 
-      <div className="navMob">
+      {/* <div className="navMob">
         <GiHamburgerMenu onClick={toggleDrawer(!drawerOpen)} />
         <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
           <List>
@@ -225,7 +244,7 @@ const NavBar = () => {
             </ListItem>
           </List>
         </Drawer>
-      </div>
+      </div> */}
     </div>
   );
 };

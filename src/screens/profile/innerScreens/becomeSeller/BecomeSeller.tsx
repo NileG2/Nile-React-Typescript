@@ -14,17 +14,18 @@ const BecomeSeller = () => {
   const [mobile_number, setmobileno] = useState("");
   // const [alternate_mobile_no, setalternateno] = useState("");
   const navigate = useNavigate();
-  
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //validation checks
     if (business_name != null && sector != null && address_line_1 != null && locality != null && city != null && pincode != null && state != null && country  != null  && mobile_number.length == 10) {
       axios
         .post("http://localhost:9000/api/sellers/seller", {
+          userid : auth['userid'],
           business:{
             business_name: business_name,
             sector: sector,
-
             addresses: [
             {
               address_line_1: address_line_1,

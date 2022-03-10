@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductCardVertical = (props: any) => {
+  const auth = sessionStorage.getItem("user")
   const navigate = useNavigate();
 
   return (
@@ -56,7 +57,10 @@ const ProductCardVertical = (props: any) => {
               {props.product.price}
             </p>
           </div>
-          <button className="std-btn std-btnOrange">Add to Cart</button>
+          {
+            auth ? <button className="std-btn std-btnOrange">Add to Cart</button> : <button className="std-btn std-btnOrange" onClick={()=>navigate("/signin")}>Sign In to buy</button>
+          }
+          
         </div>
       </div>
     </div>

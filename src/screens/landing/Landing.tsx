@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   const bannerImages = [
     "assets/ad1.jpg",
-    "assets/ad1.jpg",
-    "assets/ad1.jpg",
-    "assets/ad1.jpg",
+    "assets/ad2.jpg",
+    "assets/ad3.jpg",
+    "assets/ad4.jpg",
   ];
   return (
     <div className="landingWrapper">
