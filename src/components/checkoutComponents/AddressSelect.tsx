@@ -42,7 +42,6 @@ const AddressSelect = () => {
     }
 
     function handleCurrAddress(index: number) {
-        console.log(addressList[index])
         setCurrAddress(addressList[index])
     }
 
@@ -50,7 +49,7 @@ const AddressSelect = () => {
         <div className='row'>
             <div className='col'>
                 <div>
-                    <p className='std-font2'>Selected Address</p>
+                    {currAddress!==null?<p className='std-font2'>Selected Address</p>:<p className='std-font2'>Please Seleact an Address</p>}
                 </div>
                 {currAddress !== null ? <AddressBox address={currAddress} /> : <></>}
                 <div>
@@ -70,11 +69,11 @@ const AddressSelect = () => {
                 </div>
             </div>
             <div className='col'>
-                <p className='std-font2'>Add other address for delivery</p>
-                <AddressForm flag={false} />
-                <div className='d-flex justify-content-center'>
+                <div className='d-flex justify-content-center m-2'>
                     <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e) => { handleNextStep(e) }}>Proceed</button>
                 </div>
+                <p className='std-font2'>Add other address for delivery</p>
+                <AddressForm flag={false} />
             </div>
         </div>
     )

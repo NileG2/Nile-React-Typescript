@@ -1,7 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { nextStep,setPaymentOption } from '../../redux/actions/Checkout'
+import { nextStep, setPaymentOption } from '../../redux/actions/Checkout'
 import PaymentMode from '../checkoutCards/PaymentMode'
 
 import AddPaymentMethodForm from '../forms/AddPaymentMethodForm'
@@ -41,7 +40,7 @@ const PaymentSelect = () => {
       <div className='row'>
         <div className='col'>
           <div className='m-2'>
-            <p className='std-font2'>Selected Payment Mode</p>
+            {currMode!==null?<p className='std-font2'>Selected Payment Mode</p>:<p className='std-font2'>Please Select a Payment Mode</p>}
             {
               currMode === null ? <div>
                 Add Payment method
@@ -65,13 +64,14 @@ const PaymentSelect = () => {
           </div>
         </div>
         <div className='col'>
+          <div className='d-flex justify-content-center m-2'>
+            <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e) => { handleNextStep(e) }}>Proceed</button>
+          </div>
           <div className='m-2'>
             <p className='std-font2'>Other Payment Mode</p>
             <AddPaymentMethodForm />
           </div>
-          <div className='d-flex justify-content-center'>
-            <button className='std-btn std-btnOrange' style={{ width: "20rem" }} onClick={(e) => { handleNextStep(e) }}>Proceed</button>
-          </div>
+
         </div>
       </div>
     </div>
