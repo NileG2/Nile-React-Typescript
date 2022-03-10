@@ -4,10 +4,15 @@ import "./Signin.scss";
 import { BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { PushSpinner } from "react-spinners-kit";
+import { toast } from "react-toastify";
 
 const Signin = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +26,7 @@ const Signin = () => {
   function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     if (email != null && password.length > 6) {
+      setLoading(true);
       axios
         .post("http://localhost:9000/api/login/login", {
           email: email,
@@ -33,7 +39,8 @@ const Signin = () => {
               userid: resp.data.userid,
             })
             .then((res) => {
-              console.log(res.data.status[0])
+              console.log(res.data.status[0]);
+              setLoading(false);
               sessionStorage.setItem(
                 "user",
                 JSON.stringify({
@@ -42,18 +49,21 @@ const Signin = () => {
                   userid: resp.data.userid,
                 })
               );
-              alert("User Signedin Successfully");
+              toast.success("Signed in successfully");
               navigate("/products");
             })
             .catch((err) => {
+              setLoading(false);
+              toast.error("Some error occured");
               console.log(err);
             });
         })
         .catch((err) => {
-          alert("Something went wrong");
+          setLoading(false);
+          toast.error("Some error occured");
         });
     } else {
-      alert("Please enter valid details");
+      toast.info("Please enter valid details");
     }
   }
 
@@ -104,19 +114,28 @@ const Signin = () => {
 
                     <div className="d-grid gap-2">
                       <button
-                        className="btn btn-warning std-subHeader1"
+                        className="std-btn std-btnOrange std-subHeader1"
                         type="submit"
                         onClick={(e) => signinUser(e)}
                       >
-                        Sign-In
+                        {loading ? (
+                          <PushSpinner color="#000000" size={22} />
+                        ) : (
+                          `Sign-In`
+                        )}
                       </button>
                       <h2 className="std-centerAlign std-subHeader2"> OR </h2>
                       <button
-                        className="btn btn-warning std-subHeader1"
+                        className="std-btn std-btnOrange std-subHeader1"
                         type="button"
                       >
-                        {" "}
-                        <BsGoogle /> Continue with Google
+                        {loading2 ? (
+                          <PushSpinner color="#000000" size={22} />
+                        ) : (
+                          <span>
+                            <BsGoogle /> &nbsp;&nbsp;Continue with Google
+                          </span>
+                        )}
                       </button>
                     </div>
                     <br />

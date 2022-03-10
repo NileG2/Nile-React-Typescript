@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { PushSpinner } from "react-spinners-kit";
 import CardContainerHorizontal from "../../components/cardContainer/CardContainerHorizontal";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
@@ -8,7 +9,7 @@ import "./ProductListing.scss";
 const ProductListing = () => {
   const [loading, setLoading] = useState(false);
   const [allProducts, setAllProducts] = useState<any>({});
-  
+
   const baseURL = "http://localhost:9000/api";
   useEffect(() => {
     setLoading(true);
@@ -24,7 +25,7 @@ const ProductListing = () => {
   if (loading)
     return (
       <div className="loadingDiv">
-        <h2>Loading...</h2>
+        <PushSpinner size={30} color="#232f3e" />
       </div>
     );
 

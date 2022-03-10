@@ -7,6 +7,7 @@ import SidebarFilter from "../../components/filter/SidebarFilter";
 import CardContainerGrid from "../../components/cardContainer/CardContainerGrid";
 import axios from "axios";
 import CardContainerHorizontal from "../../components/cardContainer/CardContainerHorizontal";
+import { PushSpinner } from "react-spinners-kit";
 
 const QueryScreen = () => {
   const [params] = useSearchParams();
@@ -17,6 +18,8 @@ const QueryScreen = () => {
 
   const [queryProducts, setQueryProducts] = useState<any[]>([]);
   const [searchProducts, setSearchProducts] = useState<any[]>([]);
+
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   const baseURL = "http://localhost:9000/api";
 
@@ -43,7 +46,7 @@ const QueryScreen = () => {
         .get(`${baseURL}/products/search?name=${searchString}`)
         .then((res) => {
           setLoading(false);
-          setSearchProducts(res.data.results);
+          setSearchProducts([...res.data.results]);
         })
         .catch((err) => {
           setLoading(false);
@@ -52,10 +55,13 @@ const QueryScreen = () => {
     }
   }, [searchString]);
 
+  //filter based on department
+  const filterByDepartment = (): void => {};
+
   if (loading)
     return (
       <div className="loadingDiv">
-        <h2>Loading...</h2>
+        <PushSpinner size={30} color="#232f3e" />
       </div>
     );
 
@@ -67,9 +73,13 @@ const QueryScreen = () => {
       </h2>
       {queryString !== "" && (
         <div className="content">
-          <div className="filterSidebar">
-            <SidebarFilter />
-          </div>
+          {/* <div className="filterSidebar">
+            <SidebarFilter
+              queryProducts={queryProducts}
+              setQueryProducts={setQueryProducts}
+              operation="query"
+            />
+          </div> */}
           <div className="products">
             <CardContainerGrid products={queryProducts} />
           </div>
@@ -78,23 +88,20 @@ const QueryScreen = () => {
 
       {searchString !== "" && (
         <div className="content">
-          <div className="filterSidebar">
-            <SidebarFilter />
-          </div>
+          {/* <div className="filterSidebar">
+            <SidebarFilter
+              searchProducts={searchProducts}
+              setSearchProducts={setSearchProducts}
+              operation="search"
+            />
+          </div> */}
           <div className="products">
             {searchProducts.length === 0 ? (
               <h2>No results to display</h2>
             ) : (
-              searchProducts.map((products) => {
-                return (
-                  <>
-                    <CardContainerHorizontal
-                      products={products.data}
-                      category={products.category}
-                    />
-                  </>
-                );
-              })
+              <div className="products">
+                <CardContainerGrid products={searchProducts} />
+              </div>
             )}
           </div>
         </div>

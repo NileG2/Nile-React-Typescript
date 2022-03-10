@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import BecomeSeller from "./innerScreens/becomeSeller/BecomeSeller";
 import MyDetail from "./innerScreens/myDetails/MyDetail";
@@ -8,6 +8,8 @@ import Watchlist from "./innerScreens/watchlist/Watchlist";
 import "./ProfileDashboard.scss";
 import NavBar from "../../components/nav/NavBar";
 import Footer from "../../components/footer/Footer";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProfileDashboard = () => {
   const sidebarItems = [
@@ -18,7 +20,16 @@ const ProfileDashboard = () => {
     "Become a Seller",
   ];
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const navigate = useNavigate();
 
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+
+  useEffect(() => {
+    if (!auth["email"]) {
+      toast.info("Please sign in first");
+      navigate("/products");
+    }
+  }, []);
   const renderSelectedScreen = () => {
     switch (selectedItemIndex) {
       case 0:

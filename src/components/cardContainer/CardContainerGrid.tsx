@@ -5,8 +5,7 @@ import "./CardContainerGrid.scss";
 const CardContainerGrid = (props: any) => {
   const [pageNum, setPageNum] = useState(0);
   const pageSize = 10;
-  const totalPages = Math.round(props.products.length / pageSize + 1);
-
+  const totalPages = Math.ceil(props.products.length / pageSize);
   if (!props.products) {
     return <></>;
   }
