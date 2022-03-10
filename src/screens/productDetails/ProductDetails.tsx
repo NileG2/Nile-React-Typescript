@@ -15,6 +15,20 @@ const ProductDetails = () => {
   const baseURL = "http://localhost:9000/api";
 
   useEffect(() => {
+
+    function getOptionsArray(buying_options:any){
+      let optionsArray:any[] = []
+      optionsArray.push({
+        type:'color',
+        available:buying_options.color
+      })
+      optionsArray.push({
+        type:'size',
+        available:buying_options.size
+      })
+      return optionsArray
+    }
+
     if (productId !== "") {
       setLoading(true);
       axios
@@ -22,6 +36,51 @@ const ProductDetails = () => {
         .then((res) => {
           setLoading(false);
           console.log(res.data.doc);
+          let doc = res.data.doc
+          let currProduct = {
+            product_name: doc.name,
+            product_id: doc.product_id,
+            image: "https://picsum.photos/100",
+            price: doc.price,
+            brand: doc.brand,
+            payable: doc.price,
+            quantity: 1,
+            options: getOptionsArray(doc.buying_options),
+            slides: doc.images,
+            details: doc.highlights,
+            technicalDetails: doc.technical_details,
+            rating: {
+              total: 311,
+              stars: {
+                "5": 0.7,
+                "4": 0.2,
+                "3": 0.1,
+                "2": 0.03,
+                "1": 0.03,
+              },
+            },
+            reviews: [
+              {
+                poster: "Aditya Dawadikar",
+                date: "18-12-2021",
+                comment:
+                  "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
+              },
+              {
+                poster: "Farhan Akhtar",
+                date: "2-2-2022",
+                comment:
+                  "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
+              },
+              {
+                poster: "Richard",
+                date: "13-2-2022",
+                comment:
+                  "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
+              },
+            ],
+          }
+          setProduct(currProduct)
         })
         .catch((err) => {
           setLoading(false);

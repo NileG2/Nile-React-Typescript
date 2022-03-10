@@ -38,7 +38,6 @@ export function ColorOptions(props) {
     </div>
 }
 export function SizeOption(props) {
-    console.log(props)
 
     const [selectedOption, setSelectedOption] = useState(props.available[0])
 
