@@ -1,24 +1,7 @@
 import React,{useState,useEffect} from "react";
 
-import {uploadFiles,deleteFile,uploadFile} from '../../services/imageUpload/imageUpload'
 
 const Test = () => {
-
-  const [files,setfiles] = useState<any>([])
-  const [filename,setfilename] = useState<string>("")
-
-  function handleFileUpload(e:any){
-    setfiles(e.target.files[0])
-  }
-
-  function handleFileDelete(){
-    // console.log(filename)
-    deleteFile(filename)
-  }
-
-  function handleChange(e:any){
-    setfilename(e.target.value)
-  }
 
   function sessionManage(){
     let auth = sessionStorage.getItem("user") 
@@ -30,18 +13,7 @@ const Test = () => {
     }
   }
 
-  async function uploadUrl(){
-    let url = await uploadFile(files)
-    console.log(url)
-  }
-
   return <div>
-    <input type="file" onChange={(e)=>{handleFileUpload(e)}}/>
-    <button onClick={()=>{uploadUrl()}} >Upload</button>
-    <br/>
-    <input onChange={(e)=>{handleChange(e)}}/>
-    <button onClick={()=>{handleFileDelete()}}>Delete</button>
-    <br />
     <button onClick={()=>{sessionManage()}}>Check Auth</button>
   </div>;
 };
