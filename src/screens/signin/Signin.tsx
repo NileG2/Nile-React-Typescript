@@ -68,6 +68,15 @@ const Signin = () => {
     }
   }
 
+  const loginWithGoogle = (e:any)=>{
+    e.preventDefault()
+    axios.post("http://localhost:9000/api/login/logingoogle").then((res)=>{
+      console.log("Logged in with google")
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
+
   return (
     <div className="signinuser">
       <section className="vh-90 gradient-custom ">
@@ -128,7 +137,7 @@ const Signin = () => {
                       <h2 className="std-centerAlign std-subHeader2"> OR </h2>
                       <button
                         className="std-btn std-btnOrange std-subHeader1"
-                        type="button"
+                        type="submit" onClick={(e)=>{loginWithGoogle(e)}}
                       >
                         {loading2 ? (
                           <CircleSpinner color="#000000" size={22} />
