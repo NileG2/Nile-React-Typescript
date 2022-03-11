@@ -130,7 +130,7 @@ const ProductImages = () => {
               return (
                 <div key={index}>
                   <a href={urlList[index]} target="_blank">{elem}</a>
-                  <img src={urlList[index]}></img>
+                  <img src={urlList[index]} width="200px" height="200px"></img>
                   <MdClear
                     onClick={() => {
                       removeData(index);
