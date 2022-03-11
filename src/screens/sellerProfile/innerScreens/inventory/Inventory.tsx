@@ -4,12 +4,16 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 import CardContainerGrid from "../../../../components/cardContainer/CardContainerGrid";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductList } from "../../../../redux/actions/Product";
 
 const Inventory = () => {
   const [addProductForm, setAddProductForm] = useState(true);
   const [Products,setProducts] = useState()
   const [MyProducts,setMyProducts] = useState<any>([])
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+  let dispatch = useDispatch()
+  let productList = useSelector((state:any)=>state.productDetail.productList)
 
   useEffect(() => {
 
@@ -24,6 +28,8 @@ const Inventory = () => {
     ).then(({ data }) => {
       setMyProducts(data.products)
       console.log(data.products)
+      dispatch(getProductList(data.products))
+      
     })
     });
 
@@ -48,7 +54,8 @@ const Inventory = () => {
       </div>
       <br />
       {
-        MyProducts.length >0 && <div><CardContainerGrid products = {MyProducts} type={"seller"}/></div>
+        productList.length >0 ? <div><CardContainerGrid products = {productList} type={"seller"}/></div> : 
+        <h2 className="std-subHeader">No items in inventory... Please add some products.</h2>
         
       }
       

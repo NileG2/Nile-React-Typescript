@@ -6,13 +6,15 @@ export const ProductReducer = (state:any={}, action:any) => {
             return { ...state, product:action.payload.product }
         case actions.DELETE_PRODUCT:
             //handler
-            return { ...state }
+            return { ...state, prodId:action.payload.prodId }
         case actions.UPDATE_PRODUCT:
             //handler
             return { ...state }
         case actions.GET_PRODUCT_DETAILS:
             //hanlder
             return { ...state }
+        case actions.GET_PRODUCT_LIST:
+            return {...state, productList : action.payload.productArray}
         default:
             return { ...state }
     }

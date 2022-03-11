@@ -5,14 +5,30 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addItem } from "../../../redux/actions/Cart";
 import { toast } from "react-toastify";
+import { getProductList } from "../../../redux/actions/Product";
 
 const ProductCardVerticalInventory = (props: any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const navigate = useNavigate();
+    
+  let dispatch = useDispatch()
+  let productList = useSelector((state:any)=>state.productDetail.productList)
+  
 
-
- const handleToDelete=():void=>{
-    console.log("handle delete")
+ const handleToDelete=(e:any, prod_cat:any, prod_id:any)=>{
+    e.preventDefault();
+    console.log(prod_cat + " " + prod_id)
+    let data = productList.filter((prod:any,index:number)=>{
+        return prod.product_id !==prod_id
+    })
+    dispatch(getProductList(data))
+    axios.delete(`http://localhost:9000/api/products/${prod_cat}/${prod_id}`, {
+      data : {userid: auth['userid']}
+    }).then((res) => {
+        toast.success("product deleted successfully")
+    }).catch((err)=> {
+        toast.error("something went wrong")
+      }) 
  }
 
   return (
@@ -66,7 +82,7 @@ const ProductCardVerticalInventory = (props: any) => {
               {props.product.price}
             </p>
           </div>
-            <button className="std-btn std-btnOrange" onClick={() => { handleToDelete() }}>Delete</button>
+            <button className="std-btn std-btnOrange" onClick={(e) => { handleToDelete(e, props.product.category, props.product.product_id) }}>Delete</button>
           
 
         </div>
