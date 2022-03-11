@@ -30,7 +30,7 @@ const Orders = () => {
             {
                 userOrders.length>0?userOrders.map((order: any, index: number) => {
                     return <OrderProductContainer key={index} order={order} />
-                }):<></>
+                }):<>Nothing to show yet</>
             }
         </div>
     )
