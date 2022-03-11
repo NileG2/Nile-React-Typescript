@@ -121,7 +121,12 @@ const SalesSummary = (props: any) => {
             {order.product_selected.map((product: any, index2: number) => (
               <div className="product" key={index2}>
                 <div className="image">
-                  <img src={product.product_image} alt="imgProduct" />
+                  <img
+                    src={product.product_image}
+                    height="150px"
+                    width="150px"
+                    alt="imgProduct"
+                  />
                 </div>
                 <div className="desc">
                   <div className="name std-bold std-font2">
