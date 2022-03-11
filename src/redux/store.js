@@ -194,7 +194,8 @@ const initialState = {
       },
       images : []
     },
-    inventoryInfo : {}
+    inventoryInfo : {},
+    productList : []
     
   }
 };

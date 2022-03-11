@@ -23,23 +23,28 @@ const SellerProfileDashboard = () => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(3);
   const navigate = useNavigate();
   const [inventory, setInventory] = useState<any>([]);
+  const [orders, setOrders] = useState<any>([]);
 
   let inventoryInfo = useSelector((state:any)=>state.productDetail.inventoryInfo)
   let dispatch = useDispatch()
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
-  useEffect(() => {
-      axios.post("http://localhost:9000/api/order/orders", {
+  const fetchOrders = ()=>{
+    axios.post("http://localhost:9000/api/order/orders", {
           userid: auth["userid"],
         })
         .then(({ data }) => {
-          console.log(data.inventory_id)
+          setOrders(data.orders)
           setInventory(data.inventory_id)
         })
         .catch((err) => {
           toast.error(`${err}`);
         });
+  }
+
+  useEffect(() => {
+      fetchOrders()
 
     if (!auth["email"]) {
       toast.info("Please sign in first");
@@ -55,7 +60,7 @@ const SellerProfileDashboard = () => {
       case 0:
         return <Inventory />;
       case 1:
-        return <SalesSummary />;
+        return <SalesSummary inventory = {inventory} orders={orders} fetchOrders = {fetchOrders}/>;
       case 2:
         return <Payments />;
       case 3:
