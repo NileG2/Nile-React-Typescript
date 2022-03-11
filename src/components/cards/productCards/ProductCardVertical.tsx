@@ -26,8 +26,8 @@ const ProductCardVertical = (props: any) => {
         product_image: props.product.images.length > 0
           ? props.product.images[0]
           : "https://picsum.photos/100",
-        price:props.product.price,
-        quantity:1,
+        price: props.product.price,
+        quantity: 1,
       }
     }).then(res => {
       dispatch(addItem(allCartProducts))
@@ -48,14 +48,15 @@ const ProductCardVertical = (props: any) => {
                 ? props.product.images[0]
                 : "https://picsum.photos/100"
             }
-            width="100%"
-            height="100%"
+            width="200px"
+            height="200px"
             style={{ cursor: "pointer" }}
-            onClick={() =>
+            onClick={() => {
+              console.log(props)
               navigate(
                 `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
               )
-            }
+            }}
           />
         </div>
         <div className="p-2">
@@ -63,7 +64,7 @@ const ProductCardVertical = (props: any) => {
             className="m-0 std-boldFont overflow-hidden"
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(`/product/details?pid=${props.product.product_id}`)
+              navigate(`/product/details?pid=${props.product.product_id}&category=${props.product.category}`)
             }
           >
             {props.product.name}
@@ -91,7 +92,6 @@ const ProductCardVertical = (props: any) => {
           {
             auth ? <button className="std-btn std-btnOrange" onClick={() => { handleAddToCart() }}>Add to Cart</button> : <button className="std-btn std-btnOrange" onClick={() => navigate("/signin")}>Sign In to buy</button>
           }
-
         </div>
       </div>
     </div>

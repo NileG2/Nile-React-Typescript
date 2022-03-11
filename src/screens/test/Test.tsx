@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 
-import {uploadFiles,deleteFile} from '../../services/imageUpload/imageUpload'
+import {uploadFiles,deleteFile,uploadFile} from '../../services/imageUpload/imageUpload'
 
 const Test = () => {
 
@@ -8,7 +8,7 @@ const Test = () => {
   const [filename,setfilename] = useState<string>("")
 
   function handleFileUpload(e:any){
-    setfiles(e.target.files)
+    setfiles(e.target.files[0])
   }
 
   function handleFileDelete(){
@@ -30,9 +30,14 @@ const Test = () => {
     }
   }
 
+  async function uploadUrl(){
+    let url = await uploadFile(files)
+    console.log(url)
+  }
+
   return <div>
-    <input type="file" onChange={(e)=>{handleFileUpload(e)}} multiple/>
-    <button onClick={()=>{uploadFiles(files)}} >Upload</button>
+    <input type="file" onChange={(e)=>{handleFileUpload(e)}}/>
+    <button onClick={()=>{uploadUrl()}} >Upload</button>
     <br/>
     <input onChange={(e)=>{handleChange(e)}}/>
     <button onClick={()=>{handleFileDelete()}}>Delete</button>

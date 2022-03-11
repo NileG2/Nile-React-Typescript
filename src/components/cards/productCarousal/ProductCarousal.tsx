@@ -12,12 +12,14 @@ const ProductCarousal = (props: any) => {
                     return <Carousel.Item key={index}>
                         <img
                             className="d-block w-100"
-                            src={slide.image}
+                            src={slide}
                             alt="First slide"
+                            width="500px"
+                            height="500px"
                         />
-                        <Carousel.Caption>
+                        {/* <Carousel.Caption>
                             <h3>{slide.text}</h3>
-                        </Carousel.Caption>
+                        </Carousel.Caption> */}
                     </Carousel.Item>
                 })
             }
