@@ -135,7 +135,8 @@ const PlaceOrder = () => {
       }
       // console.log(orderObject)
       axios.post(`${baseUrlOrder}`,orderObject).then((res)=>{
-        toast.success(`order placed successfully, your tracking id is ${res.data.tracking_id}`,{autoClose:4000})
+        console.log(res.data)
+        toast.success(`order placed successfully`,{autoClose:4000})
         navigate('/invoice')
       })
     }).catch(err=>{
