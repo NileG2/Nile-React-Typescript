@@ -4,7 +4,6 @@ import InvoiceContainer from "../../components/checkoutCards/InvoiceContainer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import jsPDF from "jspdf";
-import "./styles.scss";
 
 const Invoice = () => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
