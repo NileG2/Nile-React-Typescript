@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductCard.scss";
 import Rating from "@mui/material/Rating";
+import { useNavigate } from "react-router-dom";
 
 import {
   setItemQuantity,
@@ -14,6 +15,11 @@ import { addItemToWatchlist, removeItemFromWatchlist } from "../../../redux/acti
 import axios from "axios";
 
 const ProductCardHorizontal = (props: any) => {
+
+  console.log(props.product)
+
+  const navigate = useNavigate();
+
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const baseUrlCart = "http://localhost:9000/api/cart";
   const baseUrlWatchlist = "http://localhost:9000/api/watchlist";
@@ -23,14 +29,8 @@ const ProductCardHorizontal = (props: any) => {
     (state: any) => state.watchlist.userWatchlist
   );
 
-  const [currProduct, setCurrProduct] = useState(props.product);
-
   const [quantity, setQuantity] = useState(props.product.quantity || 1);
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
-
-  useEffect(() => {
-    setCurrProduct(props.product);
-  }, [props.product]);
 
   const dispatch = useDispatch();
 
@@ -88,7 +88,7 @@ const ProductCardHorizontal = (props: any) => {
   function setProductQuantity(e: any) {
     setQuantity(e.target.value);
 
-    let tempProduct = currProduct;
+    let tempProduct = props.product;
     tempProduct.quantity = e.target.value;
     tempProduct.payable = e.target.value * props.product.price;
 
@@ -101,7 +101,6 @@ const ProductCardHorizontal = (props: any) => {
         },
       })
       .then((res) => {
-        setCurrProduct(tempProduct);
         dispatch(setItemQuantity(tempProduct, props.index));
         setSubTotal(allProducts);
         toast.success("updated quantity successfully");
@@ -125,6 +124,7 @@ const ProductCardHorizontal = (props: any) => {
             product_name: props.product.name,
             product_image: props.product.product_image,
             price: props.product.price,
+            category: props.product.category
           },
         ],
       })
@@ -147,12 +147,25 @@ const ProductCardHorizontal = (props: any) => {
               width="150px"
               height="150px"
               alt="productImg"
+              onClick={() => {
+                console.log(props);
+                // navigate(
+                //   `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                // );
+              }}
             />
           </div>
           <div className="col-10">
             <div className="row">
               <div className="col-8">
-                <p className="m-0 std-boldFont overflow-hidden">
+                <p className="m-0 std-boldFont overflow-hidden"
+                  onClick={() => {
+                    console.log(props);
+                    // navigate(
+                    //   `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                    // );
+                  }}
+                >
                   {props.product.product_name}
                 </p>
                 <p className="std-bold std-greenText m-0 std-desc">In Stock</p>

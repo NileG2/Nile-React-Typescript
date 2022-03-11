@@ -30,6 +30,7 @@ const ProductCardVertical = (props: any) => {
               : "https://picsum.photos/100",
           price: props.product.price,
           quantity: 1,
+          product_category: props.product.category
         },
       })
       .then((res) => {
