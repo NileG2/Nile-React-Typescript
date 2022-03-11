@@ -18,7 +18,7 @@ const CartCard = () => {
                 </div>
             </div>
             <div className='std-section'></div>
-            <CardContainerVertical products={productsFromCart} />
+            <CardContainerVertical products={productsFromCart} isCart={true}/>
             <div className='std-section'></div>
             <div className='row'>
                 <div className='col-7'>

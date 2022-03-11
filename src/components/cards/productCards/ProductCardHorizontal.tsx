@@ -9,13 +9,14 @@ import {
 } from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addItemToWatchlist } from "../../../redux/actions/Watchlist";
+import { addItemToWatchlist, removeItemFromWatchlist } from "../../../redux/actions/Watchlist";
 
 import axios from "axios";
 
 const ProductCardHorizontal = (props: any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
-  const baseUrl = "http://localhost:9000/api/cart";
+  const baseUrlCart = "http://localhost:9000/api/cart";
+  const baseUrlWatchlist = "http://localhost:9000/api/watchlist";
 
   const allProducts = useSelector((state: any) => state.cart.userCart);
   let watchlistArray = useSelector(
@@ -33,12 +34,12 @@ const ProductCardHorizontal = (props: any) => {
 
   const dispatch = useDispatch();
 
-  function removeProduct() {
+  function removeProductFromCart() {
     let requiredProducts = allProducts.filter((p: any, index: number) => {
       return index !== props.index;
     });
     axios
-      .post(`${baseUrl}/delete`, {
+      .post(`${baseUrlCart}/delete`, {
         userid: auth.userid,
         product: {
           product_id: props.product.product_id,
@@ -51,6 +52,25 @@ const ProductCardHorizontal = (props: any) => {
       })
       .catch((err) => {
         toast.error(err);
+      });
+  }
+
+  function removeProductFromWatchlist() {
+    let requiredProducts = allProducts.filter((p: any, index: number) => {
+      return index !== props.index;
+    });
+    axios
+      .post(`${baseUrlWatchlist}/delete/${props.product.product_id}`, {
+        userid: auth.userid
+      })
+      .then((res) => {
+        dispatch(removeItemFromWatchlist(requiredProducts));
+        setSubTotal(requiredProducts);
+        toast.success("removed item from watchlist");
+      })
+      .catch((err) => {
+        // toast.error(err);
+        console.log(err)
       });
   }
 
@@ -73,7 +93,7 @@ const ProductCardHorizontal = (props: any) => {
     tempProduct.payable = e.target.value * props.product.price;
 
     axios
-      .post(`${baseUrl}/update`, {
+      .post(`${baseUrlCart}/update`, {
         userid: auth.userid,
         product: {
           product_id: props.product.product_id,
@@ -116,7 +136,7 @@ const ProductCardHorizontal = (props: any) => {
         toast.error(err);
       });
   }
-  
+
   return (
     <div className="Card">
       <div className="std-card std-card-dimension-horizontal std-no-shadow p-0">
@@ -171,19 +191,33 @@ const ProductCardHorizontal = (props: any) => {
                   max={10}
                 />
               </div>
-              <div className="col-2">
-                <p
-                  onClick={() => {
-                    removeProduct();
-                  }}
-                  className="std-btn std-btnGray"
-                >
-                  Delete
-                </p>
-              </div>
-              <div className="col-3" onClick={() => addProductToWatchlist()}>
-                <p className="std-btn std-btnOrange">Add to watchlist</p>
-              </div>
+              {props.isCart === true ? <div className='col-5 row'>
+                <div className="col">
+                  <p
+                    onClick={() => {
+                      removeProductFromCart(); //from cart
+                    }}
+                    className="std-btn std-btnGray"
+                  >
+                    Remove from Cart
+                  </p>
+                </div>
+                <div className="col" onClick={() => addProductToWatchlist()}>
+                  <p className="std-btn std-btnOrange">Add to watchlist</p>
+                </div>
+              </div> : <div className='col-5 row'>
+                <div className='col'></div>
+                <div className="col">
+                  <p
+                    onClick={() => {
+                      removeProductFromWatchlist(); //from watchlist
+                    }}
+                    className="std-btn std-btnGray"
+                  >
+                    Remove from watchlist
+                  </p>
+                </div>
+              </div>}
             </div>
           </div>
         </div>
