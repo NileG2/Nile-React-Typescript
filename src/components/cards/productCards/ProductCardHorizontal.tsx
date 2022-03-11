@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductCard.scss";
 import Rating from "@mui/material/Rating";
+import { useNavigate } from "react-router-dom";
 
 import {
   setItemQuantity,
@@ -9,36 +10,36 @@ import {
 } from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addItemToWatchlist } from "../../../redux/actions/Watchlist";
+import { addItemToWatchlist, removeItemFromWatchlist } from "../../../redux/actions/Watchlist";
 
 import axios from "axios";
 
 const ProductCardHorizontal = (props: any) => {
+
+  console.log(props.product)
+
+  const navigate = useNavigate();
+
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
-  const baseUrl = "http://localhost:9000/api/cart";
+  const baseUrlCart = "http://localhost:9000/api/cart";
+  const baseUrlWatchlist = "http://localhost:9000/api/watchlist";
 
   const allProducts = useSelector((state: any) => state.cart.userCart);
   let watchlistArray = useSelector(
     (state: any) => state.watchlist.userWatchlist
   );
 
-  const [currProduct, setCurrProduct] = useState(props.product);
-
   const [quantity, setQuantity] = useState(props.product.quantity || 1);
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
-  useEffect(() => {
-    setCurrProduct(props.product);
-  }, [props.product]);
-
   const dispatch = useDispatch();
 
-  function removeProduct() {
+  function removeProductFromCart() {
     let requiredProducts = allProducts.filter((p: any, index: number) => {
       return index !== props.index;
     });
     axios
-      .post(`${baseUrl}/delete`, {
+      .post(`${baseUrlCart}/delete`, {
         userid: auth.userid,
         product: {
           product_id: props.product.product_id,
@@ -51,6 +52,25 @@ const ProductCardHorizontal = (props: any) => {
       })
       .catch((err) => {
         toast.error(err);
+      });
+  }
+
+  function removeProductFromWatchlist() {
+    let requiredProducts = allProducts.filter((p: any, index: number) => {
+      return index !== props.index;
+    });
+    axios
+      .post(`${baseUrlWatchlist}/delete/${props.product.product_id}`, {
+        userid: auth.userid
+      })
+      .then((res) => {
+        dispatch(removeItemFromWatchlist(requiredProducts));
+        setSubTotal(requiredProducts);
+        toast.success("removed item from watchlist");
+      })
+      .catch((err) => {
+        // toast.error(err);
+        console.log(err)
       });
   }
 
@@ -68,12 +88,12 @@ const ProductCardHorizontal = (props: any) => {
   function setProductQuantity(e: any) {
     setQuantity(e.target.value);
 
-    let tempProduct = currProduct;
+    let tempProduct = props.product;
     tempProduct.quantity = e.target.value;
     tempProduct.payable = e.target.value * props.product.price;
 
     axios
-      .post(`${baseUrl}/update`, {
+      .post(`${baseUrlCart}/update`, {
         userid: auth.userid,
         product: {
           product_id: props.product.product_id,
@@ -81,7 +101,6 @@ const ProductCardHorizontal = (props: any) => {
         },
       })
       .then((res) => {
-        setCurrProduct(tempProduct);
         dispatch(setItemQuantity(tempProduct, props.index));
         setSubTotal(allProducts);
         toast.success("updated quantity successfully");
@@ -93,6 +112,14 @@ const ProductCardHorizontal = (props: any) => {
 
   function addProductToWatchlist() {
     let allWatchlistProducts = watchlistArray;
+
+    for (let i = 0; i < allWatchlistProducts.length; i++) {
+      if (allWatchlistProducts[i].product_id === props.product.product_id) {
+        toast.success("Product already exists in watchlist")
+        return
+      }
+    }
+
     allWatchlistProducts.push(props.product);
     console.log(props.product);
 
@@ -105,6 +132,7 @@ const ProductCardHorizontal = (props: any) => {
             product_name: props.product.name,
             product_image: props.product.product_image,
             price: props.product.price,
+            category: props.product.category
           },
         ],
       })
@@ -116,7 +144,7 @@ const ProductCardHorizontal = (props: any) => {
         toast.error(err);
       });
   }
-  
+
   return (
     <div className="Card">
       <div className="std-card std-card-dimension-horizontal std-no-shadow p-0">
@@ -127,12 +155,25 @@ const ProductCardHorizontal = (props: any) => {
               width="150px"
               height="150px"
               alt="productImg"
+              onClick={() => {
+                console.log(props);
+                // navigate(
+                //   `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                // );
+              }}
             />
           </div>
           <div className="col-10">
             <div className="row">
               <div className="col-8">
-                <p className="m-0 std-boldFont overflow-hidden">
+                <p className="m-0 std-boldFont overflow-hidden"
+                  onClick={() => {
+                    console.log(props);
+                    // navigate(
+                    //   `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                    // );
+                  }}
+                >
                   {props.product.product_name}
                 </p>
                 <p className="std-bold std-greenText m-0 std-desc">In Stock</p>
@@ -171,19 +212,33 @@ const ProductCardHorizontal = (props: any) => {
                   max={10}
                 />
               </div>
-              <div className="col-2">
-                <p
-                  onClick={() => {
-                    removeProduct();
-                  }}
-                  className="std-btn std-btnGray"
-                >
-                  Delete
-                </p>
-              </div>
-              <div className="col-3" onClick={() => addProductToWatchlist()}>
-                <p className="std-btn std-btnOrange">Add to watchlist</p>
-              </div>
+              {props.isCart === true ? <div className='col-5 row'>
+                <div className="col">
+                  <p
+                    onClick={() => {
+                      removeProductFromCart(); //from cart
+                    }}
+                    className="std-btn std-btnGray"
+                  >
+                    Remove from Cart
+                  </p>
+                </div>
+                <div className="col" onClick={() => addProductToWatchlist()}>
+                  <p className="std-btn std-btnOrange">Add to watchlist</p>
+                </div>
+              </div> : <div className='col-5 row'>
+                <div className='col'></div>
+                <div className="col">
+                  <p
+                    onClick={() => {
+                      removeProductFromWatchlist(); //from watchlist
+                    }}
+                    className="std-btn std-btnGray"
+                  >
+                    Remove from watchlist
+                  </p>
+                </div>
+              </div>}
             </div>
           </div>
         </div>
