@@ -9,6 +9,7 @@ import NavBar from "../../components/nav/NavBar";
 import { useNavigate } from "react-router-dom";
 
 import { addItemToCart } from "../../redux/actions/Cart";
+import { addItemToWatchlist } from "../../redux/actions/Watchlist";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -23,9 +24,11 @@ const ProductDetails = () => {
 
   const dispatch = useDispatch();
   let cartArray = useSelector((state: any) => state.cart.userCart);
+  let watchlistArray = useSelector((state: any) => state.watchlist.userWatchlist);
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const baseUrlAddToCart = "http://localhost:9000/api/cart";
+  const baseUrlAddToWatchlist = "http://localhost:9000/api/watchlist/watchlists";
 
   function handleAddToCart() {
     let allCartProducts = cartArray;
@@ -55,6 +58,47 @@ const ProductDetails = () => {
       })
       .catch((err) => {
         toast.error(err);
+      });
+  }
+
+  function handleAddToWatchlist() {
+    let allWatchlistProducts = watchlistArray;
+
+    for(let i=0;i<allWatchlistProducts.length;i++){
+      if(allWatchlistProducts[i].product_id===product.product_id){
+        toast.success("Product already exists in watchlist")
+        return
+      }
+    }
+
+    let reqProduct = {
+      product_id: product.product_id,
+      product_name: product.product_name,
+      product_image: product.image,
+      price: product.price,
+      quantity: 1
+    }
+    console.log(product);
+    allWatchlistProducts.push(reqProduct);
+
+    let body = {
+      userid: auth.userid,
+      watch_list: allWatchlistProducts,
+    };
+
+    console.log(body);
+    console.log(allWatchlistProducts)
+
+    axios
+      .post(`${baseUrlAddToWatchlist}`, body)
+      .then((res) => {
+        console.log(res);
+        dispatch(addItemToWatchlist(allWatchlistProducts));
+        toast.success("Added item to watchlist");
+      })
+      .catch((err) => {
+        toast.error(err);
+        console.log(err)
       });
   }
 
@@ -162,7 +206,7 @@ const ProductDetails = () => {
             {auth ? (
               <button
                 className="std-btn container m-2 std-btnGrey"
-                onClick={() => {}}
+                onClick={() => { handleAddToWatchlist() }}
               >
                 Add to Watchlist
               </button>

@@ -112,6 +112,14 @@ const ProductCardHorizontal = (props: any) => {
 
   function addProductToWatchlist() {
     let allWatchlistProducts = watchlistArray;
+
+    for (let i = 0; i < allWatchlistProducts.length; i++) {
+      if (allWatchlistProducts[i].product_id === props.product.product_id) {
+        toast.success("Product already exists in watchlist")
+        return
+      }
+    }
+
     allWatchlistProducts.push(props.product);
     console.log(props.product);
 
