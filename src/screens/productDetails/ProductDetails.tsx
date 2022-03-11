@@ -24,11 +24,14 @@ const ProductDetails = () => {
 
   const dispatch = useDispatch();
   let cartArray = useSelector((state: any) => state.cart.userCart);
-  let watchlistArray = useSelector((state: any) => state.watchlist.userWatchlist);
+  let watchlistArray = useSelector(
+    (state: any) => state.watchlist.userWatchlist
+  );
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const baseUrlAddToCart = "http://localhost:9000/api/cart";
-  const baseUrlAddToWatchlist = "http://localhost:9000/api/watchlist/watchlists";
+  const baseUrlAddToWatchlist =
+    "http://localhost:9000/api/watchlist/watchlists";
 
   function handleAddToCart() {
     let allCartProducts = cartArray;
@@ -64,10 +67,10 @@ const ProductDetails = () => {
   function handleAddToWatchlist() {
     let allWatchlistProducts = watchlistArray;
 
-    for(let i=0;i<allWatchlistProducts.length;i++){
-      if(allWatchlistProducts[i].product_id===product.product_id){
-        toast.success("Product already exists in watchlist")
-        return
+    for (let i = 0; i < allWatchlistProducts.length; i++) {
+      if (allWatchlistProducts[i].product_id === product.product_id) {
+        toast.success("Product already exists in watchlist");
+        return;
       }
     }
 
@@ -76,8 +79,8 @@ const ProductDetails = () => {
       product_name: product.product_name,
       product_image: product.image,
       price: product.price,
-      quantity: 1
-    }
+      quantity: 1,
+    };
     console.log(product);
     allWatchlistProducts.push(reqProduct);
 
@@ -87,7 +90,7 @@ const ProductDetails = () => {
     };
 
     console.log(body);
-    console.log(allWatchlistProducts)
+    console.log(allWatchlistProducts);
 
     axios
       .post(`${baseUrlAddToWatchlist}`, body)
@@ -98,7 +101,7 @@ const ProductDetails = () => {
       })
       .catch((err) => {
         toast.error(err);
-        console.log(err)
+        console.log(err);
       });
   }
 
@@ -136,6 +139,7 @@ const ProductDetails = () => {
             slides: doc.images,
             details: doc.highlights,
             technicalDetails: doc.technical_details,
+            rating_id: doc.rating_id,
             rating: {
               total: 311,
               stars: {
@@ -206,7 +210,9 @@ const ProductDetails = () => {
             {auth ? (
               <button
                 className="std-btn container m-2 std-btnGrey"
-                onClick={() => { handleAddToWatchlist() }}
+                onClick={() => {
+                  handleAddToWatchlist();
+                }}
               >
                 Add to Watchlist
               </button>
