@@ -3,11 +3,6 @@ import "./ProductCard.scss";
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 
-import {
-  setItemQuantity,
-  removeItemFromCart,
-  setCartSubTotal,
-} from "../../../redux/actions/Cart";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCardHorizontalMini = (props: any) => {
@@ -23,7 +18,7 @@ const ProductCardHorizontalMini = (props: any) => {
         <div className="row m-2">
           <div className="col-2">
             <img
-              src={props.product.image}
+              src={props.product.product_image}
               width="70px"
               height="70px"
               className="m-2"
@@ -57,7 +52,7 @@ const ProductCardHorizontalMini = (props: any) => {
                     className="col-9 m-0 p-0 std-boldFont std-font2"
                     style={{ textAlign: "end" }}
                   >
-                    {props.product.payable}
+                    {props.product.quantity*props.product.price}
                   </p>
                   <p className="col-3 m-0 std-desc std-fontSmall">INR</p>
                 </div>
