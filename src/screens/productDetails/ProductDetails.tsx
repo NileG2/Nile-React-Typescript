@@ -1,46 +1,89 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import ProductCardDetails from "../../components/cards/productCards/ProductCardDetails";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
+import { useNavigate } from "react-router-dom";
+
+import { addItemToCart } from "../../redux/actions/Cart";
 
 const ProductDetails = () => {
+  const navigate = useNavigate();
+
   const [params] = useSearchParams();
   const [loading, setLoading] = useState(false);
 
   let productId = params.get("pid");
   let category = params.get("category");
 
-  const baseURL = "http://localhost:9000/api";
+  const baseUrlProduct = "http://localhost:9000/api/products";
+
+  const dispatch = useDispatch();
+  let cartArray = useSelector((state: any) => state.cart.userCart);
+
+  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const baseUrlAddToCart = "http://localhost:9000/api/cart";
+
+  function handleAddToCart() {
+    let allCartProducts = cartArray;
+    allCartProducts.push(product);
+
+    console.log(product);
+
+    let body = {
+      userid: auth.userid,
+      product: {
+        product_id: product.product_id,
+        product_name: product.product_name,
+        product_image: product.image,
+        price: product.price,
+        quantity: 1,
+      },
+    };
+
+    console.log(body);
+
+    axios
+      .post(`${baseUrlAddToCart}/new`, body)
+      .then((res) => {
+        console.log(res);
+        dispatch(addItemToCart(allCartProducts));
+        toast.success("Added item to cart");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  }
 
   useEffect(() => {
-
-    function getOptionsArray(buying_options:any){
-      let optionsArray:any[] = []
+    function getOptionsArray(buying_options: any) {
+      let optionsArray: any[] = [];
       optionsArray.push({
-        type:'color',
-        available:buying_options.color
-      })
+        type: "color",
+        available: buying_options.color,
+      });
       optionsArray.push({
-        type:'size',
-        available:buying_options.size
-      })
-      return optionsArray
+        type: "size",
+        available: buying_options.size,
+      });
+      return optionsArray;
     }
 
     if (productId !== "") {
       setLoading(true);
       axios
-        .get(`${baseURL}/products/${category}/${productId}`)
+        .get(`${baseUrlProduct}/${category}/${productId}`)
         .then((res) => {
           setLoading(false);
-          console.log(res.data.doc);
-          let doc = res.data.doc
+          // console.log(res.data.doc);
+          let doc = res.data.doc;
           let currProduct = {
             product_name: doc.name,
             product_id: doc.product_id,
-            image: "https://picsum.photos/100",
+            image: doc.images[0] || "https://picsum.photos/100",
             price: doc.price,
             brand: doc.brand,
             payable: doc.price,
@@ -79,8 +122,8 @@ const ProductDetails = () => {
                   "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
               },
             ],
-          }
-          setProduct(currProduct)
+          };
+          setProduct(currProduct);
         })
         .catch((err) => {
           setLoading(false);
@@ -89,125 +132,48 @@ const ProductDetails = () => {
     }
   }, []);
 
-  const [product, setProduct] = useState({
-    product_name: "Jordan for Mens",
-    product_id: "621b9e2f0df9ccbd0e2e5155",
-    image: "https://picsum.photos/100",
-    price: 19999,
-    brand: "Jordan",
-    payable: 19999,
-    quantity: 1,
-    // options:["shoe-size","color","shirt-size","pant-size"],
-    options: [
-      {
-        type: "shoe-size",
-        available: ["7UK", "8UK", "9UK", "10UK", "11UK", "12UK"],
-      },
-      {
-        type: "shirt-size",
-        available: ["S", "M", "L", "XL", "XXL", "XXXL"],
-      },
-      {
-        type: "pant-size",
-        available: [
-          "waist 28",
-          "waist 30",
-          "waist 32",
-          "waist 34",
-          "waist 36",
-          "waist 38",
-          "waist 40",
-        ],
-      },
-      {
-        type: "color",
-        available: [
-          "#ff1100",
-          "#ffd900",
-          "#00702b",
-          "#00abd1",
-          "#ffffff",
-          "#000000",
-        ],
-      },
-    ],
-    slides: [
-      {
-        image: "https://picsum.photos/600",
-        text: "Custom Made for you",
-      },
-      {
-        image: "https://picsum.photos/600",
-        text: "And your Lovedone",
-      },
-      {
-        image: "https://picsum.photos/600",
-        text: "Check it out",
-      },
-    ],
-    details: [
-      "12+2+2MP triple rear camera.",
-      "16.5 centimeters (6.5-inch) waterdrop multi touch screen",
-      "Memory, Storage & SIM: 6GB RAM | 128GB internal memory",
-      "4230mAH lithium-polymer battery providing talk-time of 45 hours",
-      "1 year manufacturer warranty for device and 6 months manufacturer warranty",
-      "Box also includes: USB cable, Sim tray ejecter",
-    ],
-    technicalDetails: {
-      batteries: "4230mAH Lithium-polymer",
-      "front camera": "2 MP",
-      "back camera": "12+2 MP",
-      "android version": "OS 12",
-    },
-    rating: {
-      total: 311,
-      stars: {
-        "5": 0.7,
-        "4": 0.2,
-        "3": 0.1,
-        "2": 0.03,
-        "1": 0.03,
-      },
-    },
-    reviews: [
-      {
-        poster: "Aditya Dawadikar",
-        date: "18-12-2021",
-        comment:
-          "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
-      },
-      {
-        poster: "Farhan Akhtar",
-        date: "2-2-2022",
-        comment:
-          "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
-      },
-      {
-        poster: "Richard",
-        date: "13-2-2022",
-        comment:
-          "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
-      },
-    ],
-  });
+  const [product, setProduct] = useState<any>(null);
   return (
     <div className="std-bg">
       <NavBar />
       <div className="row m-1 mt-5 mb-5">
         <div className="col-9">
-          <ProductCardDetails product={product} />
+          {product !== null ? <ProductCardDetails product={product} /> : <></>}
         </div>
         <div className="col-3">
           <div className="std-card">
-            <button className="std-btn std-btnYellow container m-1">
-              Buy Now
-            </button>
-            <button className="std-btn std-btnOrange container m-1">
-              Add to Cart
-            </button>
-            <button className="std-btnGray container m-1">
-              Add to watchlist
-            </button>
+            {auth ? (
+              <button
+                className="std-btn container m-2 std-btnOrange"
+                onClick={() => {
+                  handleAddToCart();
+                }}
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                className="std-btn std-btnOrange"
+                onClick={() => navigate("/signin")}
+              >
+                Sign In to buy
+              </button>
+            )}
+            {auth ? (
+              <button
+                className="std-btn container m-2 std-btnGrey"
+                onClick={() => {}}
+              >
+                Add to Watchlist
+              </button>
+            ) : (
+              <button
+                className="std-btn std-btnOrange"
+                onClick={() => navigate("/signin")}
+              >
+                Sign In to add to watchlist
+              </button>
+            )}
           </div>
         </div>
       </div>

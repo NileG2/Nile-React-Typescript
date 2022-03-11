@@ -19,8 +19,9 @@ const ProductCardHorizontalMini = (props: any) => {
         <div className="row m-2">
           <div className="col-2">
             <img
-              src={props.product.image || "https://picsum.photos/100"}
-              height="50%"
+              src={props.product.image}
+              width="70px"
+              height="70px"
               className="m-2"
             />
           </div>

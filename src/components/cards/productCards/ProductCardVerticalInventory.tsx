@@ -3,44 +3,17 @@ import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addItemToCart } from "../../../redux/actions/Cart";
 import { toast } from "react-toastify";
 
-const ProductCardVertical = (props: any) => {
+const ProductCardVerticalInventory = (props: any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  let cartArray = useSelector((state: any) => state.cart.userCart);
 
-  const baseUrl = "http://localhost:9000/api/cart";
+  const handleToDelete = (): void => {
+    console.log("handle delete");
+  };
 
-  function handleAddToCart() {
-    let allCartProducts = cartArray;
-    allCartProducts.push(props.product);
-
-    axios
-      .post(`${baseUrl}/new`, {
-        userid: auth.userid,
-        product: {
-          product_id: props.product.product_id,
-          product_name: props.product.name,
-          product_image:
-            props.product.images.length > 0
-              ? props.product.images[0]
-              : "https://picsum.photos/100",
-          price: props.product.price,
-          quantity: 1,
-        },
-      })
-      .then((res) => {
-        dispatch(addItemToCart(allCartProducts));
-        toast.success("Added item to cart");
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  }
-
+  console.log("props", props);
   return (
     <div className="Card">
       <div className="std-card std-card-dimension std-no-shadow p-0 m-1">
@@ -55,12 +28,11 @@ const ProductCardVertical = (props: any) => {
             width="200px"
             height="200px"
             style={{ cursor: "pointer" }}
-            onClick={() => {
-              console.log(props);
+            onClick={() =>
               navigate(
                 `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
-              );
-            }}
+              )
+            }
           />
         </div>
         <div className="p-2">
@@ -68,9 +40,7 @@ const ProductCardVertical = (props: any) => {
             className="m-0 std-boldFont overflow-hidden"
             style={{ cursor: "pointer" }}
             onClick={() =>
-              navigate(
-                `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
-              )
+              navigate(`/product/details?pid=${props.product.product_id}`)
             }
           >
             {props.product.name}
@@ -95,27 +65,18 @@ const ProductCardVertical = (props: any) => {
               {props.product.price}
             </p>
           </div>
-          {auth["userid"] ? (
-            <button
-              className="std-btn std-btnOrange"
-              onClick={() => {
-                handleAddToCart();
-              }}
-            >
-              Add to Cart
-            </button>
-          ) : (
-            <button
-              className="std-btn std-btnOrange"
-              onClick={() => navigate("/signin")}
-            >
-              Sign In to buy
-            </button>
-          )}
+          <button
+            className="std-btn std-btnOrange"
+            onClick={() => {
+              handleToDelete();
+            }}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default ProductCardVertical;
+export default ProductCardVerticalInventory;

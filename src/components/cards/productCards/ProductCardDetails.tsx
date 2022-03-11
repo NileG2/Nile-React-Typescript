@@ -6,8 +6,6 @@ import SelectOptions from '../../helpers/SelectOptions'
 
 const ProductCardDetails = (props: any) => {
 
-    const [technicalDetailsKeys, setTechnicalDetailsKeys] = useState<any>(Object.keys(props.product.technicalDetails))
-    const [technicalDetailsValues, setTechnicalDetailsValues] = useState<any>(Object.values(props.product.technicalDetails))
     const [ratingStarKeys, setRatingStartKeys] = useState<any>(Object.keys(props.product.rating.stars).reverse())
 
     return (
@@ -17,7 +15,7 @@ const ProductCardDetails = (props: any) => {
                     <div className='col-5'>
                         <ProductCarousal slides={props.product.slides} />
                         <br />
-                        <div className='p-2' style={{border:"solid 1px gray",borderRadius:"12px"}}>
+                        <div className='p-2' style={{ border: "solid 1px gray", borderRadius: "12px" }}>
                             {
                                 props.product.options.map((option: any, index: number) => {
                                     return <SelectOptions option={option} key={index} />
@@ -59,11 +57,11 @@ const ProductCardDetails = (props: any) => {
                             <p className='std-font2 std-boldFont'>Technical Details</p>
                             <ul className='list-group'>
                                 {
-                                    technicalDetailsKeys.map((key: any, index: number) => {
+                                    props.product.technicalDetails.map((elem: any, index: number) => {
                                         return <li className='list-group-item' key={index}>
                                             <div className='row'>
-                                                <div className='col std-boldFont'>{key}</div>
-                                                <div className='col'>{technicalDetailsValues[index]}</div>
+                                                <div className='col std-boldFont'>{elem.key}</div>
+                                                <div className='col'>{elem.value}</div>
                                             </div>
                                         </li>
                                     })
