@@ -3,7 +3,6 @@ import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addItem } from "../../../redux/actions/Cart";
 import { toast } from "react-toastify";
 import { getProductList } from "../../../redux/actions/Product";
 
@@ -42,8 +41,8 @@ const ProductCardVerticalInventory = (props: any) => {
                 ? props.product.images[0]
                 : "https://picsum.photos/100"
             }
-            width="100%"
-            height="100%"
+            width="200px"
+            height="200px"
             style={{ cursor: "pointer" }}
             onClick={() =>
               navigate(
