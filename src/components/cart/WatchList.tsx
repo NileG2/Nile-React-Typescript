@@ -11,7 +11,7 @@ const Watchlist = () => {
     <div className="std-card">
       <p className="p-2 m-0 text-left std-font2">Watch list</p>
       <div className="std-section"></div>
-      <CardContainerVertical products={productsFromWatchlist} />
+      <CardContainerVertical products={productsFromWatchlist} isCart={false} />
     </div>
   );
 };

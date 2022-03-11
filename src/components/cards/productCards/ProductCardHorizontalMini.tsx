@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ProductCard.scss";
 import Rating from "@mui/material/Rating";
+import { useNavigate } from "react-router-dom";
 
 import {
   setItemQuantity,
@@ -10,6 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCardHorizontalMini = (props: any) => {
+
+  const navigate = useNavigate();
+
   const allProducts = useSelector((state: any) => state.cart.userCart);
   const [currProduct, setCurrProduct] = useState(props.product);
 
@@ -23,13 +27,25 @@ const ProductCardHorizontalMini = (props: any) => {
               width="70px"
               height="70px"
               className="m-2"
+              onClick={() => {
+                console.log(props);
+                navigate(
+                  `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                );
+              }}
             />
           </div>
           <div className="col-10">
             <div className="row">
               <div className="col-8">
-                <p className="m-0 std-boldFont overflow-hidden">
-                  {currProduct.name}
+                <p className="m-0 std-boldFont overflow-hidden"
+                  onClick={() => {
+                    console.log(props);
+                    navigate(
+                      `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
+                    );
+                  }}>
+                  {props.product.product_name}
                 </p>
                 <p className="std-fontSmall std-desc m-0">
                   Sold By {props.product.brand || "Nile"}
