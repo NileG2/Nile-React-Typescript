@@ -18,8 +18,8 @@ const SellerProfileDashboard = () => {
     "Sales Summary",
     "Add Product",
   ];
+  const [selectedItemIndex, setSelectedItemIndex] = useState(2);
 
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
   const navigate = useNavigate();
   const [inventory, setInventory] = useState<any>([]);
   const [orders, setOrders] = useState<any>([]);

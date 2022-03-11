@@ -32,9 +32,9 @@ const SalesSummary = (props: any) => {
       })
       .then((res) => {
         toast.success("Status changed to " + newStatus + ", Please wait!");
-        console.log(res.data);
         props.fetchOrders();
         setAllOrders(props.orders.Userorders);
+        
         setTimeout(() => {
           window.location.href = "/seller-profile";
         }, 2000);
