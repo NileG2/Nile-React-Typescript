@@ -1,17 +1,69 @@
-.salesSummary{
+$nileOrange: #febd69;
+$nileLightGray: #37475a;
+$nileDarkGray: #232f3e;
+$nileBlack: #131a22;
+$screenBg: #f5f5f5;
 
-.font-bold{
-    font-weight: bold;
-}
-.button1 {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:17px;
-    background:whitesmoke;
-    padding: 10px 20px;
-    color:black;
-    margin-right: 10px;
-    text-decoration:none;
-    border-radius: 4px;
-    box-shadow: 2px 5px 2px black;
+.salesOrdersWrapper {
+  padding: 1rem;
+  margin: 2rem;
+  .tabsDiv {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+
+    button {
+      flex: 33%;
+      border: none;
+      padding: 0.5rem 0;
+      font-size: 1.2rem;
+      background-color: $nileOrange;
+      color: black;
+      border-radius: 1px solid white;
+      &:last-child {
+        border-right: none;
+      }
+    }
+    .active {
+      background-color: #eea545;
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+    .whiteBg {
+      background-color: #f5f5f5;
+    }
+  }
+  .orderDiv {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 1rem 0;
+    .orderDetails {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .buttonDiv {
+      .mark {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .products {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      .product {
+        flex: 15%;
+        // border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+      }
+    }
   }
 }
