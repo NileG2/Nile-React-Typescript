@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
-import {
-  uploadFiles,
-  deleteFile,
-} from "../../../services/imageUpload/imageUpload";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../../redux/actions/Product";
 import {
