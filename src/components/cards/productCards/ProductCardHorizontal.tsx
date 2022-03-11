@@ -90,14 +90,16 @@ const ProductCardHorizontal = (props: any) => {
   function addProductToWatchlist() {
     //code to add product in watchlist
   }
+  
   return (
     <div className="Card">
       <div className="std-card std-card-dimension-horizontal std-no-shadow p-0">
         <div className="row m-2">
           <div className="col-2">
             <img
-              src={props.product.image || "https://picsum.photos/100"}
-              height="90%"
+              src={props.product.product_image}
+              width="150px"
+              height="150px"
               alt="productImg"
             />
           </div>

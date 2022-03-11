@@ -132,9 +132,9 @@ const Signup = () => {
                 </div>
               </div>
               <div className="container py-3 h-80">
-                <p className="std-greyText remove-underline">
+                <div className="std-greyText remove-underline">
                   <p className="std-centerAlign"> Already a customer ?</p>{" "}
-                </p>
+                </div>
                 <div className="d-grid gap-1">
                   <button
                     className="btn btn-secondary std-subHeader1 "

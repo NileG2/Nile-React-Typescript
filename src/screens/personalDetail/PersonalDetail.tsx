@@ -173,7 +173,7 @@ export default function PersonalDetail() {
                         onChange={(e) => setstate(e.target.value)}
                         required
                       >
-                        <option selected>Choose...</option>
+                        {/* <option>Choose...</option> */}
                         <option>Madhya Pradesh</option>
                         <option>Maharashtra</option>
                         <option>Uttar Pradesh</option>

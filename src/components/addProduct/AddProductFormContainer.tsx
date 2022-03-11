@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import ProductGeneral from './forms/ProductGeneral'
 import ProductHighlights from './forms/ProductHighlights'
 import TechnicalDetails from './forms/TechnicalDetails'
@@ -11,8 +11,8 @@ import { toast } from "react-toastify";
 import "./AddPFC.scss";
 import { CircleSpinner } from "react-spinners-kit";
 
-const AddProductFormContainer = (props:any) => {
-  let product = useSelector((state:any)=>state.productDetail.product)
+const AddProductFormContainer = (props: any) => {
+  let product = useSelector((state: any) => state.productDetail.product)
   let dispatch = useDispatch()
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const [sellerDetails, setSellerDetails] = useState<any>({});
@@ -20,44 +20,44 @@ const AddProductFormContainer = (props:any) => {
   console.log(props.inventory)
 
 
-  const addProductToMongoAndFirestore = (e:any)=>{
+  const addProductToMongoAndFirestore = (e: any) => {
     e.preventDefault()
-    
-  let productDetail = {
-    product_name : product.name,
-    product_price : product.price,
-    product_category : product.category,
-    brand : product.brand,
-    product_tags : [],
-    highlights : product.highlights,
-    technical_details : product.technical_details,
-    available_quantity : parseInt(product.available_quantity),
-    buying_options : product.buying_options,
-    product_images : product.images,
-    inventory_id : props.inventory,
-    rating_id : ""
-  }
 
-  let pid  =''
+    let productDetail = {
+      product_name: product.name,
+      product_price: product.price,
+      product_category: product.category,
+      brand: product.brand,
+      product_tags: [],
+      highlights: product.highlights,
+      technical_details: product.technical_details,
+      available_quantity: parseInt(product.available_quantity),
+      buying_options: product.buying_options,
+      product_images: product.images,
+      inventory_id: props.inventory,
+      rating_id: ""
+    }
+
+    let pid = ''
 
     axios.post("http://localhost:9000/api/products/",
       productDetail
-    ).then((res)=>{
+    ).then((res) => {
       toast.success("Product added successfully");
       console.log(res.data.product_id)
       pid = res.data.product_id
-      axios.post("http://localhost:9000/api/rating/new/",{
-      product_id : res.data.product_id
-    }).then((res)=>{
-      console.log(res.data.rating_id)
-      axios.put(`http://localhost:9000/api/products/${product.category}/${pid}`,{
-      rating_id : res.data.rating_id
-    }).then((res)=>{
-      console.log(res.data)
-    })
-    })
+      axios.post("http://localhost:9000/api/rating/new/", {
+        product_id: res.data.product_id
+      }).then((res) => {
+        console.log(res.data.rating_id)
+        axios.put(`http://localhost:9000/api/products/${product.category}/${pid}`, {
+          rating_id: res.data.rating_id
+        }).then((res) => {
+          console.log(res.data)
+        })
+      })
       // console.log(res.data)
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err)
     })
     console.log(productDetail)
@@ -126,7 +126,7 @@ const AddProductFormContainer = (props:any) => {
   }
 
 
-  
+
   return (
     <div className="std-card m-2 addPFCWrapper">
       {loading !== true && (
@@ -180,7 +180,7 @@ const AddProductFormContainer = (props:any) => {
       </div>
 
       <div className="d-grid gap-2">
-        <button className="std-btn std-btnOrange" type="button" onClick={(e)=>{addProductToMongoAndFirestore(e)}}>Save</button>
+        <button className="std-btn std-btnOrange" type="button" onClick={(e) => { addProductToMongoAndFirestore(e) }}>Save</button>
       </div>
 
     </div>
