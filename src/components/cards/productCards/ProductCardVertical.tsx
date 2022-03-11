@@ -95,22 +95,26 @@ const ProductCardVertical = (props: any) => {
               {props.product.price}
             </p>
           </div>
-          {auth["userid"] ? (
-            <button
-              className="std-btn std-btnOrange"
-              onClick={() => {
-                handleAddToCart();
-              }}
-            >
-              Add to Cart
-            </button>
-          ) : (
-            <button
-              className="std-btn std-btnOrange"
-              onClick={() => navigate("/signin")}
-            >
-              Sign In to buy
-            </button>
+          {props.product.available_quantity > 0 && (
+            <>
+              {auth["userid"] ? (
+                <button
+                  className="std-btn std-btnOrange"
+                  onClick={() => {
+                    handleAddToCart();
+                  }}
+                >
+                  Add to Cart
+                </button>
+              ) : (
+                <button
+                  className="std-btn std-btnOrange"
+                  onClick={() => navigate("/signin")}
+                >
+                  Sign In to buy
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>

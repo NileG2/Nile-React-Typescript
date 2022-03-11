@@ -13,7 +13,7 @@ const CheckoutSidebar = ({ isCheckout }: any) => {
   return (
     <div className="std-card">
       <div>
-        <p className="p-2 m-0 text-left std-font2">Subtotal (3 items)</p>
+        <p className="p-2 m-0 text-left std-font2">Subtotal</p>
         <div className="d-flex">
           <p
             className="std-fontSmall m-1 std-font1"
