@@ -8,11 +8,10 @@ import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
 import { useNavigate } from "react-router-dom";
 
-import { addItem } from "../../redux/actions/Cart";
+import { addItemToCart } from "../../redux/actions/Cart";
 
 const ProductDetails = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [params] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -22,53 +21,55 @@ const ProductDetails = () => {
 
   const baseUrlProduct = "http://localhost:9000/api/products";
 
-  const dispatch = useDispatch()
-  let cartArray = useSelector((state: any) => state.cart.userCart)
+  const dispatch = useDispatch();
+  let cartArray = useSelector((state: any) => state.cart.userCart);
 
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
-  const baseUrlAddToCart = "http://localhost:9000/api/cart"
+  const baseUrlAddToCart = "http://localhost:9000/api/cart";
 
   function handleAddToCart() {
-    let allCartProducts = cartArray
-    allCartProducts.push(product)
+    let allCartProducts = cartArray;
+    allCartProducts.push(product);
 
-    console.log(product)
+    console.log(product);
 
     let body = {
-      "userid": auth.userid,
-      "product": {
+      userid: auth.userid,
+      product: {
         product_id: product.product_id,
         product_name: product.product_name,
         product_image: product.image,
         price: product.price,
         quantity: 1,
-      }
-    }
+      },
+    };
 
-    console.log(body)
+    console.log(body);
 
-    axios.post(`${baseUrlAddToCart}/new`,body).then(res => {
-      console.log(res)
-      dispatch(addItem(allCartProducts))
-      toast.success("Added item to cart")
-    }).catch(err => {
-      toast.error(err)
-    })
+    axios
+      .post(`${baseUrlAddToCart}/new`, body)
+      .then((res) => {
+        console.log(res);
+        dispatch(addItemToCart(allCartProducts));
+        toast.success("Added item to cart");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   }
 
   useEffect(() => {
-
     function getOptionsArray(buying_options: any) {
-      let optionsArray: any[] = []
+      let optionsArray: any[] = [];
       optionsArray.push({
-        type: 'color',
-        available: buying_options.color
-      })
+        type: "color",
+        available: buying_options.color,
+      });
       optionsArray.push({
-        type: 'size',
-        available: buying_options.size
-      })
-      return optionsArray
+        type: "size",
+        available: buying_options.size,
+      });
+      return optionsArray;
     }
 
     if (productId !== "") {
@@ -78,7 +79,7 @@ const ProductDetails = () => {
         .then((res) => {
           setLoading(false);
           // console.log(res.data.doc);
-          let doc = res.data.doc
+          let doc = res.data.doc;
           let currProduct = {
             product_name: doc.name,
             product_id: doc.product_id,
@@ -121,8 +122,8 @@ const ProductDetails = () => {
                   "Quisque feugiat condimentum sem eget vestibulum. Nam purus felis, ullamcorper ut sem a, iaculis faucibus est. Donec congue, nisi vitae condimentum volutpat, quam magna porta ipsum, sed cursus tortor neque eget erat.",
               },
             ],
-          }
-          setProduct(currProduct)
+          };
+          setProduct(currProduct);
         })
         .catch((err) => {
           setLoading(false);
@@ -141,12 +142,38 @@ const ProductDetails = () => {
         </div>
         <div className="col-3">
           <div className="std-card">
-            {
-              auth ? <button className="std-btn container m-2 std-btnOrange" onClick={() => { handleAddToCart() }}>Add to Cart</button> : <button className="std-btn std-btnOrange" onClick={() => navigate("/signin")}>Sign In to buy</button>
-            }
-            {
-              auth ? <button className="std-btn container m-2 std-btnGrey" onClick={() => { }}>Add to Watchlist</button> : <button className="std-btn std-btnOrange" onClick={() => navigate("/signin")}>Sign In to add to watchlist</button>
-            }
+            {auth ? (
+              <button
+                className="std-btn container m-2 std-btnOrange"
+                onClick={() => {
+                  handleAddToCart();
+                }}
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                className="std-btn std-btnOrange"
+                onClick={() => navigate("/signin")}
+              >
+                Sign In to buy
+              </button>
+            )}
+            {auth ? (
+              <button
+                className="std-btn container m-2 std-btnGrey"
+                onClick={() => {}}
+              >
+                Add to Watchlist
+              </button>
+            ) : (
+              <button
+                className="std-btn std-btnOrange"
+                onClick={() => navigate("/signin")}
+              >
+                Sign In to add to watchlist
+              </button>
+            )}
           </div>
         </div>
       </div>

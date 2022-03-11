@@ -27,10 +27,10 @@ export const setCartSubTotal = (subtotal: number) => async (dispatch: any) => {
     }
 }
 
-export const addItem = (products: any[]) => async (dispatch: any) => {
+export const addItemToCart = (products: any[]) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.ADD_ITEM,
+            type: actions.ADD_ITEM_TO_CART,
             payload: {
                 products: products
             }
@@ -40,10 +40,10 @@ export const addItem = (products: any[]) => async (dispatch: any) => {
     }
 }
 
-export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
+export const removeItemFromCart = (requiredProducts: []) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.REMOVE_ITEM,
+            type: actions.REMOVE_ITEM_FROM_CART,
             payload: {
                 products: requiredProducts
             }
@@ -56,7 +56,7 @@ export const removeItem = (requiredProducts: []) => async (dispatch: any) => {
 export const initializeCart = (products: [], subtotal: number) => async (dispatch: any) => {
     try {
         dispatch({
-            type: actions.ADD_ITEM,
+            type: actions.ADD_ITEM_TO_CART,
             payload: {
                 products: products
             }

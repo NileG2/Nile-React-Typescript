@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { MdClear } from "react-icons/md";
-import { uploadFiles, deleteFile } from '../../../services/imageUpload/imageUpload'
-import { useDispatch, useSelector } from 'react-redux'
-import { createProduct } from '../../../redux/actions/Product'
-import { getDownloadURL, ref, uploadBytesResumable, deleteObject, getStorage, uploadBytes } from 'firebase/storage'
-import { storage } from '../../../firebaseSetup'
-import { v4 as uuid } from 'uuid'
+import {
+  uploadFiles,
+  deleteFile,
+} from "../../../services/imageUpload/imageUpload";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../../redux/actions/Product";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+  deleteObject,
+  getStorage,
+  uploadBytes,
+} from "firebase/storage";
+import { storage } from "../../../firebaseSetup";
+import { v4 as uuid } from "uuid";
 
 const ProductImages = () => {
-
-  let product = useSelector((state: any) => state.productDetail.product)
-  let dispatch = useDispatch()
-  const allowedFormats = ["jpg", "jpeg", "png", "gif"];
+  let product = useSelector((state: any) => state.productDetail.product);
+  let dispatch = useDispatch();
+  const allowedFormats = ["jpg", "jpeg", "png", "gif", "jfif"];
 
   const [file, setFile] = useState<any>(null);
   const [allFiles, setAllFiles] = useState<any>([]);
   const [myfiles, setmyfiles] = useState<any>([]);
 
-  useEffect(()=>{
-    console.log(myfiles)
-  },[myfiles])
+  useEffect(() => {
+    console.log(myfiles);
+  }, [myfiles]);
 
   function removeData(index: number) {
-    deleteFileHandler(myfiles[index])
+    deleteFileHandler(myfiles[index]);
     setAllFiles(
       allFiles.filter((elem: any, ind: number) => {
         return ind !== index;
@@ -33,20 +42,20 @@ const ProductImages = () => {
         return ind !== index;
       })
     );
-    product['images'].splice(index, 1)
-    dispatch(createProduct(product))
+    product["images"].splice(index, 1);
+    dispatch(createProduct(product));
   }
   let [urlList, setUrlList] = useState<any>([]);
 
   async function addFile() {
-    let extension = file.name.split('.')[1].split(" ")[0]
+    let extension = file.name.split(".")[1].split(" ")[0];
     if (allowedFormats.includes(extension)) {
       if (file.size <= 1 * 1024 * 1024) {
-        let fileName = getUniqueName(extension)
-        fileUploadHandler(fileName)
+        let fileName = getUniqueName(extension);
+        fileUploadHandler(fileName);
       } else {
-        console.log("file size too big")
-        return false
+        console.log("file size too big");
+        return false;
       }
     } else {
       alert("file format not allowed");
@@ -55,44 +64,52 @@ const ProductImages = () => {
   }
 
   function getUniqueName(extension: String) {
-    return uuid() + "." + extension
+    return uuid() + "." + extension;
   }
 
   const fileUploadHandler = (fileName: string) => {
-    if (!file) { return }
+    if (!file) {
+      return;
+    }
 
     const storage = getStorage();
     const storageRef = ref(storage, `Products/${fileName}`);
 
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-      getDownloadURL(snapshot.ref).then(url => {
-        setUrlList([...urlList, url])
-        setAllFiles((old: any) => [...allFiles, file]);
-        setmyfiles((old: any) => [...myfiles, fileName])
-        setFile(null);
-      }).catch(err => {
-        console.log(err)
+    uploadBytes(storageRef, file)
+      .then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        getDownloadURL(snapshot.ref)
+          .then((url) => {
+            setUrlList([...urlList, url]);
+            setAllFiles((old: any) => [...allFiles, file]);
+            setmyfiles((old: any) => [...myfiles, fileName]);
+            setFile(null);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const deleteFileHandler = (filename: string) => {
-    const storageRef = ref(storage, `/Products/${filename}`)
+    const storageRef = ref(storage, `/Products/${filename}`);
 
-    deleteObject(storageRef).then(() => {
-      console.log("file deleted successfully")
-    }).catch((err) => {
-      console.log("file not found")
-      console.log(err)
-    });
-  }
+    deleteObject(storageRef)
+      .then(() => {
+        console.log("file deleted successfully");
+      })
+      .catch((err) => {
+        console.log("file not found");
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    product['images'] = urlList
-    dispatch(createProduct(product))
+    product["images"] = urlList;
+    dispatch(createProduct(product));
   }, [allFiles, dispatch, myfiles, product, setAllFiles]);
 
   return (
@@ -100,7 +117,7 @@ const ProductImages = () => {
       <p className="std-font2">Upload product images</p>
       <div className="row m-2">
         <label className="std-boldFont">
-          Select or type a number defining the size :
+          Please click on + button to upload :
         </label>
         <div className="input-group">
           <input
@@ -129,7 +146,9 @@ const ProductImages = () => {
             {myfiles.map((elem: any, index: number) => {
               return (
                 <div key={index}>
-                  <a href={urlList[index]} target="_blank">{elem}</a>
+                  <a href={urlList[index]} target="_blank">
+                    {elem}
+                  </a>
                   <img src={urlList[index]} width="200px" height="200px"></img>
                   <MdClear
                     onClick={() => {
@@ -145,10 +164,8 @@ const ProductImages = () => {
         )}
       </div>
       <br />
-
     </form>
   );
 };
 
 export default ProductImages;
-

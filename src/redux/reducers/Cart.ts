@@ -2,11 +2,11 @@ import { actions } from "../constants/Cart";
 
 export const CartReducer = (state:any={}, action: any) => {
     switch (action.type) {
-        case actions.ADD_ITEM:
+        case actions.ADD_ITEM_TO_CART:
             //handler
             return { ...state,userCart:action.payload.products }
         
-        case actions.REMOVE_ITEM:
+        case actions.REMOVE_ITEM_FROM_CART:
             //handler
             return { ...state,userCart:action.payload.products }
 

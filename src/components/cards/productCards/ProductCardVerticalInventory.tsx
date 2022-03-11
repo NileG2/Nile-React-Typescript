@@ -3,18 +3,17 @@ import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addItem } from "../../../redux/actions/Cart";
 import { toast } from "react-toastify";
 
 const ProductCardVerticalInventory = (props: any) => {
   let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
   const navigate = useNavigate();
 
+  const handleToDelete = (): void => {
+    console.log("handle delete");
+  };
 
- const handleToDelete=():void=>{
-    console.log("handle delete")
- }
-
+  console.log("props", props);
   return (
     <div className="Card">
       <div className="std-card std-card-dimension std-no-shadow p-0 m-1">
@@ -26,8 +25,8 @@ const ProductCardVerticalInventory = (props: any) => {
                 ? props.product.images[0]
                 : "https://picsum.photos/100"
             }
-            width="100%"
-            height="100%"
+            width="200px"
+            height="200px"
             style={{ cursor: "pointer" }}
             onClick={() =>
               navigate(
@@ -66,9 +65,14 @@ const ProductCardVerticalInventory = (props: any) => {
               {props.product.price}
             </p>
           </div>
-            <button className="std-btn std-btnOrange" onClick={() => { handleToDelete() }}>Delete</button>
-          
-
+          <button
+            className="std-btn std-btnOrange"
+            onClick={() => {
+              handleToDelete();
+            }}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
