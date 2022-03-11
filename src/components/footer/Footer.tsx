@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div className="footerWrapper">
       <div className="logo">
-        <img src="assets/logoWhite.png" alt="logo picc" className="logoImage" />
+        <img src={"https://res.cloudinary.com/dakhkmden/image/upload/v1647010703/logoWhite_z2lwhg.png"} alt="logo picc" className="logoImage" />
       </div>
       <a href="/">About Nile</a>
       <a href="/">Developers</a>

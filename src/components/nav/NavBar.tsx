@@ -132,7 +132,7 @@ const NavBar = () => {
       <div className="navWeb">
         <div className="logo">
           <Link to="/">
-            <img src="assets/logoWhite.png" alt="nileLogo" />
+            <img src={"https://res.cloudinary.com/dakhkmden/image/upload/v1647010703/logoWhite_z2lwhg.png"} alt="nileLogo" />
           </Link>
         </div>
         <div className="searchBar">

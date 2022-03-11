@@ -17,7 +17,7 @@ const Orders = () => {
             userid:auth.userid
         }).then(res=>{
             setUserOrders(res.data.status.orders)
-            console.log(userOrders)
+            console.log(res.data.status.orders)
         }).catch(err=>{
             console.log(err)
         })

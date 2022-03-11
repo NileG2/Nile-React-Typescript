@@ -98,6 +98,7 @@ const BecomeSeller = () => {
             user["isSeller"] = true;
             sessionStorage.setItem("user", JSON.stringify(user));
           }
+          
           navigate("/seller-profile");
         })
         .catch((err) => {

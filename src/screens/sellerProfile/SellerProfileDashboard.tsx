@@ -16,11 +16,10 @@ const SellerProfileDashboard = () => {
   const sidebarItems = [
     "Inventory",
     "Sales Summary",
-    "Payments",
     "Add Product",
   ];
+  const [selectedItemIndex, setSelectedItemIndex] = useState(2);
 
-  const [selectedItemIndex, setSelectedItemIndex] = useState(3);
   const navigate = useNavigate();
   const [inventory, setInventory] = useState<any>([]);
   const [orders, setOrders] = useState<any>([]);
@@ -62,8 +61,6 @@ const SellerProfileDashboard = () => {
       case 1:
         return <SalesSummary inventory = {inventory} orders={orders} fetchOrders = {fetchOrders}/>;
       case 2:
-        return <Payments />;
-      case 3:
         return <AddProductFormContainer inventory = {inventory} />;
       default:
         return <Inventory />;
