@@ -24,6 +24,7 @@ const ProductCardVertical = (props: any) => {
         product: {
           product_id: props.product.product_id,
           product_name: props.product.name,
+          inventory_id : props.product.inventory_id,
           product_image:
             props.product.images.length > 0
               ? props.product.images[0]
@@ -43,7 +44,7 @@ const ProductCardVertical = (props: any) => {
   }
 
   return (
-    <div className="Card">
+    <div className="Card" style={{maxWidth:"200px", maxHeight:"375px"}}>
       <div className="std-card std-card-dimension std-no-shadow p-0 m-1">
         <div className="d-flex justify-content-center">
           <img
@@ -67,13 +68,13 @@ const ProductCardVertical = (props: any) => {
         <div className="p-2">
           <p
             className="m-0 std-boldFont overflow-hidden"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", overflowY:"hidden", maxHeight:"24px" }}
             onClick={() =>
               navigate(
                 `/product/details?pid=${props.product.product_id}&category=${props.product.category}`
               )
             }
-          >
+           >
             {props.product.name}
           </p>
           <p className="std-bold std-greenText m-0 std-desc">

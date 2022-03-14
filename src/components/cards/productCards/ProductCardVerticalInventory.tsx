@@ -31,7 +31,7 @@ const ProductCardVerticalInventory = (props: any) => {
  }
 
   return (
-    <div className="Card">
+    <div className="Card" style={{maxWidth:"200px", maxHeight:"375px"}}>
       <div className="std-card std-card-dimension std-no-shadow p-0 m-1">
         <div className="d-flex justify-content-center">
           <img
@@ -54,7 +54,7 @@ const ProductCardVerticalInventory = (props: any) => {
         <div className="p-2">
           <p
             className="m-0 std-boldFont overflow-hidden"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer" ,overflowY:"hidden", maxHeight:"24px"}}
             onClick={() =>
               navigate(`/product/details?pid=${props.product.product_id}`)
             }

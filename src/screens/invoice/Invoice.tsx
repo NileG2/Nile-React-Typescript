@@ -30,6 +30,14 @@ const Invoice = () => {
     <div className="std-bg">
       <NavBar />
 
+      <button
+        className="std-btn std-btnOrange"
+        style={{ margin: "3rem auto", width: "20%" }}
+        onClick={printThePDF}
+      >
+        Save as pdf
+      </button>
+      
       <div className={`container`} id="toPrint">
         <InvoiceContainer />
       </div>
