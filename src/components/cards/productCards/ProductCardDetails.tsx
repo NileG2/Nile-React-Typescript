@@ -90,7 +90,7 @@ const ProductCardDetails = (props: any) => {
               <div className="col">
                 <p className="std-bold std-greenText std-font1 m-0">In Stock</p>
                 <p className="std-font1 m-0">Sold By {props.product.brand}</p>
-                <Rating name="read-only" value={3.5} precision={0.5} readOnly />
+                <Rating name="read-only" value={averageRating} precision={0.5} readOnly />
               </div>
               <div className="col">
                 <div className="row">
