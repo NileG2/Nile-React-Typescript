@@ -32,20 +32,12 @@ const ProductListing = () => {
   return (
     <div className="std-bg productListingWrapper">
       <NavBar />
-      {/* <div className='d-flex'>
-        <SidebarFilter />
-        <div className='container'>
-          <CardContainerHorizontal />
-          <CardContainerHorizontal />
-        </div>
-      </div> */}
+
       <h2 className="std-smallHeader m-3 topHeader">
         Choose from a variety of quality products
       </h2>
       <div className="content">
-        {/* <div className="filterSidebar">
-          <SidebarFilter />
-        </div> */}
+
         <div className="products">
           <CardContainerHorizontal
             products={allProducts["appliances"]}
@@ -74,6 +66,10 @@ const ProductListing = () => {
           <CardContainerHorizontal
             products={allProducts["sports"]}
             category="Sports"
+          />
+          <CardContainerHorizontal
+            products={allProducts["other"]}
+            category="Others"
           />
         </div>
       </div>

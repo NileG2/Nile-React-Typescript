@@ -11,6 +11,7 @@ const PlaceOrder = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [counter, setCounter] = useState(0);
+  const dummyCartTotal = useSelector((state:any)=>state.cart.subtotal)
 
   const [availableCoupons, setAvailableCoupons] = useState([
     {
@@ -21,14 +22,7 @@ const PlaceOrder = () => {
         code: "First30",
       },
     },
-    {
-      type: "discount",
-      details: {
-        amount: "1.2",
-        description: "Get flat 10% off on a purchase of 1299/- and above",
-        code: "new90",
-      },
-    },
+  
     {
       type: "flat",
       details: {
@@ -66,7 +60,8 @@ const PlaceOrder = () => {
   ]);
   const [currCoupon, setCurrCoupon] = useState<any>(null);
 
-  const dummyCartTotal = 2999;
+  // const dummyCartTotal = 2999;
+
   const dummyDeliveryCharge = 90;
 
   function getSubTotal() {
@@ -131,6 +126,7 @@ const PlaceOrder = () => {
         .post(`${baseUrlTransaction}`, body)
         .then((res) => {
           let transaction_id = res.data.transaction_id;
+
           let orderObject = {
             userid: auth.userid,
             transaction_id: transaction_id,
@@ -143,6 +139,7 @@ const PlaceOrder = () => {
           // console.log(orderObject)
           axios.post(`${baseUrlOrder}`, orderObject).then((res) => {
             console.log(res.data);
+            sessionStorage.setItem("tid",JSON.stringify({transaction_id : transaction_id, tracking_id:res.data.tracking_id}))
             toast.success(`order placed successfully`, { autoClose: 4000 });
             navigate("/invoice");
           });
@@ -184,7 +181,7 @@ const PlaceOrder = () => {
                 <p className="std-boldFont p-2 m-0">Cart Total:</p>
               </div>
               <div className="col d-flex">
-                <p className="std-font2 std-redText m-0">2999</p>
+                <p className="std-font2 std-redText m-0">{dummyCartTotal}</p>
                 <p className="p-2 m-0">INR</p>
               </div>
             </div>
@@ -193,7 +190,7 @@ const PlaceOrder = () => {
                 <p className="std-boldFont p-2 m-0">Delivery Charges:</p>
               </div>
               <div className="col d-flex">
-                <p className="std-font2 std-redText m-0">+80</p>
+                <p className="std-font2 std-redText m-0">+{dummyDeliveryCharge}</p>
                 <p className="p-2 m-0">INR</p>
               </div>
             </div>

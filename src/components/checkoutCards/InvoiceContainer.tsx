@@ -1,4 +1,5 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const InvoiceHeader = (props: any) => {
@@ -70,14 +71,15 @@ const OrderDetails = (props: any) => {
 }
 
 const AddressDetails = (props: any) => {
+    let auth = sessionStorage.getItem("user") || ""
     return <div className='m-2'>
-        <p className='m-0'>Name: {props.address.name}</p>
+        <p className='m-0'>Name: {JSON.parse(auth).username}</p>
         <p className='m-0'>email: {props.contact.email}</p>
         <p className='m-0'>phone: {props.contact.mobile}</p>
-        <p className='m-0'>Address: {props.address.line1}</p>
-        <p className='m-0'>{props.address.line2}</p>
-        {/* <p className='m-0'>{props.address.city} ,{props.address.state} ,{props.address.country}</p> */}
+        <p className='m-0'>Address: {props.address.address_line_1},</p>
+        <p className='m-0'>{props.address.locality}, {props.address.city}, {props.address.country}</p>
         <p className='m-0'>{"Pincode:" + props.address.pincode}</p>
+
     </div>
 }
 
@@ -96,7 +98,7 @@ const TransactionDetails = (props: any) => {
                 <div className='m-2'>
                     <p className='text-start std-font1 m-0'>Transaction Id: {props.transaction.transaction_id}</p>
                     <p className='text-start std-font1 m-0'>Transaction Date and Time: {props.transaction.transaction_date} {props.transaction.transaction_time}</p>
-                    <p className='text-start std-font1 m-0'>Payment Mode: {props.transaction.transaction_mode}/ last 4 digits: {props.transaction.last_four}</p>
+                    <p className='text-start std-font1 m-0'>Payment Mode: {props.transaction.transaction_mode}</p>
                 </div>
 
             </div>
@@ -128,43 +130,54 @@ const InvoiceContainer = () => {
     const billingAddress = useSelector((state:any)=>state.checkout.billingAddress)
     const cartProducts = useSelector((state:any)=>state.cart.userCart)
 
-    // const OrderProductDetails = {
-    //     orderedProducts: [
-    //         {
-    //             product_id: "abfl3wlifl2ufqwivg",
-    //             product_name: "fbiqlbo2ngo",
-    //             product_quantity: 2,
-    //             payable_amount: 1299,
-    //         }, {
-    //             product_id: "wqf2l2ufqwivg",
-    //             product_name: "fg32qf2go",
-    //             product_quantity: 1,
-    //             payable_amount: 599,
-    //         }, {
-    //             product_id: "w3g2o2g3gl2ufqwivg",
-    //             product_name: "h23g2fqo2",
-    //             product_quantity: 1,
-    //             payable_amount: 128.50,
-    //         }
-    //     ]
-    // }
+    const [transaction, setTransactions ] = useState({
+        transaction_id: "",
+        transaction_mode: "",
+        cart_total: 0,
+        coupon_discount: 0,
+        delivery: 0,
+        transaction_date: "",
+        transaction_time: ""
+    }  )
 
-    const transaction = {
-        transaction_id: "bfbifq2wcbwib",
-        transaction_mode: "UPI",
-        last_four: "2456",
-        cart_total: 1029,
-        coupon_discount: -150,
-        delivery: 80,
-        transaction_date: "12/2/2022",
-        transaction_time: "12:00:78 PM"
-    }
+    const [invoice, setInvoice ] = useState({
+        order_id: "",
+        order_date: "",
+        order_time: ""
+    })
 
-    const invoice={
-        order_id: "qnof2oh2gqjpg2vg2",
-        order_date: "12/2/2022",
-        order_time: "12:00:78 PM"
-    }
+    let tid = sessionStorage.getItem("tid") || ""
+    useEffect(()=>{
+        
+        axios.post(`http://localhost:9000/api/transaction/get/${JSON.parse(tid).transaction_id}`).then((res)=>{
+            
+        let transaction = {
+                transaction_id: res.data.TransactionByTransactionId.transactions.transaction_id,
+                transaction_mode: res.data.TransactionByTransactionId.transactions.payment_mode,
+                cart_total: res.data.TransactionByTransactionId.transactions.components.cart_total,
+                coupon_discount: res.data.TransactionByTransactionId.transactions.components.coupon_discount,
+                delivery: res.data.TransactionByTransactionId.transactions.components.delivery_charge,
+                transaction_date: res.data.TransactionByTransactionId.transactions.transaction_date,
+                transaction_time: res.data.TransactionByTransactionId.transactions.transaction_time
+            }  
+            console.log(transaction)
+            setTransactions(transaction)
+
+            const invoices={
+                order_id: JSON.parse(tid).tracking_id,
+                order_date:res.data.TransactionByTransactionId.transactions.transaction_date,
+                order_time: res.data.TransactionByTransactionId.transactions.transaction_time
+            }
+            setInvoice(invoices)
+
+        })
+    },[])
+
+
+
+
+
+    
 
     return (
         <div className='std-card p-5 my-5'>
