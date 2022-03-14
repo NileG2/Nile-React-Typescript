@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import CardContainerVertical from '../cardContainer/CardContainerVertical'
-import { useSelector} from 'react-redux'
+import React, { useEffect, useState } from "react";
+import CardContainerVertical from "../cardContainer/CardContainerVertical";
+import { useSelector} from "react-redux";
 
 const CartCard = () => {
 
-    const productsFromCart = useSelector((state: any) => state.cart.userCart)
-    const subtotal = useSelector((state: any) => state.cart.subtotal)
+    const productsFromCart = useSelector((state: any) => state.cart.userCart);
+    const subtotal = useSelector((state: any) => state.cart.subtotal);
 
     return (
         <div className='std-card'>
@@ -32,7 +32,7 @@ const CartCard = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CartCard
+export default CartCard;

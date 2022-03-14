@@ -1,6 +1,6 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const InvoiceHeader = (props: any) => {
     return <div className='position-relative'>
@@ -23,18 +23,18 @@ const InvoiceHeader = (props: any) => {
                 </div>
             </div>
         </div>
-    </div>
-}
+    </div>;
+};
 
 
 const OrderDetails = (props: any) => {
 
     function getTotal() {
-        let total = 0
+        let total = 0;
         props.cartProducts.map((product: any, index: number) => {
-            total += product.price*product.quantity
-        })
-        return total.toFixed(2)
+            total += product.price*product.quantity;
+        });
+        return total.toFixed(2);
     }
 
     return <div className='std-box p-3'>
@@ -54,7 +54,7 @@ const OrderDetails = (props: any) => {
                                 <p className='text-end std-boldFont std-font1 m-0'>{(product.price*product.quantity).toFixed(2)} INR</p>
                             </div>
                         </div>
-                    </li>
+                    </li>;
                 })
             }
         </ul>
@@ -67,11 +67,11 @@ const OrderDetails = (props: any) => {
                 <p className='text-end std-boldFont std-font1 m-0'>{getTotal()} INR</p>
             </div>
         </div>
-    </div>
-}
+    </div>;
+};
 
 const AddressDetails = (props: any) => {
-    let auth = sessionStorage.getItem("user") || ""
+    const auth = sessionStorage.getItem("user") || "";
     return <div className='m-2'>
         <p className='m-0'>Name: {JSON.parse(auth).username}</p>
         <p className='m-0'>email: {props.contact.email}</p>
@@ -80,14 +80,14 @@ const AddressDetails = (props: any) => {
         <p className='m-0'>{props.address.locality}, {props.address.city}, {props.address.country}</p>
         <p className='m-0'>{"Pincode:" + props.address.pincode}</p>
 
-    </div>
-}
+    </div>;
+};
 
 const TransactionDetails = (props: any) => {
 
     function getTotal() {
-        let total = props.transaction.cart_total + props.transaction.delivery - props.transaction.coupon_discount
-        return total.toFixed(2)
+        const total = props.transaction.cart_total + props.transaction.delivery - props.transaction.coupon_discount;
+        return total.toFixed(2);
     }
 
     return <div className='std-box p-3'>
@@ -119,16 +119,16 @@ const TransactionDetails = (props: any) => {
                 </div>
             </div>
         </div>
-    </div>
-}
+    </div>;
+};
 
 const InvoiceContainer = () => {
 
-    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
-    const deliveryAddress = useSelector((state:any)=>state.checkout.deliveryAddress)
-    const billingAddress = useSelector((state:any)=>state.checkout.billingAddress)
-    const cartProducts = useSelector((state:any)=>state.cart.userCart)
+    const deliveryAddress = useSelector((state:any)=>state.checkout.deliveryAddress);
+    const billingAddress = useSelector((state:any)=>state.checkout.billingAddress);
+    const cartProducts = useSelector((state:any)=>state.cart.userCart);
 
     const [transaction, setTransactions ] = useState({
         transaction_id: "",
@@ -138,20 +138,20 @@ const InvoiceContainer = () => {
         delivery: 0,
         transaction_date: "",
         transaction_time: ""
-    }  )
+    }  );
 
     const [invoice, setInvoice ] = useState({
         order_id: "",
         order_date: "",
         order_time: ""
-    })
+    });
 
-    let tid = sessionStorage.getItem("tid") || ""
+    const tid = sessionStorage.getItem("tid") || "";
     useEffect(()=>{
         
         axios.post(`http://localhost:9000/api/transaction/get/${JSON.parse(tid).transaction_id}`).then((res)=>{
             
-        let transaction = {
+            const transaction = {
                 transaction_id: res.data.TransactionByTransactionId.transactions.transaction_id,
                 transaction_mode: res.data.TransactionByTransactionId.transactions.payment_mode,
                 cart_total: res.data.TransactionByTransactionId.transactions.components.cart_total,
@@ -159,19 +159,19 @@ const InvoiceContainer = () => {
                 delivery: res.data.TransactionByTransactionId.transactions.components.delivery_charge,
                 transaction_date: res.data.TransactionByTransactionId.transactions.transaction_date,
                 transaction_time: res.data.TransactionByTransactionId.transactions.transaction_time
-            }  
-            console.log(transaction)
-            setTransactions(transaction)
+            };  
+            console.log(transaction);
+            setTransactions(transaction);
 
             const invoices={
                 order_id: JSON.parse(tid).tracking_id,
                 order_date:res.data.TransactionByTransactionId.transactions.transaction_date,
                 order_time: res.data.TransactionByTransactionId.transactions.transaction_time
-            }
-            setInvoice(invoices)
+            };
+            setInvoice(invoices);
 
-        })
-    },[])
+        });
+    },[]);
 
 
 
@@ -199,7 +199,7 @@ const InvoiceContainer = () => {
             <TransactionDetails transaction={transaction} />
             <br/><br/>
         </div>
-    )
-}
+    );
+};
 
-export default InvoiceContainer
+export default InvoiceContainer;

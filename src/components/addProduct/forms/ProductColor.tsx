@@ -1,30 +1,30 @@
-import React, { useState } from 'react'
-import { ColorOptions } from '../../helpers/SelectOptions'
-import { useDispatch, useSelector } from 'react-redux'
-import { createProduct } from '../../../redux/actions/Product'
+import React, { useState } from "react";
+import { ColorOptions } from "../../helpers/SelectOptions";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../../redux/actions/Product";
 
 const ProductColor = () => {
-    let product = useSelector((state:any)=>state.productDetail.product)
-    let dispatch = useDispatch()
+    const product = useSelector((state:any)=>state.productDetail.product);
+    const dispatch = useDispatch();
 
     const [value, setValue] = useState("#000000");
-    const [allValues, setAllValues] = useState<any>([])
+    const [allValues, setAllValues] = useState<any>([]);
 
     function addValue() {
-        setAllValues((old: any) => [...old, value])
-        setValue("#000000")
-        product['buying_options']['color'] = [...allValues, value]
+        setAllValues((old: any) => [...old, value]);
+        setValue("#000000");
+        product["buying_options"]["color"] = [...allValues, value];
 
-          dispatch(createProduct(product))
-        console.log(product)
+        dispatch(createProduct(product));
+        console.log(product);
     }
 
     function removeData(index: number) {
         setAllValues(allValues.filter((elem: any, ind: number) => {
-            return ind !== index
-        }))
-        product['buying_options']['color'].splice(index,1)
-        dispatch(createProduct(product))
+            return ind !== index;
+        }));
+        product["buying_options"]["color"].splice(index,1);
+        dispatch(createProduct(product));
     }
 
     return (
@@ -33,8 +33,8 @@ const ProductColor = () => {
             <div className="row m-2">
                 <label className="std-boldFont">Select color from Color palet :</label>
                 <div className='input-group'>
-                    <input type="color" style={{height:"100%"}} value={value} onChange={(e: any) => { setValue(e.target.value) }}></input>
-                    <div className='std-btn std-btnOrange' onClick={() => { addValue() }}>+</div>
+                    <input type="color" style={{height:"100%"}} value={value} onChange={(e: any) => { setValue(e.target.value); }}></input>
+                    <div className='std-btn std-btnOrange' onClick={() => { addValue(); }}>+</div>
                 </div>
             </div>
             <br />
@@ -48,7 +48,7 @@ const ProductColor = () => {
             <br />
            
         </form>
-    )
-}
+    );
+};
 
-export default ProductColor
+export default ProductColor;

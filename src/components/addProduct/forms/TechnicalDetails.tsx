@@ -1,41 +1,41 @@
-import React, { useState } from 'react'
-import { MdClear } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
-import { createProduct } from '../../../redux/actions/Product'
+import React, { useState } from "react";
+import { MdClear } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../../redux/actions/Product";
 
 const TechnicalDetails = () => {
-    let product = useSelector((state:any)=>state.productDetail.product)
-    let dispatch = useDispatch()
+    const product = useSelector((state:any)=>state.productDetail.product);
+    const dispatch = useDispatch();
 
-    const [dataArray, setDataArray] = useState<any>([])
+    const [dataArray, setDataArray] = useState<any>([]);
     const [curr, setCurr] = useState({
         key: "",
         value: "",
-    })
+    });
 
     function addData(data: any) {
-        setDataArray([...dataArray, data])
+        setDataArray([...dataArray, data]);
         setCurr({
             key: "",
             value: "",
-        }) 
-        product['technical_details'] = [...dataArray, data]
-        dispatch(createProduct(product))
+        }); 
+        product["technical_details"] = [...dataArray, data];
+        dispatch(createProduct(product));
     }
 
     function removeData(index: number) {
         setDataArray(dataArray.filter((elem: any, id: number) => {
-            return id !== index
-        }))
-        product['technical_details'].splice(index,1)
-        dispatch(createProduct(product))
+            return id !== index;
+        }));
+        product["technical_details"].splice(index,1);
+        dispatch(createProduct(product));
     }
 
     function setCurrKey(key: string) {
-        setCurr({ ...curr, key: key })
+        setCurr({ ...curr, key: key });
     }
     function setCurrValue(value: string) {
-        setCurr({ ...curr, value: value })
+        setCurr({ ...curr, value: value });
     }
 
     return (
@@ -44,9 +44,9 @@ const TechnicalDetails = () => {
             <div className="row m-2">
                 <label className="std-boldFont">Add key-Value pair :</label>
                 <div className='input-group'>
-                    <input className="std-inputField col-5" placeholder='Key' value={curr.key} onChange={(e) => { setCurrKey(e.target.value) }}></input>
-                    <input className="std-inputField col-5" placeholder='value' value={curr.value} onChange={(e) => { setCurrValue(e.target.value) }}></input>
-                    <div className='std-btn std-btnOrange' onClick={() => { addData(curr) }}>+</div>
+                    <input className="std-inputField col-5" placeholder='Key' value={curr.key} onChange={(e) => { setCurrKey(e.target.value); }}></input>
+                    <input className="std-inputField col-5" placeholder='value' value={curr.value} onChange={(e) => { setCurrValue(e.target.value); }}></input>
+                    <div className='std-btn std-btnOrange' onClick={() => { addData(curr); }}>+</div>
                 </div>
             </div>
             <br />
@@ -64,11 +64,11 @@ const TechnicalDetails = () => {
                                         {elem.value}
                                     </div>
                                     <div className='col-2'>
-                                        <MdClear onClick={() => { removeData(index) }} />
+                                        <MdClear onClick={() => { removeData(index); }} />
                                     </div>
 
                                 </div>
-                            </li>
+                            </li>;
                         }):<>Nothing to show yet</>
                     }
                 </ul>
@@ -76,7 +76,7 @@ const TechnicalDetails = () => {
             <br />
            
         </form>
-    )
-}
+    );
+};
 
-export default TechnicalDetails
+export default TechnicalDetails;

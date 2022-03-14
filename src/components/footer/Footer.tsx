@@ -2,20 +2,20 @@ import React from "react";
 import "./Footer.scss";
 import { FaGoogle, FaLinkedin, FaFacebook } from "react-icons/fa";
 function Footer() {
-  return (
-    <div className="footerWrapper">
-      <div className="logo">
-        <img src={"https://res.cloudinary.com/dakhkmden/image/upload/v1647010703/logoWhite_z2lwhg.png"} alt="logo picc" className="logoImage" />
-      </div>
-      <a href="/">About Nile</a>
-      <a href="/">Developers</a>
-      <a href="/">Privacy notice</a>
-      <div className="socialLinks">
-        <FaGoogle className="socialIcon" />
-        <FaFacebook className="socialIcon" />
-        <FaLinkedin className="socialIcon" />
-      </div>
-    </div>
+    return (
+        <div className="footerWrapper">
+            <div className="logo">
+                <img src={"https://res.cloudinary.com/dakhkmden/image/upload/v1647010703/logoWhite_z2lwhg.png"} alt="logo picc" className="logoImage" />
+            </div>
+            <a href="/">About Nile</a>
+            <a href="/">Developers</a>
+            <a href="/">Privacy notice</a>
+            <div className="socialLinks">
+                <FaGoogle className="socialIcon" />
+                <FaFacebook className="socialIcon" />
+                <FaLinkedin className="socialIcon" />
+            </div>
+        </div>
 
     // // <div className="main-footer">
 
@@ -95,7 +95,7 @@ function Footer() {
     //     </div>
     //   </div>
     // </div>
-  );
+    );
 }
 
 export default Footer;

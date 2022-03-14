@@ -7,55 +7,55 @@ import CheckoutSidebar from "../../components/checkoutSidebar/CheckoutSidebar";
 import Footer from "../../components/footer/Footer";
 import NavBar from "../../components/nav/NavBar";
 import { addNewPayment, setPayment } from "../../redux/actions/BuyerPayment";
-import { useSelector, useDispatch } from "react-redux";
-import { initializeCart } from '../../redux/actions/Cart'
+import {  useDispatch } from "react-redux";
+import { initializeCart } from "../../redux/actions/Cart";
 
 const Checkout = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
-  const baseUrlPayment = "http://localhost:9000/api/payment"
-  const baseUrlCart = "http://localhost:9000/api/cart"
+    const auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const baseUrlPayment = "http://localhost:9000/api/payment";
+    const baseUrlCart = "http://localhost:9000/api/cart";
 
-  useEffect(() => {
+    useEffect(() => {
 
-    if (!auth["userid"]) {
-      toast.info("Please sign in first");
-      navigate("/products");
-    }
+        if (!auth["userid"]) {
+            toast.info("Please sign in first");
+            navigate("/products");
+        }
 
-    axios.post(`${baseUrlPayment}`, {
-      userid: auth.userid
-    })
-      .then(async ({ data }) => {
-        dispatch(addNewPayment(data.status.payment_methods))
-        dispatch(setPayment(data.status.payment_methods[0]))
-      }).catch(err => {
-        console.log(err)
-      })
+        axios.post(`${baseUrlPayment}`, {
+            userid: auth.userid
+        })
+            .then(async ({ data }) => {
+                dispatch(addNewPayment(data.status.payment_methods));
+                dispatch(setPayment(data.status.payment_methods[0]));
+            }).catch(err => {
+                console.log(err);
+            });
 
-    axios.post(`${baseUrlCart}/get`, {
-      "userid": auth.userid
-    }).then(res => {
-      dispatch(initializeCart(res.data.status.product_selected, res.data.status.total_amount))
-    })
-  }, []);
+        axios.post(`${baseUrlCart}/get`, {
+            "userid": auth.userid
+        }).then(res => {
+            dispatch(initializeCart(res.data.status.product_selected, res.data.status.total_amount));
+        });
+    }, []);
 
-  return (
-    <div className="std-bg">
-      <NavBar />
-      <div className="row m-1 mb-5 mt-5">
-        <div className="col-9">
-          <CheckoutContainer />
+    return (
+        <div className="std-bg">
+            <NavBar />
+            <div className="row m-1 mb-5 mt-5">
+                <div className="col-9">
+                    <CheckoutContainer />
+                </div>
+                <div className="col-3">
+                    <CheckoutSidebar isCheckout={true} />
+                </div>
+            </div>
+            <Footer />
         </div>
-        <div className="col-3">
-          <CheckoutSidebar isCheckout={true} />
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
+    );
 };
 
 export default Checkout;

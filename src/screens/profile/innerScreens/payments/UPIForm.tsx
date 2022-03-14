@@ -1,42 +1,42 @@
-import axios from 'axios'
-import e from 'express'
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import { addNewPayment, setPayment } from '../../../../redux/actions/BuyerPayment'
+import axios from "axios";
+import e from "express";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { addNewPayment, setPayment } from "../../../../redux/actions/BuyerPayment";
 
 const UPIForm = () => {
-    let BuyerPayment = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPayment )
-    let buyerPaymentList = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPaymentList )
+    let BuyerPayment = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPayment );
+    const buyerPaymentList = useSelector((state:any)=>state.buyerPaymentInfo.BuyerPaymentList );
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const [FormData, setFormData] = useState({
         upi_id : "",
         payment_type : "upi"
-    })
+    });
 
     const onChangeHandler = (e:any)=>{
-        e.preventDefault()
-        setFormData( {...FormData, [e.target.name] : e.target.value})
-    }
+        e.preventDefault();
+        setFormData( {...FormData, [e.target.name] : e.target.value});
+    };
 
-    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const auth = JSON.parse(sessionStorage.getItem("user") || "{}");
     const addDetail = (e:any)=>{
         e.preventDefault();
-        BuyerPayment = {BankingInfo : FormData }
-        dispatch(setPayment(BuyerPayment))
-        let allPaymentList = buyerPaymentList
-        allPaymentList.push(BuyerPayment) 
+        BuyerPayment = {BankingInfo : FormData };
+        dispatch(setPayment(BuyerPayment));
+        const allPaymentList = buyerPaymentList;
+        allPaymentList.push(BuyerPayment); 
         axios.post("http://localhost:9000/api/payment/add",{
-            userid : auth['userid'],
+            userid : auth["userid"],
             BankingInfo : FormData
-          }).then((resp)=>{
-            toast.success("Payment method added Info")
-            dispatch(addNewPayment(allPaymentList))
-          })
+        }).then((resp)=>{
+            toast.success("Payment method added Info");
+            dispatch(addNewPayment(allPaymentList));
+        });
         
-    }
+    };
 
     return (
         <div className="std-card" id="menu-3">
@@ -58,7 +58,7 @@ const UPIForm = () => {
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default UPIForm
+export default UPIForm;
