@@ -129,17 +129,6 @@ export default function PersonalDetail() {
                     />
                   </div>
 
-                  <div className="form-group mx-0 pl-3">
-                    <label htmlFor="inputCountry">Country</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      id="inputCountry"
-                      value={country}
-                      onChange={(e) => setcountry(e.target.value)}
-                      required
-                    />
-                  </div>
                   <div className="form-group mx-0 pl-3 py-3">
                     <label htmlFor="inputLocality">Locality</label>
                     <input
@@ -193,6 +182,17 @@ export default function PersonalDetail() {
                         required
                       />
                     </div>
+                  </div>
+                  <div className="form-group mx-0 pl-3">
+                    <label htmlFor="inputCountry">Country</label>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      id="inputCountry"
+                      value={country}
+                      onChange={(e) => setcountry(e.target.value)}
+                      required
+                    />
                   </div>
 
                   <div
