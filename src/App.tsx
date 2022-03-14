@@ -18,40 +18,40 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Landing />}></Route>
-        <Route path="/signin" element={<Signin />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/products" element={<ProductListing />}></Route>
-        <Route path="/products/query" element={<QueryScreen />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/product/details" element={<ProductDetails />}></Route>
-        <Route path="/profile" element={<ProfileDashboard />}></Route>
-        <Route
-          path="/seller-profile"
-          element={<SellerProfileDashboard />}
-        ></Route>
-        <Route path="/checkout" element={<Checkout />}></Route>
-        <Route path="/details" element={<PersonalDetail />}></Route>
-        <Route path="/invoice" element={<Invoice />}></Route>
-        {/* testing */}
-        <Route path="/test" element={<Test />}></Route>
-      </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<Landing />}></Route>
+                <Route path="/signin" element={<Signin />}></Route>
+                <Route path="/signup" element={<Signup />}></Route>
+                <Route path="/products" element={<ProductListing />}></Route>
+                <Route path="/products/query" element={<QueryScreen />}></Route>
+                <Route path="/cart" element={<Cart />}></Route>
+                <Route path="/product/details" element={<ProductDetails />}></Route>
+                <Route path="/profile" element={<ProfileDashboard />}></Route>
+                <Route
+                    path="/seller-profile"
+                    element={<SellerProfileDashboard />}
+                ></Route>
+                <Route path="/checkout" element={<Checkout />}></Route>
+                <Route path="/details" element={<PersonalDetail />}></Route>
+                <Route path="/invoice" element={<Invoice />}></Route>
+                {/* testing */}
+                <Route path="/test" element={<Test />}></Route>
+            </Routes>
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+        </div>
+    );
 }
 
 export default App;

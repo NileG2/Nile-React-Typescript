@@ -1,5 +1,5 @@
-import React from 'react'
-import ProductCardHorizontal from '../cards/productCards/ProductCardHorizontal'
+import React from "react";
+import ProductCardHorizontal from "../cards/productCards/ProductCardHorizontal";
 
 const CardContainerVertical = (props:any) => {
     return (
@@ -9,12 +9,12 @@ const CardContainerVertical = (props:any) => {
                     props.products.length>0? props.products.map((product: any, index: number) => {
                         return <li key={index}>
                             <ProductCardHorizontal key={index} index={index} product={product} isCart={props.isCart}/>
-                        </li> 
+                        </li>; 
                     }):<>Nothing to show yet</>
                 }
             </ul>
         </div>
-    )
-}
+    );
+};
 
-export default CardContainerVertical
+export default CardContainerVertical;

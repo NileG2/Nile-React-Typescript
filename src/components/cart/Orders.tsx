@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import OrderProductContainer from '../cardContainer/OrderProductContainer'
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import OrderProductContainer from "../cardContainer/OrderProductContainer";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Orders = () => {
 
-    const ordersFromStore = useSelector((state: any) => state.orders.orders)
+    const ordersFromStore = useSelector((state: any) => state.orders.orders);
 
-    const baseUrlForUserOrders ="http://localhost:9000/api/orders/"
-    let auth = JSON.parse(sessionStorage.getItem("user") || "{}");
+    const baseUrlForUserOrders ="http://localhost:9000/api/orders/";
+    const auth = JSON.parse(sessionStorage.getItem("user") || "{}");
 
-    const [userOrders,setUserOrders] = useState([])
+    const [userOrders,setUserOrders] = useState([]);
 
     useEffect(()=>{
         axios.post(`${baseUrlForUserOrders}`,{
             userid:auth.userid
         }).then(res=>{
-            setUserOrders(res.data.status.orders)
-            console.log(res.data.status.orders)
+            setUserOrders(res.data.status.orders);
+            console.log(res.data.status.orders);
         }).catch(err=>{
-            console.log(err)
-        })
-    },[])
+            console.log(err);
+        });
+    },[]);
 
     return (
         <div className='std-card'>
@@ -29,11 +29,11 @@ const Orders = () => {
             <div className='std-section'></div>
             {
                 userOrders.length>0?userOrders.map((order: any, index: number) => {
-                    return <OrderProductContainer key={index} order={order} />
+                    return <OrderProductContainer key={index} order={order} />;
                 }):<>Nothing to show yet</>
             }
         </div>
-    )
-}
+    );
+};
 
-export default Orders
+export default Orders;

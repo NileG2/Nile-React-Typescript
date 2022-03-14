@@ -1,8 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState} from "react";
 
-import NetBankingForm from '../../screens/profile/innerScreens/payments/NetBankingForm';
-import UPIForm from '../../screens/profile/innerScreens/payments/UPIForm';
-import DebitCreditCardForm from '../../screens/profile/innerScreens/payments/DebitCreditCardForm';
+import NetBankingForm from "../../screens/profile/innerScreens/payments/NetBankingForm";
+import UPIForm from "../../screens/profile/innerScreens/payments/UPIForm";
+import DebitCreditCardForm from "../../screens/profile/innerScreens/payments/DebitCreditCardForm";
 
 
 const AddPaymentMethodForm = () => {
@@ -12,14 +12,14 @@ const AddPaymentMethodForm = () => {
 
     function GetForm() {
         switch (currForm) {
-            case 0:
-                return <DebitCreditCardForm />;
-            case 1:
-                return <NetBankingForm />;
-            case 2:
-                return <UPIForm />;
-            default:
-                return <DebitCreditCardForm />;
+        case 0:
+            return <DebitCreditCardForm />;
+        case 1:
+            return <NetBankingForm />;
+        case 2:
+            return <UPIForm />;
+        default:
+            return <DebitCreditCardForm />;
         }
     }
 
@@ -57,7 +57,7 @@ const AddPaymentMethodForm = () => {
             </div>
             <GetForm />
         </div>
-    )
-}
+    );
+};
 
-export default AddPaymentMethodForm
+export default AddPaymentMethodForm;

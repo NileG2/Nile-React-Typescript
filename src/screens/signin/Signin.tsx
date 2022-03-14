@@ -8,176 +8,176 @@ import { CircleSpinner } from "react-spinners-kit";
 import { toast } from "react-toastify";
 
 const Signin = () => {
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [loading2, setLoading2] = useState(false);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
+    useEffect(() => {
     // const auth = localStorage.getItem("user");
-    const auth = sessionStorage.getItem("user");
-    if (auth) {
-      navigate("/");
-    }
-  }, []);
+        const auth = sessionStorage.getItem("user");
+        if (auth) {
+            navigate("/");
+        }
+    }, []);
 
-  function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-    if (email != null && password.length > 6) {
-      setLoading(true);
-      axios
-        .post("http://localhost:9000/api/login/login", {
-          email: email,
-          password: password,
-        })
-        .then((resp) => {
-          // sessionStorage.setItem("userid", resp.data.userid)
-          axios
-            .post("http://localhost:9000/api/user/", {
-              userid: resp.data.userid,
-            })
-            .then((res) => {
-              setLoading(false);
-              sessionStorage.setItem(
-                "user",
-                JSON.stringify({
-                  email: email,
-                  username: res.data.status[0].Contact.username || " ",
-                  isSeller: res.data.status[0].isSeller,
-                  userid: resp.data.userid,
-                  mobile: res.data.status[0].Contact.mobile
+    function signinUser(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e.preventDefault();
+        if (email != null && password.length > 6) {
+            setLoading(true);
+            axios
+                .post("http://localhost:9000/api/login/login", {
+                    email: email,
+                    password: password,
                 })
-              );
-              toast.success("Signed in successfully");
-              navigate("/products");
-            })
-            .catch((err) => {
-              setLoading(false);
-              toast.error("Some error occured");
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          setLoading(false);
-          toast.error("Some error occured");
-        });
-    } else {
-      toast.info("Please enter valid details");
+                .then((resp) => {
+                    // sessionStorage.setItem("userid", resp.data.userid)
+                    axios
+                        .post("http://localhost:9000/api/user/", {
+                            userid: resp.data.userid,
+                        })
+                        .then((res) => {
+                            setLoading(false);
+                            sessionStorage.setItem(
+                                "user",
+                                JSON.stringify({
+                                    email: email,
+                                    username: res.data.status[0].Contact.username || " ",
+                                    isSeller: res.data.status[0].isSeller,
+                                    userid: resp.data.userid,
+                                    mobile: res.data.status[0].Contact.mobile
+                                })
+                            );
+                            toast.success("Signed in successfully");
+                            navigate("/products");
+                        })
+                        .catch((err) => {
+                            setLoading(false);
+                            toast.error("Some error occured");
+                            console.log(err);
+                        });
+                })
+                .catch((err) => {
+                    setLoading(false);
+                    toast.error("Some error occured");
+                });
+        } else {
+            toast.info("Please enter valid details");
+        }
     }
-  }
 
-  const loginWithGoogle = (e:any)=>{
-    e.preventDefault()
-    axios.post("http://localhost:9000/api/login/logingoogle").then((res)=>{
-      console.log("Logged in with google")
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+    const loginWithGoogle = (e:any)=>{
+        e.preventDefault();
+        axios.post("http://localhost:9000/api/login/logingoogle").then((res)=>{
+            console.log("Logged in with google");
+        }).catch(err=>{
+            console.log(err);
+        });
+    };
 
-  return (
-    <div className="signinuser">
-      <section className="vh-90 gradient-custom ">
-        <div className="container py-2 h-80 ">
-          <img
-            src={"assets/logoBlack.png"}
-            alt="ImagePic"
-            className="img-style"
-          />
-          <div className="row d-flex justify-content-center  align-items-center h-100 ">
-            <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
-              <div className="card std-card" style={{ borderRadius: "1rem" }}>
-                <div className="card-body p-2 ">
-                  <div className="mb-md-1 mt-md-1 pb-1">
-                    <h2 className="fw-bold mb-1 text-uppercase">Sign-In</h2>
-                    <br />
+    return (
+        <div className="signinuser">
+            <section className="vh-90 gradient-custom ">
+                <div className="container py-2 h-80 ">
+                    <img
+                        src={"assets/logoBlack.png"}
+                        alt="ImagePic"
+                        className="img-style"
+                    />
+                    <div className="row d-flex justify-content-center  align-items-center h-100 ">
+                        <div className="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                            <div className="card std-card" style={{ borderRadius: "1rem" }}>
+                                <div className="card-body p-2 ">
+                                    <div className="mb-md-1 mt-md-1 pb-1">
+                                        <h2 className="fw-bold mb-1 text-uppercase">Sign-In</h2>
+                                        <br />
 
-                    <div className="form-outline form-white mb-4">
-                      <label className="form-label" htmlFor="typeEmailX">
+                                        <div className="form-outline form-white mb-4">
+                                            <label className="form-label" htmlFor="typeEmailX">
                         Email
-                      </label>
-                      <input
-                        type="email"
-                        id="typeEmailX"
-                        className="form-control form-control-md"
-                        value={email}
-                        onChange={(e) => setemail(e.target.value)}
-                        required
-                      />
-                    </div>
+                                            </label>
+                                            <input
+                                                type="email"
+                                                id="typeEmailX"
+                                                className="form-control form-control-md"
+                                                value={email}
+                                                onChange={(e) => setemail(e.target.value)}
+                                                required
+                                            />
+                                        </div>
 
-                    <div className="form-outline form-white mb-3">
-                      <label className="form-label" htmlFor="typePasswordX">
+                                        <div className="form-outline form-white mb-3">
+                                            <label className="form-label" htmlFor="typePasswordX">
                         Password
-                      </label>
-                      <input
-                        type="password"
-                        id="typePasswordX"
-                        className="form-control form-control-md"
-                        value={password}
-                        onChange={(e) => setpassword(e.target.value)}
-                        required
-                      />
-                    </div>
+                                            </label>
+                                            <input
+                                                type="password"
+                                                id="typePasswordX"
+                                                className="form-control form-control-md"
+                                                value={password}
+                                                onChange={(e) => setpassword(e.target.value)}
+                                                required
+                                            />
+                                        </div>
 
-                    <div className="d-grid gap-1">
-                      <button
-                        className="std-btn std-btnOrange std-subHeader1"
-                        type="submit"
-                        onClick={(e) => signinUser(e)}
-                      >
-                        {loading ? (
-                          <CircleSpinner color="#000000" size={22} />
-                        ) : (
-                          `Sign-In`
-                        )}
-                      </button>
-                      <h2 className="std-centerAlign std-subHeader2"> OR </h2>
-                      <button
-                        className="std-btn std-btnOrange std-subHeader1"
-                        type="submit" onClick={(e)=>{loginWithGoogle(e)}}
-                      >
-                        {loading2 ? (
-                          <CircleSpinner color="#000000" size={22} />
-                        ) : (
-                          <span>
-                            <BsGoogle /> &nbsp;&nbsp;Continue with Google
-                          </span>
-                        )}
-                      </button>
-                    </div>
-                    <br />
-                    <a href="#!" className="fw-bold remove-underline">
+                                        <div className="d-grid gap-1">
+                                            <button
+                                                className="std-btn std-btnOrange std-subHeader1"
+                                                type="submit"
+                                                onClick={(e) => signinUser(e)}
+                                            >
+                                                {loading ? (
+                                                    <CircleSpinner color="#000000" size={22} />
+                                                ) : (
+                                                    "Sign-In"
+                                                )}
+                                            </button>
+                                            <h2 className="std-centerAlign std-subHeader2"> OR </h2>
+                                            <button
+                                                className="std-btn std-btnOrange std-subHeader1"
+                                                type="submit" onClick={(e)=>{loginWithGoogle(e);}}
+                                            >
+                                                {loading2 ? (
+                                                    <CircleSpinner color="#000000" size={22} />
+                                                ) : (
+                                                    <span>
+                                                        <BsGoogle /> &nbsp;&nbsp;Continue with Google
+                                                    </span>
+                                                )}
+                                            </button>
+                                        </div>
+                                        <br />
+                                        <a href="#!" className="fw-bold remove-underline">
                       Forgot password ?{" "}
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="container py-2 h-80">
-                <div className="std-greyText remove-underline">
-                  <p className="std-centerAlign"> New to Nile ?</p>
-                </div>
-                <div className="d-grid gap-2">
-                  <button
-                    className="btn btn-secondary std-subHeader1 "
-                    type="button"
-                  >
-                    {" "}
-                    <Link to="/signup" className="link-style">
-                      {" "}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="container py-2 h-80">
+                                <div className="std-greyText remove-underline">
+                                    <p className="std-centerAlign"> New to Nile ?</p>
+                                </div>
+                                <div className="d-grid gap-2">
+                                    <button
+                                        className="btn btn-secondary std-subHeader1 "
+                                        type="button"
+                                    >
+                                        {" "}
+                                        <Link to="/signup" className="link-style">
+                                            {" "}
                       Create your Amazon account{" "}
-                    </Link>{" "}
-                  </button>
+                                        </Link>{" "}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </section>
         </div>
-      </section>
-    </div>
-  );
+    );
 };
 
 export default Signin;

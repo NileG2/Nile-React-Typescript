@@ -7,25 +7,25 @@ interface IProps {
   setSelectedItemIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 const Sidebar: React.FC<IProps> = ({
-  sidebarItems,
-  selectedItemIndex,
-  setSelectedItemIndex,
+    sidebarItems,
+    selectedItemIndex,
+    setSelectedItemIndex,
 }) => {
-  return (
-    <div className="sidebarWrapper">
-      {sidebarItems.map((item, index) => (
-        <button
-          key={index}
-          className={`sidebarItemButton std-fontMedium std-bold std-whiteText ${
-            index === selectedItemIndex && "active"
-          }`}
-          onClick={() => setSelectedItemIndex(index)}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  );
+    return (
+        <div className="sidebarWrapper">
+            {sidebarItems.map((item, index) => (
+                <button
+                    key={index}
+                    className={`sidebarItemButton std-fontMedium std-bold std-whiteText ${
+                        index === selectedItemIndex && "active"
+                    }`}
+                    onClick={() => setSelectedItemIndex(index)}
+                >
+                    {item}
+                </button>
+            ))}
+        </div>
+    );
 };
 
 export default Sidebar;
